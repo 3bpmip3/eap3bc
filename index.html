@@ -77,10 +77,67 @@ header{
 .btn-sm{padding:6px 12px;font-size:12px}
 
 /* Botão sincronizar */
-.btn-sync{background:linear-gradient(180deg,rgba(37,99,235,.35),rgba(37,99,235,.25));border:1px solid rgba(96,165,250,.55);color:#fff;}
-.btn-sync:hover{background:linear-gradient(180deg,rgba(37,99,235,.55),rgba(37,99,235,.4));transform:translateY(-1px)}
-.btn-sync.spinning svg{animation:spin 1s linear infinite}
+.btn-sync{
+  background:linear-gradient(180deg,#3b82f6,#2563eb);
+  border:2px solid #60a5fa;
+  color:#fff;
+  font-weight:700;
+  padding:9px 16px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:38px;
+  box-shadow:0 2px 6px rgba(37,99,235,.35), inset 0 1px 0 rgba(255,255,255,.15);
+  transition:all .18s ease;
+  position:relative;
+  overflow:hidden;
+}
+.btn-sync svg{
+  width:16px;
+  height:16px;
+  flex-shrink:0;
+  stroke-width:2.2;
+}
+.btn-sync .lbl{
+  display:inline-block;
+  color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.25);
+  white-space:nowrap;
+  line-height:1;
+}
+.btn-sync:hover{
+  background:linear-gradient(180deg,#60a5fa,#3b82f6);
+  border-color:#93c5fd;
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(37,99,235,.5), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.btn-sync:active{
+  transform:translateY(0);
+  box-shadow:0 2px 4px rgba(37,99,235,.4), inset 0 1px 3px rgba(0,0,0,.2);
+}
+.btn-sync:focus-visible{
+  outline:2px solid #93c5fd;
+  outline-offset:2px;
+}
+.btn-sync.spinning svg{
+  animation:spin 1s linear infinite;
+}
+.btn-sync.spinning{
+  pointer-events:none;
+  opacity:.85;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* Responsivo: em telas muito pequenas, mantém o botão legível */
+@media (max-width:768px){
+  .btn-sync{
+    padding:8px 12px;
+    min-height:36px;
+  }
+  .btn-sync .lbl{
+    font-size:12px;
+  }
+}
 
 /* Indicador de status de conexão */
 .conn-status{
@@ -441,7 +498,11 @@ body:not(.autenticado) > main{
 <!-- ==================== TELA DE LOGIN ==================== -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo">PM</div>
+    <div class="login-logo">
+  <img src="p3.png" alt="PM" 
+       style="width:100%;height:100%;object-fit:contain;border-radius:50%;"
+       onerror="this.style.display='none';this.parentElement.textContent='PM';">
+    </div>
     <h2>EAP 2027</h2>
     <p class="sub">Estágio de Atualização Profissional<br>Acesso restrito — identifique-se</p>
 
@@ -473,17 +534,25 @@ body:not(.autenticado) > main{
 <header>
   <div class="header-wrap">
     <div class="brand">
-      <div class="badge">PM</div>
+      <div class="badge">
+          <img src="p3.png" alt="PM" 
+       style="width:100%;height:100%;object-fit:contain;border-radius:50%;"
+       onerror="this.style.display='none';this.parentElement.textContent='PM';">
+      </div>
       <div>
         <h1>EAP 2027 — Estágio de Atualização Profissional</h1>
-        <p>Comando de Policiamento do Interior Três • Gestão de Turmas e Efetivo</p>
+        <p>3º BATALHÃO DE CAÇADORES • Gestão de Turmas e Efetivo</p>
       </div>
     </div>
     <div class="header-actions">
       <span class="user-email" id="user-email" title="">—</span>
       <span class="conn-status" id="conn-status" title="Status da conexão com o Supabase">Verificando...</span>
       <button class="btn btn-ghost btn-sync" id="btn-sync" title="Baixar base central do Supabase para este dispositivo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 01-3 6.7L18 21m3-9a9 9 0 00-15-6.7L3 3m0 9a9 9 0 003 6.7M3 3v6h6M21 21v-6h-6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <polyline points="23 4 23 10 17 10"></polyline>
+  <polyline points="1 20 1 14 7 14"></polyline>
+  <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"></path>
+</svg>
         <span class="lbl">Sincronizar</span>
       </button>
       <button class="btn btn-ghost" id="btn-template" title="Baixar modelo de planilha para base de dados">
@@ -506,7 +575,7 @@ body:not(.autenticado) > main{
 
 <div class="tabs-bar">
   <nav class="tabs" id="tabs">
-    <button class="tab active" data-cat="efetivo">Efetivo 3º B.C.</button>    
+    <button class="tab active" data-cat="efetivo">Efetivo 3º B.C.</button>
     <button class="tab" data-cat="cb_sd">Cb/Sd</button>
     <button class="tab" data-cat="subten_sgt">Subten/Sgt</button>
     <button class="tab" data-cat="oficiais">Oficiais</button>
