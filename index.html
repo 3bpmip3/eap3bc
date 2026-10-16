@@ -309,6 +309,7 @@ tbody tr:last-child td{border-bottom:none}
   .header-actions{gap:6px}
   .header-actions .btn{padding:8px 12px;font-size:12px}
   .header-actions .btn span.lbl{display:none}
+  .user-email{display:none}
 }
 
 /* ----- Turma concluída ----- */
@@ -338,11 +339,136 @@ tbody tr:last-child td{border-bottom:none}
 .imp-spinner{width:56px;height:56px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gold-400);border-radius:50%;animation:spin 1s linear infinite;}
 .imp-overlay p{font-size:15px;font-weight:600;letter-spacing:.3px;}
 .imp-overlay small{font-size:12px;color:rgba(255,255,255,.7);}
+
+/* ============================================================
+   TELA DE LOGIN
+   ============================================================ */
+#login-screen{
+  position:fixed; inset:0; z-index:9999;
+  background:linear-gradient(135deg,#081a2c 0%, var(--navy-800) 55%, var(--navy-700) 100%);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+#login-screen.hidden{ display:none; }
+.login-card{
+  background:#fff; border-radius:var(--radius-lg); padding:36px 32px;
+  box-shadow:var(--shadow-lg); width:100%; max-width:420px;
+  animation:slideUp .3s cubic-bezier(.16,1,.3,1);
+}
+.login-card h2{
+  font-size:20px; font-weight:800; color:var(--navy-800);
+  margin-bottom:6px; text-align:center;
+}
+.login-card p.sub{
+  font-size:13px; color:var(--g500); text-align:center; margin-bottom:26px;
+}
+.login-logo{
+  width:64px; height:64px; border-radius:50%; margin:0 auto 18px;
+  background:radial-gradient(circle at 30% 30%,var(--gold-400),var(--gold-500) 70%);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; color:var(--navy-900); font-size:18px;
+  box-shadow:inset 0 -3px 6px rgba(0,0,0,.25),0 6px 18px rgba(201,164,74,.4);
+  border:3px solid rgba(255,255,255,.6);
+}
+.login-field{ margin-bottom:16px; }
+.login-field label{
+  display:block; font-size:11px; font-weight:700; color:var(--g600);
+  text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px;
+}
+.login-field input{
+  width:100%; padding:12px 14px; border:1.5px solid var(--g200);
+  border-radius:var(--radius); font-size:14px; transition:all .18s;
+  background:var(--g50);
+}
+.login-field input:focus{
+  outline:none; border-color:var(--navy-600); background:#fff;
+  box-shadow:0 0 0 4px rgba(20,58,92,.1);
+}
+.login-error{
+  display:none; background:var(--red-l); color:#b91c1c;
+  padding:11px 14px; border-radius:var(--radius); font-size:13px;
+  margin-bottom:16px; border:1px solid rgba(220,38,38,.2);
+  font-weight:600;
+}
+.login-error.show{ display:block; animation:slideUp .2s ease; }
+.login-btn{
+  width:100%; padding:13px; border-radius:var(--radius);
+  background:linear-gradient(180deg,var(--navy-700),var(--navy-800));
+  color:#fff; font-size:14px; font-weight:700; transition:all .18s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.login-btn:hover:not(:disabled){
+  background:linear-gradient(180deg,var(--navy-600),var(--navy-700));
+  box-shadow:var(--shadow-md); transform:translateY(-1px);
+}
+.login-btn:disabled{ opacity:.6; cursor:wait; }
+.login-btn .spinner{
+  width:16px; height:16px; border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff; border-radius:50%; animation:spin 1s linear infinite;
+  display:none;
+}
+.login-btn.loading .spinner{ display:inline-block; }
+.login-btn.loading .btn-text{ opacity:.7; }
+
+/* Botão de logout no header */
+.btn-logout{
+  background:linear-gradient(180deg,rgba(220,38,38,.35),rgba(220,38,38,.25));
+  border:1px solid rgba(248,113,113,.55); color:#fff;
+}
+.btn-logout:hover{
+  background:linear-gradient(180deg,rgba(220,38,38,.55),rgba(220,38,38,.4));
+  transform:translateY(-1px);
+}
+.user-email{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 12px; border-radius:20px; font-size:11px; font-weight:600;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.85); max-width:200px; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap;
+}
+
+/* Esconde o app enquanto não autenticado */
+body:not(.autenticado) > header,
+body:not(.autenticado) > .tabs-bar,
+body:not(.autenticado) > main{
+  display:none !important;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body data-cat="efetivo">
+
+<!-- ==================== TELA DE LOGIN ==================== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">PM</div>
+    <h2>EAP 2027</h2>
+    <p class="sub">Estágio de Atualização Profissional<br>Acesso restrito — identifique-se</p>
+
+    <div class="login-error" id="login-error"></div>
+
+    <form id="login-form" autocomplete="on">
+      <div class="login-field">
+        <label for="login-email">E-mail institucional</label>
+        <input type="email" id="login-email" name="email"
+               required placeholder="seuemail@exemplo.com"
+               autocomplete="username">
+      </div>
+
+      <div class="login-field">
+        <label for="login-password">Senha</label>
+        <input type="password" id="login-password" name="password"
+               required placeholder="••••••••"
+               autocomplete="current-password" minlength="6">
+      </div>
+
+      <button type="submit" class="login-btn" id="login-btn">
+        <span class="spinner"></span>
+        <span class="btn-text">Entrar no Sistema</span>
+      </button>
+    </form>
+  </div>
+</div>
 
 <header>
   <div class="header-wrap">
@@ -354,6 +480,7 @@ tbody tr:last-child td{border-bottom:none}
       </div>
     </div>
     <div class="header-actions">
+      <span class="user-email" id="user-email" title="">—</span>
       <span class="conn-status" id="conn-status" title="Status da conexão com o Supabase">Verificando...</span>
       <button class="btn btn-ghost btn-sync" id="btn-sync" title="Baixar base central do Supabase para este dispositivo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 01-3 6.7L18 21m3-9a9 9 0 00-15-6.7L3 3m0 9a9 9 0 003 6.7M3 3v6h6M21 21v-6h-6"/></svg>
@@ -366,6 +493,12 @@ tbody tr:last-child td{border-bottom:none}
       <button class="btn btn-ghost" id="btn-import">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 0L8 7m4-4l4 4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
         <span class="lbl">Importar Base</span>
+      </button>
+      <button class="btn btn-ghost btn-logout" id="btn-logout" title="Encerrar sessão">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+        </svg>
+        <span class="lbl">Sair</span>
       </button>
     </div>
   </div>
@@ -418,12 +551,97 @@ try {
   console.warn('Supabase não configurado:', e);
 }
 
+/* ============================================================
+   AUTENTICAÇÃO — Login / Logout / Sessão
+   ============================================================ */
+
+function mostrarLogin(){
+  document.body.classList.remove('autenticado');
+  const tela = document.getElementById('login-screen');
+  if (tela) tela.classList.remove('hidden');
+}
+
+function esconderLogin(){
+  document.body.classList.add('autenticado');
+  const tela = document.getElementById('login-screen');
+  if (tela) tela.classList.add('hidden');
+}
+
+function mostrarErroLogin(msg){
+  const el = document.getElementById('login-error');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function limparErroLogin(){
+  const el = document.getElementById('login-error');
+  if (!el) return;
+  el.textContent = '';
+  el.classList.remove('show');
+}
+
+function traduzirErroAuth(msg){
+  const m = String(msg || '').toLowerCase();
+  if (m.includes('invalid login credentials')) return 'E-mail ou senha incorretos.';
+  if (m.includes('email not confirmed'))       return 'E-mail ainda não confirmado. Verifique sua caixa de entrada.';
+  if (m.includes('too many requests'))         return 'Muitas tentativas. Aguarde alguns minutos.';
+  if (m.includes('user not found'))            return 'Usuário não encontrado.';
+  if (m.includes('network'))                   return 'Falha de rede. Verifique sua conexão.';
+  return 'Não foi possível entrar: ' + msg;
+}
+
+async function fazerLogin(email, senha){
+  if (!sb) throw new Error('Supabase não está configurado.');
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: email.trim().toLowerCase(),
+    password: senha
+  });
+  if (error) throw error;
+  return data;
+}
+
+async function fazerLogout(){
+  if (!sb) return;
+  try { await sb.auth.signOut(); } catch(e){ console.warn(e); }
+}
+
+function atualizarEmailHeader(user){
+  const el = document.getElementById('user-email');
+  if (!el) return;
+  if (user && user.email){
+    el.textContent = user.email;
+    el.title = user.email;
+  } else {
+    el.textContent = '—';
+    el.title = '';
+  }
+}
+
+async function entrarNoApp(user){
+  esconderLogin();
+  atualizarEmailHeader(user);
+  try {
+    if (sb){
+      const ok = await checarConexaoSupabase();
+      if (ok){
+        await sincronizarComSupabase({ silencioso: true });
+      }
+    }
+  } catch(e){
+    console.warn('Falha ao sincronizar após login:', e);
+  }
+  render();
+}
+
 async function checarConexaoSupabase(){
   const el = document.getElementById('conn-status');
   if (!sb){
-    el.textContent = 'Local (sem Supabase)';
-    el.className = 'conn-status offline';
-    el.title = 'Configure SUPABASE_URL e SUPABASE_ANON para ativar a base central.';
+    if (el){
+      el.textContent = 'Local (sem Supabase)';
+      el.className = 'conn-status offline';
+      el.title = 'Configure SUPABASE_URL e SUPABASE_ANON para ativar a base central.';
+    }
     supabaseOnline = false;
     return false;
   }
@@ -433,15 +651,19 @@ async function checarConexaoSupabase(){
       .select('re', { count: 'exact', head: true })
       .limit(1);
     if (error) throw error;
-    el.textContent = 'Supabase Online';
-    el.className = 'conn-status online';
-    el.title = 'Conectado à base central de policiais.';
+    if (el){
+      el.textContent = 'Supabase Online';
+      el.className = 'conn-status online';
+      el.title = 'Conectado à base central de policiais.';
+    }
     supabaseOnline = true;
     return true;
   } catch(err){
-    el.textContent = 'Supabase Offline';
-    el.className = 'conn-status offline';
-    el.title = 'Sem conexão com o Supabase — usando cache local.';
+    if (el){
+      el.textContent = 'Supabase Offline';
+      el.className = 'conn-status offline';
+      el.title = 'Sem conexão com o Supabase — usando cache local.';
+    }
     supabaseOnline = false;
     return false;
   }
@@ -459,7 +681,6 @@ function setConnStatus(state, text){
 /* ============================================================
    EAP 2027 — APP PRINCIPAL
    ============================================================ */
-
 const STORAGE_KEY = 'eap2027_db_v1';
 
 const CATEGORIES = [
@@ -1801,14 +2022,6 @@ async function processImport(rows, map){
 
 /* ============================================================
    SINCRONIZAÇÃO COM SUPABASE
-   ------------------------------------------------------------
-   - Baixa todos os policiais da base central
-   - Mescla com o cache local:
-     • Campos da base central (RE, Dg, Posto, Nome, Cia/Seção,
-       Nascimento, IAS Médico, IAS Odonto, Validade IAS) → vêm do servidor
-     • Campos locais (TAF, TAF IV, turma, EAD, categoria) → preservados
-   - Remove do cache local os policiais que não existem mais na nuvem
-     (opcional — mantido o merge para não perder dados locais)
    ============================================================ */
 async function sincronizarComSupabase({silencioso = false} = {}){
   if (!sb){
@@ -1822,7 +2035,6 @@ async function sincronizarComSupabase({silencioso = false} = {}){
   setConnStatus('syncing', 'Sincronizando...');
 
   try {
-    /* Baixa todos os policiais — paginado em lotes de 1000 */
     const PAGE = 1000;
     let from = 0;
     let todos = [];
@@ -1843,7 +2055,6 @@ async function sincronizarComSupabase({silencioso = false} = {}){
       return true;
     }
 
-    /* Mapeia os dados da nuvem em registros canônicos */
     const nuvem = todos.map(d => ({
       re:              String(d.re || '').trim(),
       dg:              d.dg || '',
@@ -1856,13 +2067,11 @@ async function sincronizarComSupabase({silencioso = false} = {}){
       validadeIAS:     d.validade_ias    || ''
     })).filter(x => x.re);
 
-    /* Índice por RE para mesclagem */
     const porRE = new Map();
     db.officers.forEach(o => porRE.set(o.re, o));
 
     let atualizados = 0, novos = 0;
 
-    /* Função de inferência de categoria pelo posto */
     const inferirCategoria = (postoGrad) => {
       if (!postoGrad) return 'cb_sd';
       const s = String(postoGrad).toUpperCase();
@@ -1874,8 +2083,6 @@ async function sincronizarComSupabase({silencioso = false} = {}){
     nuvem.forEach(reg => {
       const existing = porRE.get(reg.re);
       if (existing){
-        /* Atualiza apenas campos da base central.
-           Preserva TAF, TAF IV, turmaId, EAD e categoria (locais). */
         existing.dg              = reg.dg              || existing.dg;
         existing.postoGrad       = reg.postoGrad       || existing.postoGrad;
         existing.nome            = reg.nome            || existing.nome;
@@ -2058,7 +2265,7 @@ function toggleTurmaConcluida(turmaId, concluida){
 }
 
 /* ============================================================
-   EVENTOS GLOBAIS + START
+   EVENTOS GLOBAIS
    ============================================================ */
 function setActiveTab(cat){
   state.activeCategory = cat;
@@ -2110,14 +2317,94 @@ document.getElementById('btn-sync').addEventListener('click', () => sincronizarC
 setActiveTab('efetivo');
 render();
 
-/* ---------- Boot: checa conexão e sincroniza automaticamente ---------- */
-(async function boot(){
-  const ok = await checarConexaoSupabase();
-  if (ok){
-    /* Sincroniza silenciosamente ao abrir (não mostra toast se der tudo certo) */
-    await sincronizarComSupabase({ silencioso: true });
-    render();
+/* ============================================================
+   BOOT — Autenticação e inicialização
+   ============================================================ */
+(function configurarAutenticacao(){
+  const form      = document.getElementById('login-form');
+  const btnLogin  = document.getElementById('login-btn');
+  const btnLogout = document.getElementById('btn-logout');
+
+  if (form){
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      limparErroLogin();
+
+      const email = document.getElementById('login-email').value;
+      const senha = document.getElementById('login-password').value;
+
+      if (!email || !senha){
+        mostrarErroLogin('Preencha e-mail e senha.');
+        return;
+      }
+
+      if (btnLogin){
+        btnLogin.classList.add('loading');
+        btnLogin.disabled = true;
+      }
+
+      try {
+        const data = await fazerLogin(email, senha);
+        document.getElementById('login-password').value = '';
+        await entrarNoApp(data.user);
+      } catch(err){
+        console.error('Erro no login:', err);
+        mostrarErroLogin(traduzirErroAuth(err.message));
+        document.getElementById('login-password').value = '';
+      } finally {
+        if (btnLogin){
+          btnLogin.classList.remove('loading');
+          btnLogin.disabled = false;
+        }
+      }
+    });
   }
+
+  if (btnLogout){
+    btnLogout.addEventListener('click', async () => {
+      if (!confirm('Deseja realmente sair do sistema?')) return;
+      await fazerLogout();
+      atualizarEmailHeader(null);
+      mostrarLogin();
+    });
+  }
+})();
+
+/* ---------- Boot principal ---------- */
+(async function boot(){
+  /* Sem Supabase configurado → modo local sem login */
+  if (!sb){
+    console.warn('Supabase ausente — entrando em modo local sem login.');
+    esconderLogin();
+    await checarConexaoSupabase();
+    render();
+    return;
+  }
+
+  /* Registra o listener de auth ANTES de checar sessão */
+  sb.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT'){
+      atualizarEmailHeader(null);
+      mostrarLogin();
+    }
+    if (event === 'SIGNED_IN' && session && session.user){
+      atualizarEmailHeader(session.user);
+    }
+  });
+
+  /* Verifica se já existe sessão ativa */
+  try {
+    const { data } = await sb.auth.getSession();
+    if (data && data.session && data.session.user){
+      await entrarNoApp(data.session.user);
+      return;
+    }
+  } catch(e){
+    console.warn('Falha ao recuperar sessão:', e);
+  }
+
+  /* Não está logado — mostra tela de login */
+  mostrarLogin();
 })();
 </script>
 </body>
