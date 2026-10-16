@@ -24,6 +24,8 @@
   --cat-subten-sgt-dark:#b91c1c;
   --cat-oficiais:#c9a44a;
   --cat-oficiais-dark:#a8863a;
+  --cat-efetivo:#2563eb;
+  --cat-efetivo-dark:#1d4ed8;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -105,6 +107,8 @@ header{
 .tab[data-cat="subten_sgt"].active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cat-subten-sgt),transparent);filter:blur(3px);}
 .tab[data-cat="oficiais"].active{color:var(--cat-oficiais-dark);border-bottom-color:var(--cat-oficiais);}
 .tab[data-cat="oficiais"].active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cat-oficiais),transparent);filter:blur(3px);}
+.tab[data-cat="efetivo"].active{color:var(--cat-efetivo-dark);border-bottom-color:var(--cat-efetivo);}
+.tab[data-cat="efetivo"].active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cat-efetivo),transparent);filter:blur(3px);}
 
 /* ---------- MAIN ---------- */
 main{max-width:1600px;margin:0 auto;padding:26px 28px 60px}
@@ -127,6 +131,7 @@ main{max-width:1600px;margin:0 auto;padding:26px 28px 60px}
 body[data-cat="cb_sd"] .stat.cat-primary::before{background:linear-gradient(180deg,#4ade80,var(--cat-cb-sd));}
 body[data-cat="subten_sgt"] .stat.cat-primary::before{background:linear-gradient(180deg,#f87171,var(--cat-subten-sgt));}
 body[data-cat="oficiais"] .stat.cat-primary::before{background:linear-gradient(180deg,var(--gold-400),var(--cat-oficiais));}
+body[data-cat="efetivo"] .stat.cat-primary::before{background:linear-gradient(180deg,#60a5fa,var(--cat-efetivo));}
 
 .toolbar{
   display:flex;gap:12px;margin-bottom:22px;flex-wrap:wrap;align-items:center;
@@ -158,6 +163,7 @@ body[data-cat="oficiais"] .stat.cat-primary::before{background:linear-gradient(1
 body[data-cat="cb_sd"] .turma::before{background:linear-gradient(90deg,var(--cat-cb-sd),var(--cat-cb-sd-dark));}
 body[data-cat="subten_sgt"] .turma::before{background:linear-gradient(90deg,var(--cat-subten-sgt),var(--cat-subten-sgt-dark));}
 body[data-cat="oficiais"] .turma::before{background:linear-gradient(90deg,var(--gold-400),var(--cat-oficiais));}
+body[data-cat="efetivo"] .turma::before{background:linear-gradient(90deg,var(--cat-efetivo),var(--cat-efetivo-dark));}
 
 .turma-num{
   width:46px;height:46px;border-radius:12px;
@@ -315,11 +321,18 @@ tbody tr:last-child td{border-bottom:none}
 .turma-actions .btn.btn-export:hover{background:linear-gradient(180deg,rgba(201,164,74,.55),rgba(201,164,74,.4))}
 
 .turma-head{flex-wrap:wrap}
+
+/* ----- Import loading overlay ----- */
+.imp-overlay{position:fixed;inset:0;background:rgba(10,30,51,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:18px;color:#fff;}
+.imp-spinner{width:56px;height:56px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gold-400);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.imp-overlay p{font-size:15px;font-weight:600;letter-spacing:.3px;}
+.imp-overlay small{font-size:12px;color:rgba(255,255,255,.7);}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body data-cat="cb_sd">
+<body data-cat="efetivo">
 
 <header>
   <div class="header-wrap">
@@ -346,7 +359,8 @@ tbody tr:last-child td{border-bottom:none}
 
 <div class="tabs-bar">
   <nav class="tabs" id="tabs">
-    <button class="tab active" data-cat="cb_sd">Cb/Sd</button>
+    <button class="tab active" data-cat="efetivo">Efetivo 3º B.C.</button>
+    <button class="tab" data-cat="cb_sd">Cb/Sd</button>
     <button class="tab" data-cat="subten_sgt">Subten/Sgt</button>
     <button class="tab" data-cat="oficiais">Oficiais</button>
   </nav>
@@ -358,7 +372,7 @@ tbody tr:last-child td{border-bottom:none}
   <div class="toolbar">
     <div class="search-box">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-      <input type="search" id="search" placeholder="Buscar por RE, nome, turma, Cia/Seção...">
+      <input type="search" id="search" placeholder="Buscar por RE, nome, Cia/Seção, posto...">
     </div>
     <button class="btn btn-outline" id="btn-new-turma">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
@@ -375,9 +389,6 @@ tbody tr:last-child td{border-bottom:none}
 <script>
 /* ============================================================
    SUPABASE — Configuração
-   ------------------------------------------------------------
-   Substitua pelos valores do SEU projeto:
-   Painel Supabase → Project Settings → API
    ============================================================ */
 const SUPABASE_URL  = 'https://bbyzfdcalpjcdvclxqxe.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJieXpmZGNhbHBqY2R2Y2x4cXhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5OTk3MTcsImV4cCI6MjEwNzU3NTcxN30.WimqBVHoVttc8i5GC32yAMXQx4273xhb1gimo22E344';
@@ -425,11 +436,15 @@ async function checarConexaoSupabase(){
    ============================================================ */
 
 const STORAGE_KEY = 'eap2027_db_v1';
+
 const CATEGORIES = [
-  { id: 'cb_sd',       label: 'Cb/Sd',      color: '#16a34a' },
-  { id: 'subten_sgt',  label: 'Subten/Sgt', color: '#dc2626' },
-  { id: 'oficiais',    label: 'Oficiais',   color: '#c9a44a' }
+  { id: 'cb_sd',      label: 'Cb/Sd',          color: '#16a34a' },
+  { id: 'subten_sgt', label: 'Subten/Sgt',     color: '#dc2626' },
+  { id: 'oficiais',   label: 'Oficiais',       color: '#c9a44a' },
+  { id: 'efetivo',    label: 'Efetivo 3º B.C.', color: '#2563eb' }
 ];
+const REAL_CATEGORIES = CATEGORIES.filter(c => c.id !== 'efetivo');
+
 const TAF_IV_OPTIONS = [
   'Lesão Membros Superiores',
   'Lesão Membros Inferiores',
@@ -439,7 +454,7 @@ const TAF_IV_OPTIONS = [
 const POSTOS = ['Cel PM','Ten Cel PM','Maj PM','Cap PM','1° TEN PM','2° TEN PM',
   'Subten PM','1° SGT PM','2° SGT PM','3° SGT PM','CABO PM','SD PM'];
 
-const state = { activeCategory: 'cb_sd', search: '' };
+const state = { activeCategory: 'efetivo', search: '' };
 let db = loadDB();
 db.turmas.forEach(t => {
   if (typeof t.concluida !== 'boolean') t.concluida = false;
@@ -673,27 +688,33 @@ function render(){
   renderStats();
   renderContent();
 }
+
 function renderStats(){
-  const officers = db.officers.filter(o => o.categoria === state.activeCategory);
-  const turmas   = db.turmas.filter(t => t.categoria === state.activeCategory);
+  const isEfetivo = state.activeCategory === 'efetivo';
+  const officers = isEfetivo
+    ? db.officers
+    : db.officers.filter(o => o.categoria === state.activeCategory);
+  const turmas = isEfetivo
+    ? db.turmas
+    : db.turmas.filter(t => t.categoria === state.activeCategory);
+
   const total          = officers.length;
   const eadInseridos   = officers.filter(o => o.inseridoEAD === 'Sim').length;
   const eadConcluidos  = officers.filter(o => o.concluiuEAD === 'Sim').length;
   const tafIV          = officers.filter(o => o.taf === 'IV').length;
 
   document.getElementById('stats').innerHTML = `
-    <div class="stat cat-primary"><span class="stat-label">Turmas</span><span class="stat-value">${turmas.length}</span></div>
+    <div class="stat cat-primary"><span class="stat-label">${isEfetivo ? 'Total Cadastrado' : 'Turmas'}</span><span class="stat-value">${isEfetivo ? total : turmas.length}</span></div>
     <div class="stat"><span class="stat-label">Efetivo Total</span><span class="stat-value">${total}</span></div>
     <div class="stat green"><span class="stat-label">EAD Concluído</span><span class="stat-value">${eadConcluidos}</span></div>
     <div class="stat amber"><span class="stat-label">EAD Inserido</span><span class="stat-value">${eadInseridos}</span></div>
     <div class="stat red"><span class="stat-label">TAF IV (Restrições)</span><span class="stat-value">${tafIV}</span></div>
   `;
 }
+
 function renderContent(){
   const container = document.getElementById('content');
   const q = state.search.trim().toLowerCase();
-
-  let turmas = db.turmas.filter(t => t.categoria === state.activeCategory).sort(sortTurmas);
 
   const officerMatches = o => {
     if (!q) return true;
@@ -701,6 +722,56 @@ function renderContent(){
       String(v||'').toLowerCase().includes(q)
     );
   };
+
+  /* ---- MODO EFETIVO 3º B.C. (todas as categorias juntas) ---- */
+  if (state.activeCategory === 'efetivo'){
+    const todos = db.officers.filter(officerMatches);
+
+    if (todos.length === 0){
+      container.innerHTML = `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          <h3>Nenhum policial no Efetivo 3º B.C.</h3>
+          <p>Clique em <strong>"Importar Base"</strong> para carregar a planilha com todos os policiais.</p>
+        </div>`;
+      return;
+    }
+
+    let html = '';
+    REAL_CATEGORIES.forEach(cat => {
+      const grupo = todos.filter(o => o.categoria === cat.id);
+      if (grupo.length === 0) return;
+      html += renderTurma({
+        id: '__efetivo_' + cat.id,
+        numero: cat.label,
+        categoria: cat.id,
+        dataInicio: '',
+        dataFim: '',
+        _virtual: true,
+        _tituloCustom: 'Efetivo 3º B.C. — ' + cat.label
+      }, grupo);
+    });
+
+    const semCat = todos.filter(o => !REAL_CATEGORIES.find(c => c.id === o.categoria));
+    if (semCat.length){
+      html += renderTurma({
+        id: '__efetivo_outros',
+        numero: '—',
+        categoria: 'cb_sd',
+        dataInicio: '',
+        dataFim: '',
+        _virtual: true,
+        _tituloCustom: 'Efetivo 3º B.C. — Não classificados'
+      }, semCat);
+    }
+
+    container.innerHTML = html;
+    bindTurmaEvents(container);
+    return;
+  }
+
+  /* ---- MODO NORMAL (por categoria) ---- */
+  let turmas = db.turmas.filter(t => t.categoria === state.activeCategory).sort(sortTurmas);
 
   if (q){
     turmas = turmas.map(t => ({
@@ -714,29 +785,25 @@ function renderContent(){
     }));
   }
 
-  const semTurma = db.officers.filter(o =>
-    o.categoria === state.activeCategory &&
-    (!o.turmaId || !db.turmas.find(t => t.id === o.turmaId)) &&
-    officerMatches(o)
-  );
+  /* >>> "Sem turma" foi removido: policiais sem turma só aparecem no Efetivo 3º B.C. <<< */
 
-  if (turmas.length === 0 && semTurma.length === 0){
+  if (turmas.length === 0){
     container.innerHTML = `
       <div class="empty-state">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
         <h3>Nenhuma turma cadastrada</h3>
-        <p>Clique em <strong>"Nova Turma"</strong> para começar a organizar o efetivo, ou em <strong>"Importar Base"</strong> para carregar uma planilha com todos os policiais.</p>
+        <p>Clique em <strong>"Nova Turma"</strong> para começar a organizar o efetivo. Policiais sem turma aparecem no <strong>Efetivo 3º B.C.</strong></p>
       </div>`;
     return;
   }
 
   let html = '';
   turmas.forEach(t => html += renderTurma(t, t._filtered));
-  if (semTurma.length)
-    html += renderTurma({ id:'__none__', numero:'—', dataInicio:'', dataFim:'', _virtual:true }, semTurma);
-
   container.innerHTML = html;
+  bindTurmaEvents(container);
+}
 
+function bindTurmaEvents(container){
   container.querySelectorAll('.turma-head').forEach(head => {
     head.addEventListener('click', e => {
       if (e.target.closest('.turma-actions, .turma-check')) return;
@@ -772,6 +839,8 @@ function renderTurma(t, officers){
   const isVirtual = !!t._virtual;
   const isConcluida = !!t.concluida;
   const obs = (t.observacoes || '').trim();
+  const titulo = t._tituloCustom || ('Turma ' + t.numero);
+  const badgeNum = isVirtual ? '★' : t.numero;
 
   const rows = officers.length === 0
     ? `<tr><td colspan="12" style="text-align:center;color:var(--g500);padding:28px;font-size:13px">
@@ -792,10 +861,10 @@ function renderTurma(t, officers){
   return `
     <div class="turma ${isConcluida ? 'concluida' : ''}">
       <div class="turma-head">
-        <div class="turma-num">${escapeHTML(t.numero)}</div>
+        <div class="turma-num">${escapeHTML(badgeNum)}</div>
         <div class="turma-info">
           <div class="turma-title">
-            Turma ${escapeHTML(t.numero)}
+            ${escapeHTML(titulo)}
             ${isConcluida ? '<span style="margin-left:8px;font-size:10px;background:#4ade80;color:#052e16;padding:3px 9px;border-radius:20px;font-weight:800;letter-spacing:.5px">✓ CONCLUÍDA</span>' : ''}
           </div>
           <div class="turma-dates">
@@ -832,7 +901,14 @@ function renderTurma(t, officers){
               Excluir
             </button>
           </div>
-        ` : ''}
+        ` : `
+          <div class="turma-actions">
+            <button class="btn btn-export" title="Extrair em Excel (.xlsx)" data-action="export-turma" data-turma="${t.id}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+              Extrair Excel
+            </button>
+          </div>
+        `}
 
         <svg class="turma-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
@@ -854,6 +930,7 @@ function renderTurma(t, officers){
     </div>
   `;
 }
+
 function renderOfficerRow(o){
   const tafPill = o.taf === 'IV'
     ? `<span class="pill pill-red" title="${escapeHTML(o.tafIVTipo||'')}">IV — ${escapeHTML((o.tafIVTipo||'').split(' ')[0]||'Restrição')}</span>`
@@ -930,18 +1007,22 @@ function openModal({ title, bodyHTML, footerHTML, size='' }){
    ============================================================ */
 function openOfficerModal(officer = null, presetTurmaId = null){
   const isEdit = !!officer;
+  const categoriaInicial = isEdit
+    ? officer.categoria
+    : (state.activeCategory === 'efetivo' ? 'cb_sd' : state.activeCategory);
+
   const o = officer || {
-    categoria: state.activeCategory, turmaId: presetTurmaId || '',
+    categoria: categoriaInicial, turmaId: presetTurmaId || '',
     postoGrad:'', re:'', dg:'', nome:'', taf:'III', tafIVTipo:'', ciaSecao:'',
     dataNascimento:'', dataExameMedico:'', dataExameOdonto:'', validadeIAS:'',
     inseridoEAD:'Não', concluiuEAD:'Não', notaEAD:'', dataConclusaoEAD:''
   };
 
   const turmas = db.turmas.filter(t => t.categoria === o.categoria).sort(sortTurmas);
-  const turmaOptions = ['<option value="">— Sem turma —</option>']
+  const turmaOptions = ['<option value="">— Sem turma (Efetivo 3º B.C.) —</option>']
     .concat(turmas.map(t => `<option value="${t.id}" ${t.id===o.turmaId?'selected':''}>Turma ${escapeHTML(t.numero)}</option>`)).join('');
 
-  const catOptions = CATEGORIES.map(c =>
+  const catOptions = REAL_CATEGORIES.map(c =>
     `<option value="${c.id}" ${c.id===o.categoria?'selected':''}>${c.label}</option>`
   ).join('');
   const postosOptions = POSTOS.map(p => `<option value="${p}">`).join('');
@@ -959,6 +1040,7 @@ function openOfficerModal(officer = null, presetTurmaId = null){
         <div class="field col-6">
           <label>Turma</label>
           <select name="turmaId">${turmaOptions}</select>
+          <span class="hint">Deixe em "Sem turma" para o policial aparecer apenas no Efetivo 3º B.C.</span>
         </div>
 
         <div class="section-title">Identificação</div>
@@ -1082,6 +1164,17 @@ function openOfficerModal(officer = null, presetTurmaId = null){
   const reInput     = form.querySelector('[name="re"]');
   const autoFillBadge = document.getElementById('re-autofill');
   const autoFillText  = document.getElementById('re-autofill-text');
+  const catSel      = form.querySelector('[name="categoria"]');
+  const turmaSel    = form.querySelector('[name="turmaId"]');
+
+  function refreshTurmas(){
+    const lista = db.turmas.filter(t => t.categoria === catSel.value).sort(sortTurmas);
+    const atual = turmaSel.value;
+    turmaSel.innerHTML = '<option value="">— Sem turma (Efetivo 3º B.C.) —</option>' +
+      lista.map(t => `<option value="${t.id}">Turma ${escapeHTML(t.numero)}</option>`).join('');
+    if (atual && lista.find(t => t.id === atual)) turmaSel.value = atual;
+  }
+  catSel.addEventListener('change', refreshTurmas);
 
   function updateTafIV(){
     const isIV = tafSel.value === 'IV';
@@ -1110,11 +1203,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
 
   updateTafIV(); updateEAD();
 
-  /* ============================================================
-     AUTO-PREENCHIMENTO POR RE
-     1) Tenta buscar no Supabase (fonte central)
-     2) Fallback: procura no cache local (localStorage)
-     ============================================================ */
   let autoFillTimeout;
   reInput.addEventListener('input', async () => {
     clearTimeout(autoFillTimeout);
@@ -1126,7 +1214,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
       let found = null;
       let origem = '';
 
-      // 1) Supabase
       if (sb){
         try {
           const { data, error } = await sb
@@ -1135,25 +1222,24 @@ function openOfficerModal(officer = null, presetTurmaId = null){
             .eq('re', re)
             .maybeSingle();
           if (!error && data){
-  found = {
-    re:               data.re,
-    dg:               data.dg,
-    postoGrad:        data.posto_grad,
-    nome:             data.nome,
-    ciaSecao:         data.cia_secao        || '',
-    dataNascimento:   data.data_nascimento  || '',
-    dataExameOdonto:  data.ias_odonto       || '',
-    dataExameMedico:  data.ias_medico       || '',
-    validadeIAS:      data.validade_ias     || ''
-  };
-  origem = 'supabase';
-}
+            found = {
+              re:               data.re,
+              dg:               data.dg,
+              postoGrad:        data.posto_grad,
+              nome:             data.nome,
+              ciaSecao:         data.cia_secao        || '',
+              dataNascimento:   data.data_nascimento  || '',
+              dataExameOdonto:  data.ias_odonto       || '',
+              dataExameMedico:  data.ias_medico       || '',
+              validadeIAS:      data.validade_ias     || ''
+            };
+            origem = 'supabase';
+          }
         } catch(e){
           console.warn('Falha ao consultar Supabase:', e);
         }
       }
 
-      // 2) Fallback local
       if (!found){
         const localFound = db.officers.find(x => x.re === re && (!officer || x.id !== officer.id));
         if (localFound){
@@ -1164,7 +1250,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
 
       if (!found) return;
 
-      // Preenche campos
       const setVal = (name, val) => {
         const el = form.elements[name];
         if (el) el.value = val || '';
@@ -1178,23 +1263,18 @@ function openOfficerModal(officer = null, presetTurmaId = null){
       setVal('dataExameOdonto', found.dataExameOdonto);
       setVal('validadeIAS',     found.validadeIAS);
 
-      // Categoria e turma (só se o registro encontrado tiver)
       if (found.categoria){
-        form.elements.categoria.value = found.categoria;
-        const novasTurmas = db.turmas.filter(t => t.categoria === found.categoria).sort(sortTurmas);
-        form.elements.turmaId.innerHTML = '<option value="">— Sem turma —</option>' +
-          novasTurmas.map(t => `<option value="${t.id}">Turma ${escapeHTML(t.numero)}</option>`).join('');
-        form.elements.turmaId.value = found.turmaId || '';
+        catSel.value = found.categoria;
+        refreshTurmas();
+        turmaSel.value = found.turmaId || '';
       }
 
-      // TAF (se o registro local tiver; vindo do Supabase, mantém o padrão III)
       if (found.taf){
         form.elements.taf.value = found.taf;
         if (found.taf === 'IV') form.elements.tafIVTipo.value = found.tafIVTipo || '';
         else                    form.elements.tafIVTipo.value = '';
       }
 
-      // EAD (local apenas)
       if (origem === 'local'){
         inseridoSel.checked = (found.inseridoEAD === 'Sim');
         concluiuSel.checked = (found.concluiuEAD === 'Sim');
@@ -1209,7 +1289,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
 
       updateTafIV(); updateEAD();
 
-      // Feedback visual
       if (origem === 'supabase'){
         autoFillText.textContent = 'Dados carregados da base central (Supabase)';
         autoFillBadge.classList.add('show');
@@ -1231,18 +1310,17 @@ function openOfficerModal(officer = null, presetTurmaId = null){
     if (data.concluiuEAD !== 'Sim'){ data.notaEAD=''; data.dataConclusaoEAD=''; }
     if (data.inseridoEAD !== 'Sim'){ data.concluiuEAD='Não'; data.notaEAD=''; data.dataConclusaoEAD=''; }
 
-    // Envia também ao Supabase (mantém a base central atualizada)
     let enviadoSupabase = false;
     if (sb){
       try {
         const { error } = await sb.rpc('importar_policial', {
-  p_re:              data.re,
-  p_dg:              data.dg,
-  p_posto_grad:      data.postoGrad,
-  p_nome:            data.nome,
-  p_su:              null,
-  p_cia_secao:       data.ciaSecao         || null,
-  p_data_nascimento: data.dataNascimento   || null,
+          p_re:              data.re,
+          p_dg:              data.dg,
+          p_posto_grad:      data.postoGrad,
+          p_nome:            data.nome,
+          p_su:              null,
+          p_cia_secao:       data.ciaSecao         || null,
+          p_data_nascimento: data.dataNascimento   || null,
           p_ias_odonto:      data.dataExameOdonto  || null,
           p_ias_medico:      data.dataExameMedico  || null,
           p_validade_ias:    data.validadeIAS      || null
@@ -1273,11 +1351,13 @@ function openOfficerModal(officer = null, presetTurmaId = null){
 }
 
 /* ============================================================
-   MODAL — TURMA (numeração sequencial automática)
+   MODAL — TURMA
    ============================================================ */
 function openTurmaModal(turma = null){
   const isEdit = !!turma;
-  const categoria = isEdit ? turma.categoria : state.activeCategory;
+  const categoria = isEdit
+    ? turma.categoria
+    : (state.activeCategory === 'efetivo' ? 'cb_sd' : state.activeCategory);
   const proximaNum = isEdit ? turma.numero : proximaNumeracaoTurma(categoria);
 
   const t = turma || {
@@ -1288,7 +1368,7 @@ function openTurmaModal(turma = null){
     observacoes: ''
   };
 
-  const catOptions = CATEGORIES.map(c =>
+  const catOptions = REAL_CATEGORIES.map(c =>
     `<option value="${c.id}" ${c.id===t.categoria?'selected':''}>${c.label}</option>`
   ).join('');
 
@@ -1553,104 +1633,28 @@ function handleParsedRows(rows){
     return;
   }
 
-  // Se a planilha tem apenas as colunas da base central (sem turma/categoria),
-  // pergunta apenas a categoria de destino.
-  const temCategoria = map.categoria !== undefined;
-  const temTurma     = map.turma     !== undefined;
-
-  if (temCategoria && temTurma) processImport(dataRows, map, null);
-  else                          askImportDestination(dataRows, map);
-}
-
-function askImportDestination(rows, map){
-  const catOptions = CATEGORIES.map(c =>
-    `<option value="${c.id}" ${c.id === state.activeCategory ? 'selected' : ''}>${c.label}</option>`
-  ).join('');
-
-  const body = `
-    <p style="font-size:13px;line-height:1.6;margin-bottom:18px;color:var(--g600)">
-      O arquivo contém <strong>${rows.length}</strong> registro(s).<br>
-      Escolha a categoria de destino. A planilha também será enviada à base central (Supabase) automaticamente.
-    </p>
-    <div class="form-grid">
-      <div class="field col-6">
-        <label>Categoria de destino <span class="req">*</span></label>
-        <select id="imp-cat">${catOptions}</select>
-      </div>
-      <div class="field col-6">
-        <label>Turma de destino</label>
-        <select id="imp-turma"></select>
-        <span class="hint">Opcional — pode ser atribuído depois.</span>
-      </div>
-      <div class="field col-12">
-        <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-weight:500;font-size:12px;color:var(--g600)">
-          <input type="checkbox" id="imp-update" checked style="width:auto">
-          Atualizar registros existentes (mesmo RE sobrescreve dados atuais no cache local)
-        </label>
-      </div>
-    </div>
-  `;
-
-  const footer = `
-    <button class="btn btn-outline" data-close>Cancelar</button>
-    <button class="btn btn-primary" id="confirm-import">Importar</button>
-  `;
-
-  const { close } = openModal({
-    title: 'Importar Base de Dados',
-    bodyHTML: body, footerHTML: footer, size: 'sm'
-  });
-
-  const catSel    = document.getElementById('imp-cat');
-  const turmaSel  = document.getElementById('imp-turma');
-  const updateChk = document.getElementById('imp-update');
-
-  function refreshTurmas(){
-    const turmas = db.turmas.filter(t => t.categoria === catSel.value).sort(sortTurmas);
-    turmaSel.innerHTML = '<option value="">— Sem turma —</option>' +
-      turmas.map(t => `<option value="${t.id}">Turma ${escapeHTML(t.numero)}</option>`).join('');
-  }
-  catSel.addEventListener('change', refreshTurmas);
-  refreshTurmas();
-
-  document.getElementById('confirm-import').addEventListener('click', () => {
-    processImport(rows, map, {
-      categoria: catSel.value,
-      turmaId:   turmaSel.value,
-      atualizar: updateChk.checked
-    });
-    close();
-  });
+  /* Importação automática — sempre para o Efetivo 3º B.C., sem turma */
+  processImport(dataRows, map, { categoria: null, turmaId: '', atualizar: true });
 }
 
 /* ============================================================
    PROCESSAMENTO DA IMPORTAÇÃO
-   - Envia cada linha ao Supabase via RPC 'importar_policial'
-   - Mantém cópia no localStorage (cache offline)
-   - Respeita a regra "vazio não sobrescreve" das datas
    ============================================================ */
 async function processImport(rows, map, defaults){
   let enviados = 0, atualizadosLocal = 0, novosLocal = 0, ignorados = 0, erros = 0;
-  const turmaCache = {};
-
-  const ensureTurma = (categoria, numero) => {
-    if (!numero) return '';
-    const key = categoria + '|' + numero;
-    if (turmaCache[key]) return turmaCache[key];
-    let t = db.turmas.find(x => x.categoria === categoria && x.numero === numero);
-    if (!t){
-      t = { id: uid(), categoria, numero, dataInicio: '', dataFim: '', concluida: false, observacoes: '' };
-      db.turmas.push(t);
-    }
-    turmaCache[key] = t.id;
-    return t.id;
-  };
 
   const total = rows.length;
   const usarSupabase = !!sb;
-  toast(`Enviando ${total} registro(s)${usarSupabase ? ' para o Supabase' : ' (modo local)'}...`, 'info');
+  showImportOverlay(`Enviando ${total} registro(s)${usarSupabase ? ' para o Supabase' : ' (modo local)'}...`);
 
-  // Normaliza cada linha em um objeto canônico
+  function inferirCategoria(postoGrad){
+    if (!postoGrad) return 'cb_sd';
+    const s = String(postoGrad).toUpperCase();
+    if (/(CEL|MAJ|CAP|TEN)\s*PM/.test(s) && !/SUB/.test(s)) return 'oficiais';
+    if (/(SUB|SGT)/.test(s)) return 'subten_sgt';
+    return 'cb_sd';
+  }
+
   const registros = [];
   rows.forEach(r => {
     if (!r || r.length === 0) return;
@@ -1671,33 +1675,25 @@ async function processImport(rows, map, defaults){
     const re = get('re');
     if (!re){ ignorados++; return; }
 
-    let categoria, turmaId;
-    if (defaults){
-      categoria = defaults.categoria;
-      turmaId   = defaults.turmaId || '';
-    } else {
-      categoria = normalizeCategory(get('categoria')) || 'cb_sd';
-      const num = get('turma');
-      turmaId   = num ? ensureTurma(categoria, num) : '';
-    }
+    const postoGrad = get('postoGrad');
+    const categoria = inferirCategoria(postoGrad);
 
     registros.push({
-  re,
-  dg:              get('dg'),
-  postoGrad:       get('postoGrad'),
-  nome:            get('nome'),
-  ciaSecao:        get('ciaSecao'),
-  su:              get('su'),
-  dataNascimento:  normalizeDate(get('dataNascimento')),
+      re,
+      dg:              get('dg'),
+      postoGrad,
+      nome:            get('nome'),
+      ciaSecao:        get('ciaSecao'),
+      su:              get('su'),
+      dataNascimento:  normalizeDate(get('dataNascimento')),
       dataExameOdonto: normalizeDate(get('dataExameOdonto')),
       dataExameMedico: normalizeDate(get('dataExameMedico')),
       validadeIAS:     normalizeDate(get('validadeIAS')),
       categoria,
-      turmaId
+      turmaId:         ''
     });
   });
 
-  // 1) Envia ao Supabase em lotes paralelos
   if (usarSupabase){
     const LOTE = 20;
     for (let i = 0; i < registros.length; i += LOTE){
@@ -1705,17 +1701,17 @@ async function processImport(rows, map, defaults){
       await Promise.all(lote.map(async reg => {
         try {
           const { data, error } = await sb.rpc('importar_policial', {
-  p_re:              reg.re,
-  p_dg:              reg.dg,
-  p_posto_grad:      reg.postoGrad,
-  p_nome:            reg.nome,
-  p_su:              reg.su || null,
-  p_cia_secao:       reg.ciaSecao || null,
-  p_data_nascimento: reg.dataNascimento  || null,
-  p_ias_odonto:      reg.dataExameOdonto || null,
-  p_ias_medico:      reg.dataExameMedico || null,
-  p_validade_ias:    reg.validadeIAS     || null
-});
+            p_re:              reg.re,
+            p_dg:              reg.dg,
+            p_posto_grad:      reg.postoGrad,
+            p_nome:            reg.nome,
+            p_su:              reg.su || null,
+            p_cia_secao:       reg.ciaSecao || null,
+            p_data_nascimento: reg.dataNascimento  || null,
+            p_ias_odonto:      reg.dataExameOdonto || null,
+            p_ias_medico:      reg.dataExameMedico || null,
+            p_validade_ias:    reg.validadeIAS     || null
+          });
           if (error) throw error;
           if (data && data.ok === false){
             console.warn('Supabase rejeitou RE', reg.re, data.erro);
@@ -1731,24 +1727,22 @@ async function processImport(rows, map, defaults){
     }
   }
 
-  // 2) Mantém cópia local (fallback offline)
   registros.forEach(reg => {
     const existing = db.officers.find(x => x.re === reg.re);
     const base = {
-  re:              reg.re,
-  dg:              reg.dg,
-  postoGrad:       reg.postoGrad,
-  nome:            reg.nome,
-  ciaSecao:        reg.ciaSecao,
-  dataNascimento:  reg.dataNascimento,
+      re:              reg.re,
+      dg:              reg.dg,
+      postoGrad:       reg.postoGrad,
+      nome:            reg.nome,
+      ciaSecao:        reg.ciaSecao,
+      dataNascimento:  reg.dataNascimento,
       dataExameOdonto: reg.dataExameOdonto,
       dataExameMedico: reg.dataExameMedico,
       validadeIAS:     reg.validadeIAS,
       categoria:       reg.categoria,
-      turmaId:         reg.turmaId,
+      turmaId:         '',
       taf:             'III',
       tafIVTipo:       '',
-      ciaSecao:        '',
       inseridoEAD:     'Não',
       concluiuEAD:     'Não',
       notaEAD:         '',
@@ -1756,20 +1750,17 @@ async function processImport(rows, map, defaults){
     };
 
     if (existing){
-      if (defaults && defaults.atualizar === false){ ignorados++; return; }
-      // Preserva campos não pertencentes à base central
       Object.assign(existing, {
-        ...existing,
         re:              base.re,
         dg:              base.dg,
         postoGrad:       base.postoGrad,
         nome:            base.nome,
+        ciaSecao:        base.ciaSecao || existing.ciaSecao,
         dataNascimento:  base.dataNascimento || existing.dataNascimento,
         dataExameOdonto: base.dataExameOdonto || existing.dataExameOdonto,
         dataExameMedico: base.dataExameMedico || existing.dataExameMedico,
         validadeIAS:     base.validadeIAS    || existing.validadeIAS,
-        categoria:       defaults ? defaults.categoria : existing.categoria,
-        turmaId:         defaults ? (defaults.turmaId || existing.turmaId) : existing.turmaId
+        categoria:       existing.categoria || base.categoria
       });
       atualizadosLocal++;
     } else {
@@ -1780,6 +1771,7 @@ async function processImport(rows, map, defaults){
 
   saveDB();
   render();
+  hideImportOverlay();
 
   const partes = [
     usarSupabase ? `${enviados} enviado(s) ao Supabase` : null,
@@ -1790,12 +1782,56 @@ async function processImport(rows, map, defaults){
   ].filter(Boolean).join(' • ');
 
   toast(`Importação concluída: ${partes}.`, erros ? 'error' : 'success');
+
+  setActiveTab('efetivo');
+  render();
+}
+
+function showImportOverlay(msg){
+  const el = document.createElement('div');
+  el.className = 'imp-overlay';
+  el.id = 'imp-overlay';
+  el.innerHTML = `
+    <div class="imp-spinner"></div>
+    <p>${escapeHTML(msg)}</p>
+    <small>Aguarde, enviando e sincronizando dados...</small>
+  `;
+  document.body.appendChild(el);
+}
+function hideImportOverlay(){
+  const el = document.getElementById('imp-overlay');
+  if (el) el.remove();
 }
 
 /* ============================================================
    EXPORTAR TURMA EM EXCEL (.xlsx)
+   ------------------------------------------------------------
+   Colunas exportadas (conforme solicitado):
+   Posto/Grad, RE, DG, Nome, TAF, Restrição (TAF IV),
+   Cia/Seção, Nascimento, Validade IAS e Nota EAD
    ============================================================ */
 function exportTurma(turmaId){
+  /* Turmas virtuais do Efetivo 3º B.C. */
+  if (String(turmaId).startsWith('__efetivo_')){
+    const catId = turmaId.replace('__efetivo_', '');
+    const catLabel = catId === 'outros'
+      ? 'Não classificados'
+      : ((CATEGORIES.find(c => c.id === catId) || {}).label || catId);
+    const officers = catId === 'outros'
+      ? db.officers.filter(o => !REAL_CATEGORIES.find(c => c.id === o.categoria))
+      : db.officers.filter(o => o.categoria === catId);
+    if (officers.length === 0){
+      toast('Nenhum policial para exportar.', 'error');
+      return;
+    }
+    exportOfficersList(
+      officers,
+      `Efetivo 3º B.C. — ${catLabel}`,
+      `EAP2027_Efetivo3BC_${catLabel.replace(/[^\w]+/g,'-')}_${todayStamp()}.xlsx`
+    );
+    return;
+  }
+
   const turma = db.turmas.find(t => t.id === turmaId);
   if (!turma) return;
 
@@ -1805,6 +1841,16 @@ function exportTurma(turmaId){
     return;
   }
 
+  const catLabel = (CATEGORIES.find(c => c.id === turma.categoria) || {}).label || turma.categoria;
+  const nomeTurma = String(turma.numero || 'sem-numero').replace(/[^\w\-]+/g,'_');
+  const filename = `EAP2027_${catLabel.replace(/[^\w]+/g,'-')}_Turma-${nomeTurma}_${todayStamp()}.xlsx`;
+
+  exportOfficersList(officers, `Turma ${turma.numero}`, filename);
+  toast(`Turma ${turma.numero}: ${officers.length} policiais exportados em Excel.`, 'success');
+}
+
+/* Lista enxuta de colunas — conforme solicitado pelo usuário */
+function exportOfficersList(officers, sheetTitle, filename){
   const ordemPosto = {};
   POSTOS.forEach((p, i) => { ordemPosto[p] = i; });
   const ordenados = officers.slice().sort((a,b) => {
@@ -1814,16 +1860,23 @@ function exportTurma(turmaId){
     return (a.nome||'').localeCompare(b.nome||'');
   });
 
+  /* >>> Colunas solicitadas: <<< */
   const headers = [
-    'Nº','Posto/Grad','RE','Dg','Nome','TAF','Restrição (TAF IV)','Cia/Seção',
-    'Nascimento','Exame Médico','Exame Odonto','Validade IAS',
-    'Inserido EAD','Concluiu EAD','Nota EAD','Conclusão EAD'
+    'Posto/Grad',
+    'RE',
+    'DG',
+    'Nome',
+    'TAF',
+    'Restrição (TAF IV)',
+    'Cia/Seção',
+    'Nascimento',
+    'Validade IAS',
+    'Nota EAD',
   ];
 
   const rows = [headers];
-  ordenados.forEach((o, i) => {
+  ordenados.forEach(o => {
     rows.push([
-      i + 1,
       o.postoGrad || '',
       o.re || '',
       o.dg || '',
@@ -1831,28 +1884,14 @@ function exportTurma(turmaId){
       o.taf || '',
       o.tafIVTipo || '',
       o.ciaSecao || '',
-      o.dataNascimento  ? fmtDate(o.dataNascimento)  : '',
-      o.dataExameMedico ? fmtDate(o.dataExameMedico) : '',
-      o.dataExameOdonto ? fmtDate(o.dataExameOdonto) : '',
-      o.validadeIAS     ? fmtDate(o.validadeIAS)     : '',
-      o.inseridoEAD || '',
-      o.concluiuEAD || '',
-      o.notaEAD || '',
-      o.dataConclusaoEAD ? fmtDate(o.dataConclusaoEAD) : ''
+      o.dataNascimento ? fmtDate(o.dataNascimento) : '',
+      o.validadeIAS    ? fmtDate(o.validadeIAS)    : '',
+      o.notaEAD || ''
     ]);
   });
 
-  rows.push([]);
-  rows.push(['Total de policiais:', officers.length]);
-
-  const catLabel = (CATEGORIES.find(c => c.id === turma.categoria) || {}).label || turma.categoria;
-  const nomeTurma = String(turma.numero || 'sem-numero').replace(/[^\w\-]+/g,'_');
-  const filename = `EAP2027_${catLabel.replace(/[^\w]+/g,'-')}_Turma-${nomeTurma}_${todayStamp()}.xlsx`;
-
-  const sheetName = `Turma ${turma.numero}`.slice(0, 31);
+  const sheetName = String(sheetTitle).slice(0, 31);
   downloadXLSX([{ name: sheetName, rows }], filename);
-
-  toast(`Turma ${turma.numero}: ${officers.length} policiais exportados em Excel.`, 'success');
 }
 
 /* ============================================================
@@ -1905,7 +1944,7 @@ document.getElementById('btn-template').addEventListener('click', downloadTempla
 /* ---------- SEED ---------- */
 (function seedIfEmpty(){
   if (db.officers.length > 0 || db.turmas.length > 0) return;
-  CATEGORIES.forEach(c => {
+  REAL_CATEGORIES.forEach(c => {
     db.turmas.push({
       id: uid(),
       categoria: c.id,
@@ -1920,7 +1959,7 @@ document.getElementById('btn-template').addEventListener('click', downloadTempla
 })();
 
 /* ---------- Estado inicial ---------- */
-setActiveTab('cb_sd');
+setActiveTab('efetivo');
 render();
 checarConexaoSupabase();
 </script>
