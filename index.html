@@ -57,7 +57,7 @@ header{
 }
 .brand h1{font-size:20px;font-weight:700;letter-spacing:.3px}
 .brand p{font-size:12px;color:rgba(255,255,255,.72);margin-top:3px}
-.header-actions{display:flex;gap:10px;flex-wrap:wrap}
+.header-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .btn{
   display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:var(--radius);
   font-size:13px;font-weight:600;transition:all .18s ease;white-space:nowrap;
@@ -76,6 +76,12 @@ header{
 .btn-danger:hover{background:linear-gradient(180deg,#dc2626,#b91c1c);box-shadow:0 6px 14px rgba(220,38,38,.35)}
 .btn-sm{padding:6px 12px;font-size:12px}
 
+/* Botão sincronizar */
+.btn-sync{background:linear-gradient(180deg,rgba(37,99,235,.35),rgba(37,99,235,.25));border:1px solid rgba(96,165,250,.55);color:#fff;}
+.btn-sync:hover{background:linear-gradient(180deg,rgba(37,99,235,.55),rgba(37,99,235,.4));transform:translateY(-1px)}
+.btn-sync.spinning svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 /* Indicador de status de conexão */
 .conn-status{
   display:inline-flex;align-items:center;gap:6px;padding:5px 10px;
@@ -89,6 +95,8 @@ header{
 }
 .conn-status.online::before{background:#4ade80;box-shadow:0 0 8px #4ade80}
 .conn-status.offline::before{background:#f87171;box-shadow:0 0 8px #f87171}
+.conn-status.syncing::before{background:#60a5fa;box-shadow:0 0 8px #60a5fa;animation:pulse 1s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ---------- TABS ---------- */
 .tabs-bar{background:#fff;border-bottom:1px solid var(--g200);position:sticky;top:92px;z-index:40;box-shadow:0 2px 8px -4px rgba(15,23,42,.05)}
@@ -298,6 +306,9 @@ tbody tr:last-child td{border-bottom:none}
   .brand p{display:none}
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .stat-value{font-size:22px}
+  .header-actions{gap:6px}
+  .header-actions .btn{padding:8px 12px;font-size:12px}
+  .header-actions .btn span.lbl{display:none}
 }
 
 /* ----- Turma concluída ----- */
@@ -325,7 +336,6 @@ tbody tr:last-child td{border-bottom:none}
 /* ----- Import loading overlay ----- */
 .imp-overlay{position:fixed;inset:0;background:rgba(10,30,51,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:18px;color:#fff;}
 .imp-spinner{width:56px;height:56px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gold-400);border-radius:50%;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
 .imp-overlay p{font-size:15px;font-weight:600;letter-spacing:.3px;}
 .imp-overlay small{font-size:12px;color:rgba(255,255,255,.7);}
 </style>
@@ -345,13 +355,17 @@ tbody tr:last-child td{border-bottom:none}
     </div>
     <div class="header-actions">
       <span class="conn-status" id="conn-status" title="Status da conexão com o Supabase">Verificando...</span>
+      <button class="btn btn-ghost btn-sync" id="btn-sync" title="Baixar base central do Supabase para este dispositivo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 01-3 6.7L18 21m3-9a9 9 0 00-15-6.7L3 3m0 9a9 9 0 003 6.7M3 3v6h6M21 21v-6h-6"/></svg>
+        <span class="lbl">Sincronizar</span>
+      </button>
       <button class="btn btn-ghost" id="btn-template" title="Baixar modelo de planilha para base de dados">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
-        Baixar Modelo
+        <span class="lbl">Baixar Modelo</span>
       </button>
       <button class="btn btn-ghost" id="btn-import">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 0L8 7m4-4l4 4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
-        Importar Base
+        <span class="lbl">Importar Base</span>
       </button>
     </div>
   </div>
@@ -359,10 +373,10 @@ tbody tr:last-child td{border-bottom:none}
 
 <div class="tabs-bar">
   <nav class="tabs" id="tabs">
-    <button class="tab active" data-cat="efetivo">Efetivo 3º B.C.</button>
     <button class="tab" data-cat="cb_sd">Cb/Sd</button>
     <button class="tab" data-cat="subten_sgt">Subten/Sgt</button>
     <button class="tab" data-cat="oficiais">Oficiais</button>
+    <button class="tab active" data-cat="efetivo">Efetivo 3º B.C.</button>
   </nav>
 </div>
 
@@ -411,7 +425,7 @@ async function checarConexaoSupabase(){
     el.className = 'conn-status offline';
     el.title = 'Configure SUPABASE_URL e SUPABASE_ANON para ativar a base central.';
     supabaseOnline = false;
-    return;
+    return false;
   }
   try {
     const { error } = await sb
@@ -423,11 +437,22 @@ async function checarConexaoSupabase(){
     el.className = 'conn-status online';
     el.title = 'Conectado à base central de policiais.';
     supabaseOnline = true;
+    return true;
   } catch(err){
     el.textContent = 'Supabase Offline';
     el.className = 'conn-status offline';
     el.title = 'Sem conexão com o Supabase — usando cache local.';
     supabaseOnline = false;
+    return false;
+  }
+}
+
+function setConnStatus(state, text){
+  const el = document.getElementById('conn-status');
+  if (!el) return;
+  if (state === 'syncing'){
+    el.textContent = text || 'Sincronizando...';
+    el.className = 'conn-status syncing';
   }
 }
 
@@ -549,8 +574,8 @@ function toast(msg, type='info'){
   el.className = `toast toast-${type}`;
   el.textContent = msg;
   document.getElementById('toasts').appendChild(el);
-  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity .3s'; }, 3000);
-  setTimeout(() => el.remove(), 3400);
+  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity .3s'; }, 3500);
+  setTimeout(() => el.remove(), 4000);
 }
 function sortTurmas(a,b){
   const da  = a.dataInicio || '9999-99-99';
@@ -562,14 +587,6 @@ function sortTurmas(a,b){
 /* ============================================================
    NORMALIZAÇÃO
    ============================================================ */
-function normalizeCategory(v){
-  if (!v) return null;
-  const s = String(v).toLowerCase().trim();
-  if (['oficiais','oficial','of'].includes(s)) return 'oficiais';
-  if (['subten_sgt','subten/sgt','subten sgt','sgt','subtenente','st/sgt'].includes(s)) return 'subten_sgt';
-  if (['cb_sd','cb/sd','cb sd','cabo','soldado','cabo/soldado'].includes(s)) return 'cb_sd';
-  return null;
-}
 function normalizeDate(v){
   if (!v) return '';
   v = String(v).trim();
@@ -723,7 +740,6 @@ function renderContent(){
     );
   };
 
-  /* ---- MODO EFETIVO 3º B.C. (todas as categorias juntas) ---- */
   if (state.activeCategory === 'efetivo'){
     const todos = db.officers.filter(officerMatches);
 
@@ -732,7 +748,7 @@ function renderContent(){
         <div class="empty-state">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           <h3>Nenhum policial no Efetivo 3º B.C.</h3>
-          <p>Clique em <strong>"Importar Base"</strong> para carregar a planilha com todos os policiais.</p>
+          <p>Clique em <strong>"Importar Base"</strong> para carregar a planilha com todos os policiais, ou em <strong>"Sincronizar"</strong> para baixar da base central.</p>
         </div>`;
       return;
     }
@@ -770,7 +786,6 @@ function renderContent(){
     return;
   }
 
-  /* ---- MODO NORMAL (por categoria) ---- */
   let turmas = db.turmas.filter(t => t.categoria === state.activeCategory).sort(sortTurmas);
 
   if (q){
@@ -784,8 +799,6 @@ function renderContent(){
       _filtered: db.officers.filter(o => o.turmaId === t.id)
     }));
   }
-
-  /* >>> "Sem turma" foi removido: policiais sem turma só aparecem no Efetivo 3º B.C. <<< */
 
   if (turmas.length === 0){
     container.innerHTML = `
@@ -1633,14 +1646,13 @@ function handleParsedRows(rows){
     return;
   }
 
-  /* Importação automática — sempre para o Efetivo 3º B.C., sem turma */
-  processImport(dataRows, map, { categoria: null, turmaId: '', atualizar: true });
+  processImport(dataRows, map);
 }
 
 /* ============================================================
    PROCESSAMENTO DA IMPORTAÇÃO
    ============================================================ */
-async function processImport(rows, map, defaults){
+async function processImport(rows, map){
   let enviados = 0, atualizadosLocal = 0, novosLocal = 0, ignorados = 0, erros = 0;
 
   const total = rows.length;
@@ -1787,6 +1799,148 @@ async function processImport(rows, map, defaults){
   render();
 }
 
+/* ============================================================
+   SINCRONIZAÇÃO COM SUPABASE
+   ------------------------------------------------------------
+   - Baixa todos os policiais da base central
+   - Mescla com o cache local:
+     • Campos da base central (RE, Dg, Posto, Nome, Cia/Seção,
+       Nascimento, IAS Médico, IAS Odonto, Validade IAS) → vêm do servidor
+     • Campos locais (TAF, TAF IV, turma, EAD, categoria) → preservados
+   - Remove do cache local os policiais que não existem mais na nuvem
+     (opcional — mantido o merge para não perder dados locais)
+   ============================================================ */
+async function sincronizarComSupabase({silencioso = false} = {}){
+  if (!sb){
+    if (!silencioso) toast('Supabase não configurado.', 'error');
+    return false;
+  }
+
+  const btn = document.getElementById('btn-sync');
+  if (btn) btn.classList.add('spinning');
+
+  setConnStatus('syncing', 'Sincronizando...');
+
+  try {
+    /* Baixa todos os policiais — paginado em lotes de 1000 */
+    const PAGE = 1000;
+    let from = 0;
+    let todos = [];
+    while (true){
+      const { data, error } = await sb
+        .from('policiais')
+        .select('re,dg,posto_grad,nome,cia_secao,data_nascimento,ias_odonto,ias_medico,validade_ias')
+        .range(from, from + PAGE - 1);
+      if (error) throw error;
+      if (!data || data.length === 0) break;
+      todos = todos.concat(data);
+      if (data.length < PAGE) break;
+      from += PAGE;
+    }
+
+    if (todos.length === 0){
+      if (!silencioso) toast('A base central está vazia.', 'info');
+      return true;
+    }
+
+    /* Mapeia os dados da nuvem em registros canônicos */
+    const nuvem = todos.map(d => ({
+      re:              String(d.re || '').trim(),
+      dg:              d.dg || '',
+      postoGrad:       d.posto_grad || '',
+      nome:            d.nome || '',
+      ciaSecao:        d.cia_secao || '',
+      dataNascimento:  d.data_nascimento || '',
+      dataExameOdonto: d.ias_odonto      || '',
+      dataExameMedico: d.ias_medico      || '',
+      validadeIAS:     d.validade_ias    || ''
+    })).filter(x => x.re);
+
+    /* Índice por RE para mesclagem */
+    const porRE = new Map();
+    db.officers.forEach(o => porRE.set(o.re, o));
+
+    let atualizados = 0, novos = 0;
+
+    /* Função de inferência de categoria pelo posto */
+    const inferirCategoria = (postoGrad) => {
+      if (!postoGrad) return 'cb_sd';
+      const s = String(postoGrad).toUpperCase();
+      if (/(CEL|MAJ|CAP|TEN)\s*PM/.test(s) && !/SUB/.test(s)) return 'oficiais';
+      if (/(SUB|SGT)/.test(s)) return 'subten_sgt';
+      return 'cb_sd';
+    };
+
+    nuvem.forEach(reg => {
+      const existing = porRE.get(reg.re);
+      if (existing){
+        /* Atualiza apenas campos da base central.
+           Preserva TAF, TAF IV, turmaId, EAD e categoria (locais). */
+        existing.dg              = reg.dg              || existing.dg;
+        existing.postoGrad       = reg.postoGrad       || existing.postoGrad;
+        existing.nome            = reg.nome            || existing.nome;
+        existing.ciaSecao        = reg.ciaSecao        || existing.ciaSecao;
+        existing.dataNascimento  = reg.dataNascimento  || existing.dataNascimento;
+        existing.dataExameOdonto = reg.dataExameOdonto || existing.dataExameOdonto;
+        existing.dataExameMedico = reg.dataExameMedico || existing.dataExameMedico;
+        existing.validadeIAS     = reg.validadeIAS     || existing.validadeIAS;
+        atualizados++;
+      } else {
+        db.officers.push({
+          id:              uid(),
+          re:              reg.re,
+          dg:              reg.dg,
+          postoGrad:       reg.postoGrad,
+          nome:            reg.nome,
+          ciaSecao:        reg.ciaSecao,
+          dataNascimento:  reg.dataNascimento,
+          dataExameOdonto: reg.dataExameOdonto,
+          dataExameMedico: reg.dataExameMedico,
+          validadeIAS:     reg.validadeIAS,
+          categoria:       inferirCategoria(reg.postoGrad),
+          turmaId:         '',
+          taf:             'III',
+          tafIVTipo:       '',
+          inseridoEAD:     'Não',
+          concluiuEAD:     'Não',
+          notaEAD:         '',
+          dataConclusaoEAD:''
+        });
+        novos++;
+      }
+    });
+
+    saveDB();
+    render();
+
+    const el = document.getElementById('conn-status');
+    if (el){
+      el.textContent = 'Supabase Online';
+      el.className = 'conn-status online';
+      el.title = `Sincronizado: ${nuvem.length} registro(s) na base central.`;
+    }
+
+    if (!silencioso){
+      toast(`Sincronização concluída: ${novos} novo(s), ${atualizados} atualizado(s).`, 'success');
+    }
+    return true;
+
+  } catch(err){
+    console.error('Falha na sincronização:', err);
+    const el = document.getElementById('conn-status');
+    if (el){
+      el.textContent = 'Supabase Offline';
+      el.className = 'conn-status offline';
+      el.title = 'Falha ao sincronizar.';
+    }
+    if (!silencioso) toast('Falha ao sincronizar: ' + err.message, 'error');
+    return false;
+
+  } finally {
+    if (btn) btn.classList.remove('spinning');
+  }
+}
+
 function showImportOverlay(msg){
   const el = document.createElement('div');
   el.className = 'imp-overlay';
@@ -1805,13 +1959,8 @@ function hideImportOverlay(){
 
 /* ============================================================
    EXPORTAR TURMA EM EXCEL (.xlsx)
-   ------------------------------------------------------------
-   Colunas exportadas (conforme solicitado):
-   Posto/Grad, RE, DG, Nome, TAF, Restrição (TAF IV),
-   Cia/Seção, Nascimento, Validade IAS e Nota EAD
    ============================================================ */
 function exportTurma(turmaId){
-  /* Turmas virtuais do Efetivo 3º B.C. */
   if (String(turmaId).startsWith('__efetivo_')){
     const catId = turmaId.replace('__efetivo_', '');
     const catLabel = catId === 'outros'
@@ -1849,7 +1998,6 @@ function exportTurma(turmaId){
   toast(`Turma ${turma.numero}: ${officers.length} policiais exportados em Excel.`, 'success');
 }
 
-/* Lista enxuta de colunas — conforme solicitado pelo usuário */
 function exportOfficersList(officers, sheetTitle, filename){
   const ordemPosto = {};
   POSTOS.forEach((p, i) => { ordemPosto[p] = i; });
@@ -1860,7 +2008,6 @@ function exportOfficersList(officers, sheetTitle, filename){
     return (a.nome||'').localeCompare(b.nome||'');
   });
 
-  /* >>> Colunas solicitadas: <<< */
   const headers = [
     'Posto/Grad',
     'RE',
@@ -1871,7 +2018,7 @@ function exportOfficersList(officers, sheetTitle, filename){
     'Cia/Seção',
     'Nascimento',
     'Validade IAS',
-    'Nota EAD',
+    'Nota EAD'
   ];
 
   const rows = [headers];
@@ -1940,6 +2087,7 @@ document.getElementById('search').addEventListener('input', e => {
 document.getElementById('btn-new-turma').addEventListener('click', () => openTurmaModal());
 document.getElementById('btn-import').addEventListener('click', importBase);
 document.getElementById('btn-template').addEventListener('click', downloadTemplate);
+document.getElementById('btn-sync').addEventListener('click', () => sincronizarComSupabase());
 
 /* ---------- SEED ---------- */
 (function seedIfEmpty(){
@@ -1961,7 +2109,16 @@ document.getElementById('btn-template').addEventListener('click', downloadTempla
 /* ---------- Estado inicial ---------- */
 setActiveTab('efetivo');
 render();
-checarConexaoSupabase();
+
+/* ---------- Boot: checa conexão e sincroniza automaticamente ---------- */
+(async function boot(){
+  const ok = await checarConexaoSupabase();
+  if (ok){
+    /* Sincroniza silenciosamente ao abrir (não mostra toast se der tudo certo) */
+    await sincronizarComSupabase({ silencioso: true });
+    render();
+  }
+})();
 </script>
 </body>
 </html>
