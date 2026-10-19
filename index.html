@@ -26,11 +26,8 @@
   --cat-oficiais:#c9a44a;   --cat-oficiais-dark:#a8863a;
   --cat-efetivo:#2563eb;    --cat-efetivo-dark:#1d4ed8;
 
-  /* Dimensões do quadrado dourado (turma) */
   --turma-num-size:46px;
   --turma-num-font:clamp(12px, 1.1vw, 16px);
-
-  /* Largura do menu lateral */
   --sidebar-w:240px;
 }
 
@@ -55,10 +52,8 @@ img{max-width:100%;height:auto;display:block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ============================================================
-   3. COMPONENTES COMPARTILHADOS (desktop + mobile)
+   3. COMPONENTES COMPARTILHADOS
    ============================================================ */
-
-/* ---- Botões base ---- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:9px 16px;border-radius:var(--radius);
@@ -78,7 +73,6 @@ img{max-width:100%;height:auto;display:block}
 .btn-danger:hover{background:linear-gradient(180deg,#dc2626,#b91c1c);box-shadow:0 6px 14px rgba(220,38,38,.35)}
 .btn-sm{padding:6px 12px;font-size:12px}
 
-/* ---- Botão sincronizar ---- */
 .btn-sync{
   background:linear-gradient(180deg,#3b82f6,#2563eb);
   border:2px solid #60a5fa;color:#fff;font-weight:700;
@@ -94,7 +88,6 @@ img{max-width:100%;height:auto;display:block}
 .btn-sync.spinning svg{animation:spin 1s linear infinite}
 .btn-sync.spinning{pointer-events:none;opacity:.85}
 
-/* ---- Status de conexão ---- */
 .conn-status{
   display:inline-flex;align-items:center;gap:6px;padding:5px 10px;
   border-radius:20px;font-size:11px;font-weight:700;
@@ -108,7 +101,6 @@ img{max-width:100%;height:auto;display:block}
 .conn-status.offline::before{background:#f87171;box-shadow:0 0 8px #f87171}
 .conn-status.syncing::before{background:#60a5fa;box-shadow:0 0 8px #60a5fa;animation:pulse 1s ease infinite}
 
-/* ---- Email do usuário ---- */
 .user-email{
   display:inline-flex;align-items:center;gap:6px;
   padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;
@@ -117,7 +109,6 @@ img{max-width:100%;height:auto;display:block}
   text-overflow:ellipsis;white-space:nowrap;
 }
 
-/* ---- Botão logout ---- */
 .btn-logout{
   background:linear-gradient(180deg,rgba(220,38,38,.35),rgba(220,38,38,.25));
   border:1px solid rgba(248,113,113,.55);color:#fff;
@@ -127,7 +118,6 @@ img{max-width:100%;height:auto;display:block}
   transform:translateY(-1px);
 }
 
-/* ---- Pills ---- */
 .pill{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.2px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
 .pill-green{background:var(--green-l);color:#15803d;border:1px solid rgba(22,163,74,.2)}
 .pill-red{background:var(--red-l);color:#b91c1c;border:1px solid rgba(220,38,38,.2)}
@@ -135,27 +125,23 @@ img{max-width:100%;height:auto;display:block}
 .pill-blue{background:var(--blue-l);color:#1d4ed8;border:1px solid rgba(37,99,235,.2)}
 .pill-gray{background:var(--g200);color:var(--g700);border:1px solid rgba(100,116,139,.15)}
 
-/* ---- Ações de linha (tabela) ---- */
 .row-actions{display:flex;gap:4px;justify-content:flex-end}
 .row-btn{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--g500);transition:all .15s;flex-shrink:0}
 .row-btn:hover{background:var(--g100);color:var(--navy-700);transform:scale(1.06)}
 .row-btn.danger:hover{background:var(--red-l);color:var(--red)}
 .row-btn svg{width:14px;height:14px}
 
-/* ---- Empty state ---- */
 .empty-state{text-align:center;padding:60px 20px;color:var(--g500)}
 .empty-state svg{width:64px;height:64px;opacity:.35;margin:0 auto 16px;color:var(--navy-600)}
 .empty-state h3{color:var(--g700);font-size:16px;margin-bottom:8px;line-height:1.35}
 .empty-state p{font-size:13px;max-width:440px;margin:0 auto;line-height:1.6;word-break:break-word}
 
-/* ---- Observações da turma ---- */
 .turma-obs{display:flex;gap:10px;padding:12px 20px;background:linear-gradient(180deg,#fffbeb,#fef9ec);border-bottom:1px solid #fcd34d;align-items:flex-start}
 .turma-obs svg{width:16px;height:16px;color:var(--amber);flex-shrink:0;margin-top:2px}
 .turma-obs-content{flex:1;min-width:0}
 .turma-obs-label{font-size:10px;font-weight:800;color:#b45309;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
 .turma-obs-text{font-size:13px;color:var(--g700);white-space:pre-wrap;line-height:1.5;word-break:break-word;overflow-wrap:anywhere}
 
-/* ---- Checkbox wrap ---- */
 .checkbox-wrap{display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:44px;border:1.5px solid var(--g200);border-radius:var(--radius);background:#fff;cursor:pointer;font-size:13px;transition:all .18s;user-select:none}
 .checkbox-wrap:hover{background:var(--g50);border-color:var(--g300)}
 .checkbox-wrap input{width:18px;height:18px;cursor:pointer;flex-shrink:0;accent-color:var(--navy-700)}
@@ -163,68 +149,40 @@ img{max-width:100%;height:auto;display:block}
 .checkbox-wrap.checked{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.1)}
 .checkbox-wrap.checked span{color:#065f46}
 
-/* ============================================================
-   CORREÇÃO — Checkbox dentro de formulário (.field)
-   Neutraliza as regras genéricas de .field input / .field label
-   que quebravam os checkboxes "Inserido no EAD?" e "Concluiu o EAD?"
-   ============================================================ */
 .field .checkbox-wrap{
   display:flex;align-items:center;gap:12px;
   padding:12px 14px;min-height:44px;width:100%;
   border:1.5px solid var(--g200);border-radius:var(--radius);
-  background:#fff;
-  font-size:13px;font-weight:600;color:var(--g700);
+  background:#fff;font-size:13px;font-weight:600;color:var(--g700);
   text-transform:none;letter-spacing:normal;line-height:1.3;
   cursor:pointer;user-select:none;transition:all .18s ease;
 }
 .field .checkbox-wrap:hover{background:var(--g50);border-color:var(--g300)}
-
 .field .checkbox-wrap input[type="checkbox"],
 .field .checkbox-wrap input[type="checkbox"]:hover,
 .field .checkbox-wrap input[type="checkbox"]:focus{
-  width:18px;height:18px;min-width:18px;min-height:18px;
-  flex:0 0 18px;
-  margin:0;padding:0;
-  border:none;border-radius:4px;
-  background:transparent;box-shadow:none;
-  accent-color:var(--navy-700);
-  cursor:pointer;
-  appearance:auto;-webkit-appearance:auto;
+  width:18px;height:18px;min-width:18px;min-height:18px;flex:0 0 18px;
+  margin:0;padding:0;border:none;border-radius:4px;
+  background:transparent;box-shadow:none;accent-color:var(--navy-700);
+  cursor:pointer;appearance:auto;-webkit-appearance:auto;
 }
-.field .checkbox-wrap input[type="checkbox"]:focus-visible{
-  outline:2px solid var(--navy-600);outline-offset:2px;
-}
-
-.field .checkbox-wrap span{
-  font-size:13px;font-weight:600;
-  color:var(--g700);
-  text-transform:none;letter-spacing:normal;line-height:1.3;
-  word-break:break-word;
-}
-
-.field .checkbox-wrap.checked{
-  background:linear-gradient(135deg,#ecfdf5,#d1fae5);
-  border-color:var(--green);
-  box-shadow:0 0 0 3px rgba(22,163,74,.1);
-}
+.field .checkbox-wrap input[type="checkbox"]:focus-visible{outline:2px solid var(--navy-600);outline-offset:2px}
+.field .checkbox-wrap span{font-size:13px;font-weight:600;color:var(--g700);text-transform:none;letter-spacing:normal;line-height:1.3;word-break:break-word}
+.field .checkbox-wrap.checked{background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.1)}
 .field .checkbox-wrap.checked span{color:#065f46}
 
-/* ---- RE auto-fill badge ---- */
 .re-autofill{display:none;font-size:11px;color:var(--green);font-weight:700;align-items:center;gap:5px;margin-top:4px;padding:5px 9px;background:var(--green-l);border-radius:6px;width:fit-content;max-width:100%;line-height:1.3;word-break:break-word}
 .re-autofill.show{display:flex;animation:slideUp .2s ease}
 .re-autofill svg{width:12px;height:12px;flex-shrink:0}
 .re-autofill.warn{color:#b45309;background:var(--amber-l)}
 .re-autofill.info{color:#1d4ed8;background:var(--blue-l)}
 
-/* ---- Auto-number badge ---- */
 .auto-number-badge{display:inline-flex;align-items:center;gap:5px;margin-top:4px;font-size:11px;font-weight:700;color:#15803d;background:var(--green-l);padding:5px 9px;border-radius:6px;width:fit-content;max-width:100%;flex-wrap:wrap;line-height:1.3}
 .auto-number-badge svg{width:12px;height:12px;flex-shrink:0}
 
-/* ---- Section title (form) ---- */
 .section-title{grid-column:span 12;font-size:12px;font-weight:800;color:var(--navy-700);text-transform:uppercase;letter-spacing:.8px;padding:6px 0 6px 12px;margin-top:8px;position:relative;line-height:1.35}
 .section-title::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:linear-gradient(180deg,var(--gold-500),var(--gold-400));border-radius:2px}
 
-/* ---- Form grid base ---- */
 .form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field.col-3{grid-column:span 3}
@@ -241,11 +199,9 @@ img{max-width:100%;height:auto;display:block}
 .field input:disabled,.field select:disabled{background:var(--g100);color:var(--g500);cursor:not-allowed}
 .field .hint{font-size:11px;color:var(--g500);line-height:1.4;word-break:break-word}
 
-/* ---- Conditional group ---- */
 .conditional-group{display:none}
 .conditional-group.show{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;grid-column:span 12;padding:16px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:var(--radius);border:1px solid #fcd34d;animation:slideUp .2s ease}
 
-/* ---- Toast ---- */
 #toasts{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;gap:10px;max-width:calc(100vw - 48px)}
 .toast{background:linear-gradient(180deg,var(--g900),#1a2438);color:#fff;padding:14px 20px;border-radius:var(--radius);box-shadow:var(--shadow-lg);font-size:13px;font-weight:500;display:flex;align-items:center;gap:12px;animation:slideUp .25s cubic-bezier(.16,1,.3,1);min-width:280px;max-width:440px;border:1px solid rgba(255,255,255,.08);word-break:break-word}
 .toast::before{content:'';width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -253,13 +209,11 @@ img{max-width:100%;height:auto;display:block}
 .toast-error::before{background:var(--red);box-shadow:0 0 12px var(--red)}
 .toast-info::before{background:var(--blue);box-shadow:0 0 12px var(--blue)}
 
-/* ---- Import overlay ---- */
 .imp-overlay{position:fixed;inset:0;background:rgba(10,30,51,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:18px;color:#fff;padding:20px;text-align:center}
 .imp-spinner{width:56px;height:56px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gold-400);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0}
 .imp-overlay p{font-size:15px;font-weight:600;letter-spacing:.3px;word-break:break-word}
 .imp-overlay small{font-size:12px;color:rgba(255,255,255,.7);word-break:break-word}
 
-/* ---- Login ---- */
 #login-screen{
   position:fixed;inset:0;z-index:9999;
   background:linear-gradient(135deg,#081a2c 0%, var(--navy-800) 55%, var(--navy-700) 100%);
@@ -300,14 +254,12 @@ img{max-width:100%;height:auto;display:block}
 .login-btn.loading .spinner{display:inline-block}
 .login-btn.loading .btn-text{opacity:.7}
 
-/* ---- Autenticação: esconde app ---- */
 body:not(.autenticado) > header,
 body:not(.autenticado) > .tabs-bar,
 body:not(.autenticado) > main,
 body:not(.autenticado) > .sidebar,
 body:not(.autenticado) > .sidebar-backdrop{display:none !important}
 
-/* ---- Modal base ---- */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,30,51,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;animation:fadeIn .2s ease}
 .modal{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);width:100%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;animation:slideUp .25s cubic-bezier(.16,1,.3,1);overflow:hidden}
 .modal.sm{max-width:540px}
@@ -320,10 +272,8 @@ body:not(.autenticado) > .sidebar-backdrop{display:none !important}
 .modal-foot{padding:16px 24px;border-top:1px solid var(--g200);display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;background:var(--g50);flex-wrap:wrap}
 
 /* ============================================================
-   4. LAYOUT DESKTOP (min-width: 769px)
+   4. LAYOUT DESKTOP
    ============================================================ */
-
-/* ---- Header ---- */
 header{
   background:linear-gradient(135deg,#081a2c 0%, var(--navy-800) 55%, var(--navy-700) 100%);
   color:#fff;padding:20px 28px;box-shadow:0 4px 20px -6px rgba(10,30,51,.4);
@@ -347,7 +297,6 @@ header{
 .brand p{font-size:12px;color:rgba(255,255,255,.72);margin-top:3px;word-break:break-word;line-height:1.35}
 .header-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;min-width:0}
 
-/* ---- Tabs ---- */
 .tabs-bar{background:#fff;border-bottom:1px solid var(--g200);position:sticky;top:92px;z-index:40;box-shadow:0 2px 8px -4px rgba(15,23,42,.05);margin-left:var(--sidebar-w)}
 .tabs{max-width:1600px;margin:0 auto;display:flex;padding:0 28px;gap:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
@@ -363,10 +312,8 @@ header{
 .tab[data-cat="efetivo"].active{color:var(--cat-efetivo-dark);border-bottom-color:var(--cat-efetivo)}
 .tab[data-cat="efetivo"].active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cat-efetivo),transparent);filter:blur(3px)}
 
-/* ---- Main ---- */
 main{max-width:1600px;margin:0 auto;padding:26px 28px 60px;margin-left:var(--sidebar-w)}
 
-/* ---- Stats ---- */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:22px}
 .stat{
   background:#fff;border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);
@@ -386,14 +333,12 @@ body[data-cat="subten_sgt"] .stat.cat-primary::before{background:linear-gradient
 body[data-cat="oficiais"] .stat.cat-primary::before{background:linear-gradient(180deg,var(--gold-400),var(--cat-oficiais))}
 body[data-cat="efetivo"] .stat.cat-primary::before{background:linear-gradient(180deg,#60a5fa,var(--cat-efetivo))}
 
-/* ---- Toolbar ---- */
 .toolbar{display:flex;gap:12px;margin-bottom:22px;flex-wrap:wrap;align-items:center;background:#fff;padding:14px;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid rgba(226,232,240,.8)}
 .search-box{flex:1;min-width:220px;position:relative}
 .search-box svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--g500);pointer-events:none}
 .search-box input{width:100%;padding:11px 14px 11px 40px;border:1.5px solid var(--g200);border-radius:var(--radius);font-size:13px;transition:all .18s;background:var(--g50)}
 .search-box input:focus{outline:none;border-color:var(--navy-600);background:#fff;box-shadow:0 0 0 4px rgba(20,58,92,.08)}
 
-/* ---- Turma card ---- */
 .turma{background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;border:1px solid rgba(226,232,240,.9);transition:box-shadow .2s ease}
 .turma:hover{box-shadow:var(--shadow-md)}
 .turma-head{display:flex;align-items:center;gap:16px;padding:16px 20px;background:linear-gradient(90deg,var(--navy-800),var(--navy-700));color:#fff;cursor:pointer;position:relative;flex-wrap:wrap}
@@ -404,7 +349,6 @@ body[data-cat="subten_sgt"] .turma::before{background:linear-gradient(90deg,var(
 body[data-cat="oficiais"] .turma::before{background:linear-gradient(90deg,var(--gold-400),var(--cat-oficiais))}
 body[data-cat="efetivo"] .turma::before{background:linear-gradient(90deg,var(--cat-efetivo),var(--cat-efetivo-dark))}
 
-/* Quadrado dourado — DESKTOP */
 .turma-num{
   width:var(--turma-num-size);height:var(--turma-num-size);border-radius:12px;
   background:linear-gradient(180deg,var(--gold-400),var(--gold-500));color:var(--navy-900);
@@ -428,7 +372,6 @@ body[data-cat="efetivo"] .turma::before{background:linear-gradient(90deg,var(--c
 .turma.collapsed .turma-body{display:none}
 .turma-body{padding:0}
 
-/* ---- Tabela ---- */
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
 thead th{background:linear-gradient(180deg,#f8fafc,#f1f5f9);text-align:left;padding:12px 14px;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--g600);border-bottom:1px solid var(--g200);white-space:nowrap;position:sticky;top:0}
@@ -440,25 +383,21 @@ tbody tr:last-child td{border-bottom:none}
 .cell-nome{font-weight:500;min-width:180px}
 .cell-muted{color:var(--g500);font-size:12px}
 
-/* ---- Drag & drop ---- */
 tbody tr[draggable="true"]{cursor:default}
 tbody tr.drag-over{background:rgba(37,99,235,.12) !important;outline:2px dashed var(--blue);outline-offset:-2px}
 tbody tr .drag-handle{cursor:grab;user-select:none;touch-action:none;color:var(--g400)}
 tbody tr .drag-handle:active{cursor:grabbing}
 
-/* ---- Turma concluída ---- */
 .turma.concluida{border-color:var(--green);box-shadow:0 0 0 2px rgba(22,163,74,.12), 0 8px 24px -6px rgba(22,163,74,.2)}
 .turma.concluida .turma-head{background:linear-gradient(90deg,#0f3d23,#15803d)}
 .turma.concluida .turma-num{background:linear-gradient(180deg,#86efac,#4ade80);color:#052e16}
 .turma.concluida::before{background:linear-gradient(90deg,#22c55e,#16a34a) !important}
 
-/* ---- Checkbox "Concluída" ---- */
 .turma-check{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);font-size:11px;font-weight:700;color:#fff;cursor:pointer;user-select:none;white-space:nowrap;transition:all .15s;flex-shrink:0}
 .turma-check:hover{background:rgba(255,255,255,.22)}
 .turma-check input{width:14px;height:14px;cursor:pointer;accent-color:#4ade80;flex-shrink:0}
 .turma.concluida .turma-check{background:rgba(74,222,128,.22);border-color:rgba(74,222,128,.5)}
 
-/* ---- Botões no cabeçalho da turma ---- */
 .turma-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;min-width:0}
 .turma-actions .btn{padding:7px 13px;font-size:11px;font-weight:700;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);display:inline-flex;align-items:center;gap:6px;transition:all .15s;box-shadow:none;white-space:nowrap}
 .turma-actions .btn:hover{background:rgba(255,255,255,.22);transform:translateY(-1px)}
@@ -467,25 +406,14 @@ tbody tr .drag-handle:active{cursor:grabbing}
 .turma-actions .btn.btn-export:hover{background:linear-gradient(180deg,rgba(201,164,74,.55),rgba(201,164,74,.4))}
 
 /* ============================================================
-   5. LAYOUT MOBILE (max-width: 768px)
+   5. MOBILE
    ============================================================ */
 @media (max-width:768px){
-
-  /* ---- Ajuste de variáveis ---- */
-  :root{
-    --turma-num-size:42px;
-    --turma-num-font:clamp(11px, 3.5vw, 14px);
-  }
-
-  /* ---- Base ---- */
+  :root{--turma-num-size:42px;--turma-num-font:clamp(11px, 3.5vw, 14px);}
   body{font-size:13.5px}
-
-  /* Header e Main sem margem lateral em mobile (menu vira drawer) */
   header{margin-left:0;padding:14px 16px}
   main{margin-left:0;padding:14px 12px 40px}
   .tabs-bar{margin-left:0;top:0}
-
-  /* ---- Header ---- */
   .header-wrap{flex-direction:column;align-items:stretch;gap:12px}
   .brand{gap:12px;align-items:center}
   .badge{width:46px;height:46px}
@@ -498,37 +426,19 @@ tbody tr .drag-handle:active{cursor:grabbing}
   .conn-status{grid-column:1 / -1;justify-content:center;display:flex;width:100%}
   .btn-sync{padding:10px 12px;min-height:40px}
   .btn-sync .lbl{font-size:12px}
-
-  /* ---- Tabs ---- */
   .tabs{padding:0 12px;gap:0}
   .tab{padding:12px 14px;font-size:12.5px}
-
-  /* ---- Stats ---- */
   .stats-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:16px}
   .stat{padding:12px 14px;border-radius:12px}
   .stat-label{font-size:10px;letter-spacing:.4px}
   .stat-value{font-size:20px}
-
-  /* ---- Toolbar ---- */
   .toolbar{padding:10px;gap:8px;border-radius:12px;margin-bottom:16px}
   .search-box{min-width:0;flex:1 1 100%}
   .search-box input{padding:10px 12px 10px 36px;font-size:13px}
   .search-box svg{left:12px;width:14px;height:14px}
   #btn-new-turma{width:100%;justify-content:center;padding:10px 14px}
-
-  /* ---- Turma card ---- */
   .turma{margin-bottom:14px;border-radius:12px}
-  .turma-head{
-    padding:12px 14px;gap:10px;
-    display:grid;
-    grid-template-columns:var(--turma-num-size) 1fr auto;
-    grid-template-areas:
-      "num  info  chevron"
-      "count count count"
-      "check check check"
-      "actions actions actions";
-    align-items:center;
-  }
+  .turma-head{padding:12px 14px;gap:10px;display:grid;grid-template-columns:var(--turma-num-size) 1fr auto;grid-template-areas:"num info chevron" "count count count" "check check check" "actions actions actions";align-items:center}
   .turma-num{grid-area:num}
   .turma-info{grid-area:info;min-width:0}
   .turma-title{font-size:13.5px;line-height:1.35}
@@ -536,36 +446,20 @@ tbody tr .drag-handle:active{cursor:grabbing}
   .turma-chevron{grid-area:chevron;margin-left:0;width:18px;height:18px}
   .turma-count{grid-area:count;justify-self:start;font-size:11px;padding:5px 11px;margin-top:4px}
   .turma-check{grid-area:check;justify-self:start;font-size:11px;padding:6px 11px;margin-top:4px}
-  .turma-actions{
-    grid-area:actions;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
-    gap:6px;width:100%;margin-top:6px;
-  }
-  .turma-actions .btn{
-    width:100%;justify-content:center;padding:8px 10px;font-size:11px;
-    white-space:normal;text-align:center;line-height:1.2;min-height:38px;
-  }
+  .turma-actions{grid-area:actions;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:6px;width:100%;margin-top:6px}
+  .turma-actions .btn{width:100%;justify-content:center;padding:8px 10px;font-size:11px;white-space:normal;text-align:center;line-height:1.2;min-height:38px}
   .turma-actions .btn svg{width:13px;height:13px}
-
-  /* ---- Observações da turma ---- */
   .turma-obs{padding:10px 14px;gap:8px}
   .turma-obs-text{font-size:12.5px}
   .turma-obs-label{font-size:9.5px}
-
-  /* ---- Tabela ---- */
   table{min-width:820px;font-size:12.5px}
   thead th{padding:10px;font-size:10.5px}
   tbody td{padding:10px}
   .cell-nome{min-width:150px}
-
-  /* ---- Empty state ---- */
   .empty-state{padding:40px 16px}
   .empty-state svg{width:52px;height:52px}
   .empty-state h3{font-size:15px}
   .empty-state p{font-size:12.5px}
-
-  /* ---- Modal ---- */
   .modal-overlay{padding:10px;align-items:flex-start;padding-top:14px;padding-bottom:14px}
   .modal{max-height:calc(100vh - 28px);border-radius:14px}
   .modal.sm{max-width:100%}
@@ -574,95 +468,61 @@ tbody tr .drag-handle:active{cursor:grabbing}
   .modal-body{padding:16px}
   .modal-foot{padding:12px 16px;gap:8px}
   .modal-foot .btn{flex:1 1 auto;justify-content:center;min-width:0;padding:10px 12px;font-size:12.5px}
-
-  /* ---- Form ---- */
   .form-grid{gap:12px}
   .field.col-3,.field.col-4,.field.col-6,.field.col-8,.field.col-12{grid-column:span 12}
-  .field input,.field select,.field textarea{font-size:16px;padding:10px 12px} /* evita zoom iOS */
+  .field input,.field select,.field textarea{font-size:16px;padding:10px 12px}
   .section-title{font-size:11px;padding-left:10px}
   .conditional-group.show{padding:12px;gap:12px}
-
-  /* ---- Checkbox ---- */
   .checkbox-wrap{padding:11px 12px;font-size:13px}
   .checkbox-wrap span{font-size:12.5px}
   .field .checkbox-wrap{padding:11px 12px}
   .field .checkbox-wrap span{font-size:12.5px}
-
-  /* ---- Toasts ---- */
   #toasts{bottom:12px;right:12px;left:12px;max-width:none;align-items:stretch}
   .toast{min-width:0;max-width:none;width:100%;font-size:12.5px;padding:12px 14px;gap:10px}
-
-  /* ---- Login ---- */
   .login-card{padding:28px 22px;max-width:100%}
   .login-card h2{font-size:18px}
   .login-card p.sub{font-size:12.5px;margin-bottom:22px}
   .login-logo{width:58px;height:58px;margin-bottom:16px}
   .login-field input{font-size:16px}
-
-  /* ---- Import overlay ---- */
   .imp-overlay p{font-size:14px}
   .imp-overlay small{font-size:11.5px}
   .imp-spinner{width:48px;height:48px}
 }
-
-/* ============================================================
-   6. MOBILE PEQUENO (max-width: 480px)
-   ============================================================ */
 @media (max-width:480px){
-  :root{
-    --turma-num-size:38px;
-    --turma-num-font:clamp(10px, 3.8vw, 12px);
-  }
-
+  :root{--turma-num-size:38px;--turma-num-font:clamp(10px, 3.8vw, 12px);}
   .brand h1{font-size:14.5px}
   .brand p{font-size:10.5px}
   .badge{width:42px;height:42px}
-
   .header-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
   .header-actions .btn span.lbl{display:none}
   .header-actions .btn svg{width:18px;height:18px}
   .header-actions .user-email,
   .header-actions .conn-status{grid-column:1 / -1}
-
   .stats-row{gap:8px}
   .stat{padding:10px 12px}
   .stat-label{font-size:9.5px}
   .stat-value{font-size:18px}
-
   .tab{padding:10px 12px;font-size:12px}
-
   .turma-head{padding:10px 12px}
   .turma-title{font-size:12.5px}
   .turma-dates{font-size:10.5px}
   .turma-count,.turma-check{font-size:10.5px;padding:5px 10px}
-
   .turma-actions{grid-template-columns:1fr 1fr}
   .turma-actions .btn{font-size:10.5px;padding:7px 8px;min-height:36px}
   .turma-actions .btn svg{width:12px;height:12px}
-
   .toolbar{padding:8px}
   .stat-value{letter-spacing:-.3px}
-
   .login-card{padding:24px 18px}
   .login-card h2{font-size:17px}
   .login-logo{width:52px;height:52px;font-size:15px}
-
   .modal-body{padding:14px}
   .modal-head{padding:12px 14px}
   .modal-head h2{font-size:14px}
   .modal-foot{padding:10px 14px}
   .modal-foot .btn{padding:9px 10px;font-size:12px}
 }
-
-/* ============================================================
-   7. MOBILE MUITO PEQUENO (max-width: 360px)
-   ============================================================ */
 @media (max-width:360px){
-  :root{
-    --turma-num-size:36px;
-    --turma-num-font:clamp(9px, 4vw, 11px);
-  }
-
+  :root{--turma-num-size:36px;--turma-num-font:clamp(9px, 4vw, 11px);}
   .brand h1{font-size:13.5px}
   .badge{width:38px;height:38px}
   .turma-actions{grid-template-columns:1fr}
@@ -670,12 +530,6 @@ tbody tr .drag-handle:active{cursor:grabbing}
   .stat-value{font-size:16px}
   .header-actions{grid-template-columns:1fr 1fr}
 }
-
-/* ============================================================
-   8. AJUSTES FINOS
-   ============================================================ */
-
-/* Telas médias — compacta o cabeçalho da turma */
 @media (max-width:1024px) and (min-width:769px){
   .header-wrap{gap:14px}
   .brand h1{font-size:18px}
@@ -684,8 +538,6 @@ tbody tr .drag-handle:active{cursor:grabbing}
   .turma-actions{flex-basis:100%;justify-content:flex-start}
   .turma-chevron{margin-left:0}
 }
-
-/* Paisagem mobile (altura baixa) */
 @media (max-width:900px) and (orientation:landscape) and (max-height:500px){
   header{padding:10px 14px}
   .header-wrap{flex-direction:row;align-items:center}
@@ -696,27 +548,18 @@ tbody tr .drag-handle:active{cursor:grabbing}
 }
 
 /* ============================================================
-   9. MENU LATERAL ESQUERDO (SIDEBAR)
+   9. MENU LATERAL
    ============================================================ */
 .sidebar{
-  position:fixed;
-  top:0;left:0;bottom:0;
-  width:var(--sidebar-w);
+  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);
   background:linear-gradient(180deg,#081a2c 0%, var(--navy-800) 100%);
-  color:#fff;
-  padding:18px 14px;
-  overflow-y:auto;
-  z-index:60;
+  color:#fff;padding:18px 14px;overflow-y:auto;z-index:60;
   box-shadow:2px 0 14px rgba(0,0,0,.18);
   border-right:1px solid rgba(201,164,74,.25);
   display:flex;flex-direction:column;gap:18px;
   -webkit-overflow-scrolling:touch;
 }
-.sidebar-brand{
-  display:flex;align-items:center;gap:10px;
-  padding-bottom:14px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-}
+.sidebar-brand{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1)}
 .sidebar-brand .badge-sm{
   width:40px;height:40px;border-radius:50%;
   background:radial-gradient(circle at 30% 30%,var(--gold-400),var(--gold-500) 70%);
@@ -727,182 +570,70 @@ tbody tr .drag-handle:active{cursor:grabbing}
 .sidebar-brand .badge-sm img{width:100%;height:100%;object-fit:contain;border-radius:50%}
 .sidebar-brand-title{font-size:13px;font-weight:700;line-height:1.2}
 .sidebar-brand-sub{font-size:10px;color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:.3px}
-
 .sidebar-section{display:flex;flex-direction:column;gap:7px}
-.sidebar-title{
-  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;
-  color:rgba(201,164,74,.95);padding-left:2px;margin-bottom:2px;
-}
-
-/* Lista suspensa de ano */
+.sidebar-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:rgba(201,164,74,.95);padding-left:2px;margin-bottom:2px}
 .year-select-wrap{position:relative}
 .year-select{
-  width:100%;
-  padding:11px 34px 11px 12px;
-  border-radius:9px;
-  background-color:rgba(255,255,255,.06);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.16);
-  font-size:13px;
-  font-weight:700;
-  cursor:pointer;
-  transition:all .15s ease;
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
+  width:100%;padding:11px 34px 11px 12px;border-radius:9px;
+  background-color:rgba(255,255,255,.06);color:#fff;
+  border:1px solid rgba(255,255,255,.16);font-size:13px;font-weight:700;cursor:pointer;
+  transition:all .15s ease;appearance:none;-webkit-appearance:none;-moz-appearance:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e0be6a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-  background-repeat:no-repeat;
-  background-position:right 12px center;
-  background-size:14px;
-  line-height:1.2;
-  outline:none;
+  background-repeat:no-repeat;background-position:right 12px center;background-size:14px;
+  line-height:1.2;outline:none;
 }
-.year-select:hover{
-  background-color:rgba(255,255,255,.14);
-  border-color:rgba(255,255,255,.28);
-}
-.year-select:focus{
-  border-color:var(--gold-400);
-  box-shadow:0 0 0 3px rgba(201,164,74,.25);
-}
-.year-select option{
-  background:#0f2942;
-  color:#fff;
-  padding:8px;
-  font-weight:600;
-}
+.year-select:hover{background-color:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
+.year-select:focus{border-color:var(--gold-400);box-shadow:0 0 0 3px rgba(201,164,74,.25)}
+.year-select option{background:#0f2942;color:#fff;padding:8px;font-weight:600}
 
 .side-nav{
-  display:flex;align-items:center;gap:10px;
-  padding:11px 12px;border-radius:9px;
-  background:rgba(255,255,255,.05);
-  color:rgba(255,255,255,.85);
-  border:1px solid rgba(255,255,255,.12);
-  font-size:13px;font-weight:600;text-align:left;width:100%;
+  display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:9px;
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.85);
+  border:1px solid rgba(255,255,255,.12);font-size:13px;font-weight:600;text-align:left;width:100%;
   cursor:pointer;transition:all .15s ease;
 }
 .side-nav:hover{background:rgba(255,255,255,.14);color:#fff}
 .side-nav.active{
   background:linear-gradient(180deg,var(--gold-400),var(--gold-500));
-  color:var(--navy-900);
-  border-color:var(--gold-400);
+  color:var(--navy-900);border-color:var(--gold-400);
   box-shadow:0 2px 10px rgba(201,164,74,.45);
 }
 .side-nav svg{width:16px;height:16px;flex-shrink:0}
-
 .side-check{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 12px;border-radius:8px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.1);
-  font-size:12.5px;font-weight:600;
-  color:rgba(255,255,255,.85);
-  cursor:pointer;user-select:none;
-  transition:all .15s ease;
+  display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  font-size:12.5px;font-weight:600;color:rgba(255,255,255,.85);cursor:pointer;user-select:none;transition:all .15s ease;
 }
 .side-check:hover{background:rgba(255,255,255,.1);color:#fff}
-.side-check input{
-  width:16px;height:16px;accent-color:var(--gold-500);
-  cursor:pointer;flex-shrink:0;margin:0;
-}
-.side-check.checked{
-  background:rgba(201,164,74,.16);
-  border-color:rgba(201,164,74,.5);
-  color:#fff;
-}
-
+.side-check input{width:16px;height:16px;accent-color:var(--gold-500);cursor:pointer;flex-shrink:0;margin:0}
+.side-check.checked{background:rgba(201,164,74,.16);border-color:rgba(201,164,74,.5);color:#fff}
 .btn-export-all{
-  margin-top:6px;
-  padding:11px 14px;border-radius:9px;
-  background:linear-gradient(180deg,#22c55e,#16a34a);
-  color:#fff;font-size:12.5px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  box-shadow:0 2px 8px rgba(22,163,74,.4);
-  cursor:pointer;transition:all .15s ease;width:100%;border:none;
+  margin-top:6px;padding:11px 14px;border-radius:9px;
+  background:linear-gradient(180deg,#22c55e,#16a34a);color:#fff;
+  font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 2px 8px rgba(22,163,74,.4);cursor:pointer;transition:all .15s ease;width:100%;border:none;
 }
-.btn-export-all:hover{
-  background:linear-gradient(180deg,#16a34a,#15803d);
-  transform:translateY(-1px);
-  box-shadow:0 4px 12px rgba(22,163,74,.5);
-}
+.btn-export-all:hover{background:linear-gradient(180deg,#16a34a,#15803d);transform:translateY(-1px);box-shadow:0 4px 12px rgba(22,163,74,.5)}
 .btn-export-all svg{width:15px;height:15px;flex-shrink:0}
-
-/* Botão hamburguer (visível apenas no mobile) */
 .sidebar-toggle{
-  display:none;
-  width:38px;height:38px;border-radius:9px;
-  background:rgba(255,255,255,.1);color:#fff;
-  border:1px solid rgba(255,255,255,.22);
-  align-items:center;justify-content:center;
-  flex-shrink:0;cursor:pointer;transition:all .15s ease;
+  display:none;width:38px;height:38px;border-radius:9px;
+  background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22);
+  align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:all .15s ease;
 }
 .sidebar-toggle:hover{background:rgba(255,255,255,.2)}
 .sidebar-toggle svg{width:20px;height:20px}
-
-.sidebar-backdrop{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(10,30,51,.55);
-  z-index:55;
-  animation:fadeIn .2s ease;
-}
-
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(10,30,51,.55);z-index:55;animation:fadeIn .2s ease}
 @media (max-width:768px){
-  .sidebar{
-    transform:translateX(-100%);
-    transition:transform .25s cubic-bezier(.16,1,.3,1);
-    width:260px;max-width:85vw;
-  }
+  .sidebar{transform:translateX(-100%);transition:transform .25s cubic-bezier(.16,1,.3,1);width:260px;max-width:85vw}
   .sidebar.open{transform:translateX(0)}
   .sidebar-toggle{display:flex}
   .sidebar-backdrop.show{display:block}
 }
-/* ============================================================
-   COLUNA TAF — largura fixa e formatação uniforme entre turmas
-   (a coluna TAF é a 6ª da tabela: handle, Posto, RE, Dg, Nome, TAF)
-   ============================================================ */
 
-/* 1) Trava a largura da coluna TAF em todas as turmas */
-table th:nth-child(6),
-table td:nth-child(6){
-  width: 200px;
-  min-width: 200px;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 2) Pílulas da coluna TAF: 1 linha fixa + reticências quando estourar */
-table td:nth-child(6) .pill{
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: middle;
-  line-height: 1.5;
-}
-
-/* 3) Ajuste responsivo — telas médias */
-@media (max-width: 768px){
-  table th:nth-child(6),
-  table td:nth-child(6){
-    width: 170px;
-    min-width: 170px;
-    max-width: 170px;
-  }
-}
-
-/* 4) Ajuste responsivo — telas pequenas */
-@media (max-width: 480px){
-  table th:nth-child(6),
-  table td:nth-child(6){
-    width: 145px;
-    min-width: 145px;
-    max-width: 145px;
-  }
-}
+table th:nth-child(6),table td:nth-child(6){width:200px;min-width:200px;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table td:nth-child(6) .pill{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle;line-height:1.5}
+@media (max-width:768px){table th:nth-child(6),table td:nth-child(6){width:170px;min-width:170px;max-width:170px}}
+@media (max-width:480px){table th:nth-child(6),table td:nth-child(6){width:145px;min-width:145px;max-width:145px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -967,9 +698,8 @@ table td:nth-child(6) .pill{
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
-  <img src="p3.png" alt="PM" 
-       style="width:100%;height:100%;object-fit:contain;border-radius:50%;"
-       onerror="this.style.display='none';this.parentElement.textContent='PM';">
+      <img src="p3.png" alt="PM" style="width:100%;height:100%;object-fit:contain;border-radius:50%;"
+           onerror="this.style.display='none';this.parentElement.textContent='PM';">
     </div>
     <h2>EAP 2027</h2>
     <p class="sub">Estágio de Atualização Profissional<br>Acesso restrito — identifique-se</p>
@@ -979,18 +709,14 @@ table td:nth-child(6) .pill{
     <form id="login-form" autocomplete="on">
       <div class="login-field">
         <label for="login-email">E-mail institucional</label>
-        <input type="email" id="login-email" name="email"
-               required placeholder="seuemail@exemplo.com"
-               autocomplete="username">
+        <input type="email" id="login-email" name="email" required
+               placeholder="seuemail@exemplo.com" autocomplete="username">
       </div>
-
       <div class="login-field">
         <label for="login-password">Senha</label>
-        <input type="password" id="login-password" name="password"
-               required placeholder="••••••••"
-               autocomplete="current-password" minlength="6">
+        <input type="password" id="login-password" name="password" required
+               placeholder="••••••••" autocomplete="current-password" minlength="6">
       </div>
-
       <button type="submit" class="login-btn" id="login-btn">
         <span class="spinner"></span>
         <span class="btn-text">Entrar no Sistema</span>
@@ -1006,9 +732,8 @@ table td:nth-child(6) .pill{
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
       <div class="badge">
-          <img src="p3.png" alt="PM" 
-       style="width:100%;height:100%;object-fit:contain;border-radius:50%;"
-       onerror="this.style.display='none';this.parentElement.textContent='PM';">
+        <img src="p3.png" alt="PM" style="width:100%;height:100%;object-fit:contain;border-radius:50%;"
+             onerror="this.style.display='none';this.parentElement.textContent='PM';">
       </div>
       <div>
         <h1>EAP 2027 — Estágio de Atualização Profissional</h1>
@@ -1020,10 +745,10 @@ table td:nth-child(6) .pill{
       <span class="conn-status" id="conn-status" title="Status da conexão com o Supabase">Verificando...</span>
       <button class="btn btn-ghost btn-sync" id="btn-sync" title="Baixar base central do Supabase para este dispositivo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-  <polyline points="23 4 23 10 17 10"></polyline>
-  <polyline points="1 20 1 14 7 14"></polyline>
-  <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"></path>
-</svg>
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <polyline points="1 20 1 14 7 14"></polyline>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"></path>
+        </svg>
         <span class="lbl">Sincronizar</span>
       </button>
       <button class="btn btn-ghost" id="btn-template" title="Baixar modelo de planilha para base de dados">
@@ -1082,6 +807,9 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 let sb = null;
 let supabaseOnline = false;
 
+/* Checagem de tabelas (cache) */
+let eapTablesOk = null; // null = desconhecido, true/false = resultado
+
 try {
   if (window.supabase && SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('SEU-PROJETO')){
     sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
@@ -1091,35 +819,30 @@ try {
 }
 
 /* ============================================================
-   AUTENTICAÇÃO — Login / Logout / Sessão
+   AUTENTICAÇÃO
    ============================================================ */
-
 function mostrarLogin(){
   document.body.classList.remove('autenticado');
   const tela = document.getElementById('login-screen');
   if (tela) tela.classList.remove('hidden');
 }
-
 function esconderLogin(){
   document.body.classList.add('autenticado');
   const tela = document.getElementById('login-screen');
   if (tela) tela.classList.add('hidden');
 }
-
 function mostrarErroLogin(msg){
   const el = document.getElementById('login-error');
   if (!el) return;
   el.textContent = msg;
   el.classList.add('show');
 }
-
 function limparErroLogin(){
   const el = document.getElementById('login-error');
   if (!el) return;
   el.textContent = '';
   el.classList.remove('show');
 }
-
 function traduzirErroAuth(msg){
   const m = String(msg || '').toLowerCase();
   if (m.includes('invalid login credentials')) return 'E-mail ou senha incorretos.';
@@ -1129,22 +852,18 @@ function traduzirErroAuth(msg){
   if (m.includes('network'))                   return 'Falha de rede. Verifique sua conexão.';
   return 'Não foi possível entrar: ' + msg;
 }
-
 async function fazerLogin(email, senha){
   if (!sb) throw new Error('Supabase não está configurado.');
   const { data, error } = await sb.auth.signInWithPassword({
-    email: email.trim().toLowerCase(),
-    password: senha
+    email: email.trim().toLowerCase(), password: senha
   });
   if (error) throw error;
   return data;
 }
-
 async function fazerLogout(){
   if (!sb) return;
   try { await sb.auth.signOut(); } catch(e){ console.warn(e); }
 }
-
 function atualizarEmailHeader(user){
   const el = document.getElementById('user-email');
   if (!el) return;
@@ -1156,7 +875,6 @@ function atualizarEmailHeader(user){
     el.title = '';
   }
 }
-
 async function entrarNoApp(user){
   esconderLogin();
   atualizarEmailHeader(user);
@@ -1172,7 +890,6 @@ async function entrarNoApp(user){
   }
   render();
 }
-
 async function checarConexaoSupabase(){
   const el = document.getElementById('conn-status');
   if (!sb){
@@ -1184,28 +901,19 @@ async function checarConexaoSupabase(){
     supabaseOnline = false;
     return false;
   }
-
   const timeout = new Promise((_, reject) =>
     setTimeout(() => reject(new Error('Timeout ao verificar conexão (8s)')), 8000)
   );
-
   try {
-    console.log('[conn] verificando...');
-    const tarefa = sb
-      .from('policiais')
-      .select('re', { count: 'exact', head: true })
-      .limit(1);
-
+    const tarefa = sb.from('policiais').select('re', { count: 'exact', head: true }).limit(1);
     const { error } = await Promise.race([tarefa, timeout]);
     if (error) throw error;
-
     if (el){
       el.textContent = 'Supabase Online';
       el.className = 'conn-status online';
       el.title = 'Conectado à base central de policiais.';
     }
     supabaseOnline = true;
-    console.log('[conn] ok');
     return true;
   } catch(err){
     console.error('[conn] falha:', err);
@@ -1218,7 +926,6 @@ async function checarConexaoSupabase(){
     return false;
   }
 }
-
 function setConnStatus(state, text){
   const el = document.getElementById('conn-status');
   if (!el) return;
@@ -1229,11 +936,10 @@ function setConnStatus(state, text){
 }
 
 /* ============================================================
-   EAP 2027 — APP PRINCIPAL
+   APP PRINCIPAL
    ============================================================ */
 const AVAILABLE_YEARS = [2027, 2028, 2029, 2030];
 let currentYear = 2027;
-
 function storageKeyForYear(year){ return `eap${year}_db_v1`; }
 
 function loadDBForYear(year){
@@ -1254,13 +960,12 @@ db.turmas.forEach(t => {
   if (typeof t.concluida !== 'boolean') t.concluida = false;
   if (typeof t.observacoes !== 'string') t.observacoes = '';
 });
-
 function saveDB(){ localStorage.setItem(storageKeyForYear(currentYear), JSON.stringify(db)); }
 
 const CATEGORIES = [
-  { id: 'cb_sd',      label: 'Cb/Sd',          color: '#16a34a' },
-  { id: 'subten_sgt', label: 'Subten/Sgt',     color: '#dc2626' },
-  { id: 'oficiais',   label: 'Oficiais',       color: '#c9a44a' },
+  { id: 'cb_sd',      label: 'Cb/Sd',           color: '#16a34a' },
+  { id: 'subten_sgt', label: 'Subten/Sgt',      color: '#dc2626' },
+  { id: 'oficiais',   label: 'Oficiais',        color: '#c9a44a' },
   { id: 'efetivo',    label: 'Efetivo 3º B.C.', color: '#2563eb' }
 ];
 const REAL_CATEGORIES = CATEGORIES.filter(c => c.id !== 'efetivo');
@@ -1277,54 +982,12 @@ const POSTOS = ['Cel PM','Ten Cel PM','Maj PM','Cap PM','1° TEN PM','2° TEN PM
 const state = { activeCategory: 'efetivo', search: '' };
 
 /* ============================================================
-   PERSISTÊNCIA LOCAL — ano a ano
-   ============================================================ */
-function switchYear(year){
-  if (year === currentYear) return;
-  saveDB();
-  currentYear = year;
-  db = loadDBForYear(year);
-  db.turmas.forEach(t => {
-    if (typeof t.concluida !== 'boolean') t.concluida = false;
-    if (typeof t.observacoes !== 'string') t.observacoes = '';
-  });
-  seedYearIfEmpty();
-  updateYearSelector();
-  render();
-  toast(`Ano alterado para ${year}.`, 'info');
-}
-
-function updateYearSelector(){
-  const sel = document.getElementById('year-select');
-  if (sel) sel.value = String(currentYear);
-}
-
-function seedYearIfEmpty(){
-  if (db.officers.length > 0 || db.turmas.length > 0) return;
-  REAL_CATEGORIES.forEach(c => {
-    db.turmas.push({
-      id: uid(),
-      categoria: c.id,
-      numero: 'I',
-      dataInicio: '',
-      dataFim: '',
-      concluida: false,
-      observacoes: ''
-    });
-  });
-  saveDB();
-}
-
-/* ============================================================
-   HELPERS
+   HELPERS GERAIS
    ============================================================ */
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
-
 function escapeHTML(s){
   if (s == null) return '';
-  return String(s).replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function fmtDate(iso){
   if (!iso) return '—';
@@ -1360,15 +1023,9 @@ function romanToInt(r){
 }
 function intToRoman(num){
   if (!num || num < 1 || num > 3999) return String(num);
-  const map = [
-    ['M',1000],['CM',900],['D',500],['CD',400],
-    ['C',100],['XC',90],['L',50],['XL',40],
-    ['X',10],['IX',9],['V',5],['IV',4],['I',1]
-  ];
+  const map = [['M',1000],['CM',900],['D',500],['CD',400],['C',100],['XC',90],['L',50],['XL',40],['X',10],['IX',9],['V',5],['IV',4],['I',1]];
   let out = '';
-  for (const [sym, val] of map){
-    while (num >= val){ out += sym; num -= val; }
-  }
+  for (const [sym, val] of map){ while (num >= val){ out += sym; num -= val; } }
   return out;
 }
 function proximaNumeracaoTurma(categoria){
@@ -1398,7 +1055,42 @@ function sortTurmas(a,b){
 }
 
 /* ============================================================
-   ORDENAÇÃO MANUAL (drag & drop) — por turma + sync Supabase
+   ANO / PERSISTÊNCIA
+   ============================================================ */
+function switchYear(year){
+  if (year === currentYear) return;
+  saveDB();
+  currentYear = year;
+  db = loadDBForYear(year);
+  db.turmas.forEach(t => {
+    if (typeof t.concluida !== 'boolean') t.concluida = false;
+    if (typeof t.observacoes !== 'string') t.observacoes = '';
+  });
+  seedYearIfEmpty();
+  updateYearSelector();
+  render();
+  toast(`Ano alterado para ${year}.`, 'info');
+  if (sb && supabaseOnline){
+    sincronizarComSupabase({ silencioso: true });
+  }
+}
+function updateYearSelector(){
+  const sel = document.getElementById('year-select');
+  if (sel) sel.value = String(currentYear);
+}
+function seedYearIfEmpty(){
+  if (db.officers.length > 0 || db.turmas.length > 0) return;
+  REAL_CATEGORIES.forEach(c => {
+    db.turmas.push({
+      id: uid(), categoria: c.id, numero: 'I',
+      dataInicio: '', dataFim: '', concluida: false, observacoes: ''
+    });
+  });
+  saveDB();
+}
+
+/* ============================================================
+   ORDENAÇÃO MANUAL
    ============================================================ */
 function sortOfficersManual(a, b){
   const oa = (typeof a.ordemManual === 'number') ? a.ordemManual : 999999;
@@ -1407,54 +1099,162 @@ function sortOfficersManual(a, b){
   return (a.nome || '').localeCompare(b.nome || '', 'pt-BR');
 }
 
-async function aplicarOrdemManual(listaIds){
-  listaIds.forEach((id, idx) => {
-    const o = db.officers.find(x => x.id === id);
-    if (o) o.ordemManual = idx;
-  });
-  saveDB();
-
-  if (sb && supabaseOnline){
-    try {
-      const updates = listaIds.map((id, idx) => {
-        const o = db.officers.find(x => x.id === id);
-        return o ? { re: o.re, ordem_manual: idx } : null;
-      }).filter(Boolean);
-
-      const LOTE = 20;
-      for (let i = 0; i < updates.length; i += LOTE){
-        const lote = updates.slice(i, i + LOTE);
-        await Promise.all(lote.map(u =>
-          sb.from('policiais')
-            .update({ ordem_manual: u.ordem_manual })
-            .eq('re', u.re)
-        ));
-      }
-    } catch(e){
-      console.warn('Falha ao sincronizar ordem com Supabase:', e);
+/* ============================================================
+   EAP — Helpers de sincronização (tabelas novas)
+   ============================================================ */
+async function checkEapTables(){
+  if (eapTablesOk !== null) return eapTablesOk;
+  if (!sb) { eapTablesOk = false; return false; }
+  try {
+    const { error } = await sb.from('eap_turmas').select('id').limit(1);
+    if (error && (error.code === '42P01' || /does not exist/i.test(error.message || ''))){
+      eapTablesOk = false;
+    } else if (error){
+      console.warn('[eap] check:', error);
+      eapTablesOk = false;
+    } else {
+      eapTablesOk = true;
     }
+  } catch {
+    eapTablesOk = false;
+  }
+  return eapTablesOk;
+}
+
+function turmaToRow(t){
+  return {
+    id: String(t.id),
+    ano: currentYear,
+    categoria: t.categoria,
+    numero: t.numero,
+    data_inicio: t.dataInicio || null,
+    data_fim: t.dataFim || null,
+    concluida: !!t.concluida,
+    observacoes: t.observacoes || '',
+    updated_at: new Date().toISOString()
+  };
+}
+
+function buildAlocacaoRow(o){
+  return {
+    re: String(o.re),
+    ano: currentYear,
+    turma_id: o.turmaId || null,
+    categoria: o.categoria || null,
+    taf: o.taf || 'III',
+    taf_iv_tipo: o.tafIVTipo || '',
+    inserido_ead: o.inseridoEAD || 'Não',
+    concluiu_ead: o.concluiuEAD || 'Não',
+    nota_ead: o.notaEAD || '',
+    data_conclusao_ead: o.dataConclusaoEAD || null,
+    ordem_manual: (typeof o.ordemManual === 'number') ? o.ordemManual : null,
+    updated_at: new Date().toISOString()
+  };
+}
+
+async function syncTurmaSupabase(turma){
+  if (!sb || !supabaseOnline || !turma) return;
+  if (!(await checkEapTables())) return;
+  try {
+    const { error } = await sb.from('eap_turmas').upsert(turmaToRow(turma));
+    if (error) console.warn('syncTurma:', error);
+  } catch(e){ console.warn('syncTurma:', e); }
+}
+
+async function deleteTurmaSupabase(turmaId){
+  if (!sb || !supabaseOnline) return;
+  if (!(await checkEapTables())) return;
+  try {
+    await sb.from('eap_turmas').delete().eq('id', turmaId).eq('ano', currentYear);
+    await sb.from('eap_alocacoes').update({ turma_id: null }).eq('ano', currentYear).eq('turma_id', turmaId);
+  } catch(e){ console.warn('deleteTurma:', e); }
+}
+
+async function syncAlocacaoSupabase(o){
+  if (!sb || !supabaseOnline || !o || !o.re) return;
+  if (!(await checkEapTables())) return;
+  try {
+    const { error } = await sb.from('eap_alocacoes').upsert(buildAlocacaoRow(o));
+    if (error) console.warn('syncAlocacao:', error);
+  } catch(e){ console.warn('syncAlocacao:', e); }
+}
+
+async function deleteAlocacaoSupabase(re){
+  if (!sb || !supabaseOnline || !re) return;
+  if (!(await checkEapTables())) return;
+  try {
+    await sb.from('eap_alocacoes').delete().eq('re', String(re)).eq('ano', currentYear);
+  } catch(e){ console.warn('deleteAlocacao:', e); }
+}
+
+/* --- Migração local → nuvem (uma vez por device+ano) --- */
+async function migrarLocalParaCloudUmaVez(){
+  const key = `eap_migrated_v2_${currentYear}`;
+  if (localStorage.getItem(key) === '1') return;
+  if (!(await checkEapTables())) return;
+  try {
+    // Turmas: push local-only
+    const { data: cloudT } = await sb.from('eap_turmas').select('id').eq('ano', currentYear);
+    const cloudIds = new Set((cloudT || []).map(t => String(t.id)));
+    const turmasPend = db.turmas.filter(t => !cloudIds.has(String(t.id)));
+    if (turmasPend.length){
+      const { error } = await sb.from('eap_turmas').upsert(turmasPend.map(turmaToRow));
+      if (error) console.warn('[migrate] turmas:', error);
+    }
+
+    // Alocações: push local-only (para policiais com dados relevantes)
+    const { data: cloudA } = await sb.from('eap_alocacoes').select('re').eq('ano', currentYear);
+    const cloudREs = new Set((cloudA || []).map(a => String(a.re)));
+    const alocPend = db.officers
+      .filter(o => o.re && !cloudREs.has(String(o.re)))
+      .filter(o => o.turmaId || o.taf === 'IV' || o.inseridoEAD === 'Sim' ||
+                   o.concluiuEAD === 'Sim' || typeof o.ordemManual === 'number');
+
+    if (alocPend.length){
+      const LOTE = 100;
+      for (let i = 0; i < alocPend.length; i += LOTE){
+        const lote = alocPend.slice(i, i + LOTE).map(buildAlocacaoRow);
+        const { error } = await sb.from('eap_alocacoes').upsert(lote);
+        if (error) console.warn('[migrate] alocacoes:', error);
+      }
+    }
+    localStorage.setItem(key, '1');
+  } catch(e){
+    console.warn('[migrate] falha (tentará novamente no próximo sync):', e);
   }
 }
 
+/* --- Enviar ordem de uma turma --- */
 async function enviarOrdemTurmaSupabase(officers){
   if (!sb || !supabaseOnline) return;
+  if (!(await checkEapTables())) return;
   try {
     const LOTE = 20;
     for (let i = 0; i < officers.length; i += LOTE){
-      const lote = officers.slice(i, i + LOTE);
-      await Promise.all(lote.map(o =>
-        sb.from('policiais')
-          .update({ ordem_manual: o.ordemManual })
-          .eq('re', o.re)
-      ));
+      const lote = officers.slice(i, i + LOTE).filter(o => o.re).map(buildAlocacaoRow);
+      if (!lote.length) continue;
+      const { error } = await sb.from('eap_alocacoes').upsert(lote);
+      if (error) console.warn('[ordem] upsert:', error);
     }
   } catch(e){
     console.warn('Falha ao sincronizar ordem automática:', e);
   }
 }
 
+async function aplicarOrdemManual(listaIds){
+  listaIds.forEach((id, idx) => {
+    const o = db.officers.find(x => x.id === id);
+    if (o) o.ordemManual = idx;
+  });
+  saveDB();
+  if (sb && supabaseOnline){
+    const officers = listaIds.map(id => db.officers.find(x => x.id === id)).filter(Boolean);
+    await enviarOrdemTurmaSupabase(officers);
+  }
+}
+
 /* ============================================================
-   NORMALIZAÇÃO
+   NORMALIZAÇÃO / CSV / XLSX
    ============================================================ */
 function normalizeDate(v){
   if (!v) return '';
@@ -1473,51 +1273,35 @@ function normalizeDate(v){
 }
 function normalizeHeader(h){
   if (!h) return null;
-  const s = String(h).toLowerCase().trim()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]/g, '');
-
+  const s = String(h).toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
   const tabela = {
     'postograd':'postoGrad','posto':'postoGrad','graduacao':'postoGrad','postograduacao':'postoGrad',
-    're':'re','registro':'re','registropolicial':'re','registropm':'re',
-    'renumero':'re','numerore':'re','nre':'re','numre':'re','repm':'re',
+    're':'re','registro':'re','registropolicial':'re','registropm':'re','renumero':'re','numerore':'re','nre':'re','numre':'re','repm':'re',
     'dg':'dg','digito':'dg',
     'nome':'nome','nomedeguerra':'nome','nomecompleto':'nome',
     'su':'su','secao':'ciaSecao','ciasecao':'ciaSecao','cia':'ciaSecao','ciaseccao':'ciaSecao','ciasecaopm':'ciaSecao',
     'taf':'taf',
-    'restricaotafiv':'tafIVTipo','restricao':'tafIVTipo','restricaoseiftafiv':'tafIVTipo',
-    'tafiv':'tafIVTipo','tafivtipo':'tafIVTipo','tipoderestricao':'tafIVTipo',
+    'restricaotafiv':'tafIVTipo','restricao':'tafIVTipo','restricaoseiftafiv':'tafIVTipo','tafiv':'tafIVTipo','tafivtipo':'tafIVTipo','tipoderestricao':'tafIVTipo',
     'datadenascimento':'dataNascimento','datanascimento':'dataNascimento','nascimento':'dataNascimento',
-    'datadoexamedemedico':'dataExameMedico','dataexamedemedico':'dataExameMedico',
-    'examedemedico':'dataExameMedico','examedico':'dataExameMedico',
-    'iasmedico':'dataExameMedico','iasmed':'dataExameMedico',
-    'datadoexameodonto':'dataExameOdonto','dataexameodonto':'dataExameOdonto',
-    'examedeodonto':'dataExameOdonto','exameodonto':'dataExameOdonto',
-    'iasodonto':'dataExameOdonto','iasodon':'dataExameOdonto',
+    'datadoexamedemedico':'dataExameMedico','dataexamedemedico':'dataExameMedico','examedemedico':'dataExameMedico','examedico':'dataExameMedico','iasmedico':'dataExameMedico','iasmed':'dataExameMedico',
+    'datadoexameodonto':'dataExameOdonto','dataexameodonto':'dataExameOdonto','examedeodonto':'dataExameOdonto','exameodonto':'dataExameOdonto','iasodonto':'dataExameOdonto','iasodon':'dataExameOdonto',
     'validadeias':'validadeIAS','ias':'validadeIAS',
     'inseridoead':'inseridoEAD','inseridono':'inseridoEAD',
     'concluiuead':'concluiuEAD','concluiuoead':'concluiuEAD',
     'notaead':'notaEAD',
     'datadeconclusaoead':'dataConclusaoEAD','dataconclusaoead':'dataConclusaoEAD','conclusaoead':'dataConclusaoEAD',
-    'categoria':'categoria','turma':'turma',
-    'ordemmanual':'ordemManual','ordem':'ordemManual'
+    'categoria':'categoria','turma':'turma','ordemmanual':'ordemManual','ordem':'ordemManual'
   };
   return tabela[s] || null;
 }
-
-/* ============================================================
-   CSV PARSER / WRITER
-   ============================================================ */
 function parseCSV(text){
   const rows = [];
   let row = [], field = '', inQuotes = false;
   for (let i=0;i<text.length;i++){
     const c = text[i];
     if (inQuotes){
-      if (c === '"'){
-        if (text[i+1] === '"'){ field += '"'; i++; }
-        else inQuotes = false;
-      } else field += c;
+      if (c === '"'){ if (text[i+1] === '"'){ field += '"'; i++; } else inQuotes = false; }
+      else field += c;
     } else {
       if (c === '"') inQuotes = true;
       else if (c === ',' || c === ';'){ row.push(field); field=''; }
@@ -1544,10 +1328,7 @@ function downloadCSV(rows, filename){
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 function downloadXLSX(sheets, filename){
-  if (typeof XLSX === 'undefined'){
-    toast('Biblioteca de Excel não carregada.', 'error');
-    return;
-  }
+  if (typeof XLSX === 'undefined'){ toast('Biblioteca de Excel não carregada.', 'error'); return; }
   const wb = XLSX.utils.book_new();
   sheets.forEach(({ name, rows }) => {
     const ws = XLSX.utils.aoa_to_sheet(rows);
@@ -1571,20 +1352,12 @@ function todayStamp(){
 /* ============================================================
    RENDER
    ============================================================ */
-function render(){
-  renderStats();
-  renderContent();
-}
+function render(){ renderStats(); renderContent(); }
 
 function renderStats(){
   const isEfetivo = state.activeCategory === 'efetivo';
-  const officers = isEfetivo
-    ? db.officers
-    : db.officers.filter(o => o.categoria === state.activeCategory);
-  const turmas = isEfetivo
-    ? db.turmas
-    : db.turmas.filter(t => t.categoria === state.activeCategory);
-
+  const officers = isEfetivo ? db.officers : db.officers.filter(o => o.categoria === state.activeCategory);
+  const turmas   = isEfetivo ? db.turmas   : db.turmas.filter(t => t.categoria === state.activeCategory);
   const total          = officers.length;
   const eadInseridos   = officers.filter(o => o.inseridoEAD === 'Sim').length;
   const eadConcluidos  = officers.filter(o => o.concluiuEAD === 'Sim').length;
@@ -1602,7 +1375,6 @@ function renderStats(){
 function renderContent(){
   const container = document.getElementById('content');
   const q = state.search.trim().toLowerCase();
-
   const officerMatches = o => {
     if (!q) return true;
     return [o.re,o.nome,o.ciaSecao,o.postoGrad,o.turma,o.taf].some(v =>
@@ -1612,7 +1384,6 @@ function renderContent(){
 
   if (state.activeCategory === 'efetivo'){
     const todos = db.officers.filter(officerMatches).sort(sortOfficersManual);
-
     if (todos.length === 0){
       container.innerHTML = `
         <div class="empty-state">
@@ -1622,60 +1393,43 @@ function renderContent(){
         </div>`;
       return;
     }
-
     let html = '';
     REAL_CATEGORIES.forEach(cat => {
       const grupo = todos.filter(o => o.categoria === cat.id).sort(sortOfficersManual);
       if (grupo.length === 0) return;
       html += renderTurma({
         id: '__efetivo_' + cat.id,
-        numero: cat.label,
-        categoria: cat.id,
-        dataInicio: '',
-        dataFim: '',
+        numero: cat.label, categoria: cat.id,
+        dataInicio: '', dataFim: '',
         _virtual: true,
         _tituloCustom: 'Efetivo 3º B.C. — ' + cat.label
       }, grupo);
     });
-
-    const semCat = todos
-      .filter(o => !REAL_CATEGORIES.find(c => c.id === o.categoria))
-      .sort(sortOfficersManual);
+    const semCat = todos.filter(o => !REAL_CATEGORIES.find(c => c.id === o.categoria)).sort(sortOfficersManual);
     if (semCat.length){
       html += renderTurma({
-        id: '__efetivo_outros',
-        numero: '—',
-        categoria: 'cb_sd',
-        dataInicio: '',
-        dataFim: '',
-        _virtual: true,
+        id: '__efetivo_outros', numero: '—', categoria: 'cb_sd',
+        dataInicio: '', dataFim: '', _virtual: true,
         _tituloCustom: 'Efetivo 3º B.C. — Não classificados'
       }, semCat);
     }
-
     container.innerHTML = html;
     bindTurmaEvents(container);
     return;
   }
 
   let turmas = db.turmas.filter(t => t.categoria === state.activeCategory).sort(sortTurmas);
-
   if (q){
     turmas = turmas.map(t => ({
       ...t,
-      _filtered: db.officers
-        .filter(o => o.turmaId === t.id && officerMatches(o))
-        .sort(sortOfficersManual)
+      _filtered: db.officers.filter(o => o.turmaId === t.id && officerMatches(o)).sort(sortOfficersManual)
     })).filter(t => t._filtered.length > 0);
   } else {
     turmas = turmas.map(t => ({
       ...t,
-      _filtered: db.officers
-        .filter(o => o.turmaId === t.id)
-        .sort(sortOfficersManual)
+      _filtered: db.officers.filter(o => o.turmaId === t.id).sort(sortOfficersManual)
     }));
   }
-
   if (turmas.length === 0){
     container.innerHTML = `
       <div class="empty-state">
@@ -1685,7 +1439,6 @@ function renderContent(){
       </div>`;
     return;
   }
-
   let html = '';
   turmas.forEach(t => html += renderTurma(t, t._filtered));
   container.innerHTML = html;
@@ -1699,7 +1452,6 @@ function bindTurmaEvents(container){
       head.closest('.turma').classList.toggle('collapsed');
     });
   });
-
   container.querySelectorAll('[data-action]:not(input[type="checkbox"])').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
@@ -1715,7 +1467,6 @@ function bindTurmaEvents(container){
       if (action === 'reset-ordem')   resetOrdemTurma(turmaId);
     });
   });
-
   container.querySelectorAll('input[type="checkbox"][data-action="toggle-concluida"]').forEach(cb => {
     cb.addEventListener('click', e => e.stopPropagation());
     cb.addEventListener('change', e => {
@@ -1724,14 +1475,12 @@ function bindTurmaEvents(container){
     });
   });
 
-  // ---------- DRAG & DROP (desktop) ----------
+  // DRAG & DROP desktop
   container.querySelectorAll('tbody').forEach(tbody => {
     let draggedRow = null;
-
     tbody.querySelectorAll('tr[draggable="true"]').forEach(tr => {
       tr.addEventListener('dragstart', e => {
-        draggedRow = tr;
-        tr.style.opacity = '0.4';
+        draggedRow = tr; tr.style.opacity = '0.4';
         e.dataTransfer.effectAllowed = 'move';
         try { e.dataTransfer.setData('text/plain', tr.dataset.officerId); } catch(_){}
       });
@@ -1741,45 +1490,32 @@ function bindTurmaEvents(container){
         tbody.querySelectorAll('tr').forEach(r => r.classList.remove('drag-over'));
       });
       tr.addEventListener('dragover', e => {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
+        e.preventDefault(); e.dataTransfer.dropEffect = 'move';
         if (!draggedRow || draggedRow === tr) return;
         tr.classList.add('drag-over');
       });
-      tr.addEventListener('dragleave', () => {
-        tr.classList.remove('drag-over');
-      });
+      tr.addEventListener('dragleave', () => tr.classList.remove('drag-over'));
       tr.addEventListener('drop', e => {
-        e.preventDefault();
-        tr.classList.remove('drag-over');
+        e.preventDefault(); tr.classList.remove('drag-over');
         if (!draggedRow || draggedRow === tr) return;
-
         const rect = tr.getBoundingClientRect();
-        const middle = rect.top + rect.height / 2;
-        const before = e.clientY < middle;
-
+        const before = e.clientY < rect.top + rect.height / 2;
         if (before) tbody.insertBefore(draggedRow, tr);
         else        tbody.insertBefore(draggedRow, tr.nextSibling);
-
         salvarOrdemDoTbody(tbody);
       });
     });
   });
 
-  // ---------- DRAG & DROP (touch — mobile/tablet) ----------
+  // DRAG & DROP touch
   container.querySelectorAll('tbody').forEach(tbody => {
     let touchRow = null;
-
     tbody.querySelectorAll('tr[draggable="true"]').forEach(tr => {
       const handle = tr.querySelector('.drag-handle');
       if (!handle) return;
-
-      handle.addEventListener('touchstart', e => {
-        touchRow = tr;
-        tr.style.opacity = '0.6';
-        tr.style.background = 'rgba(201,164,74,.08)';
+      handle.addEventListener('touchstart', () => {
+        touchRow = tr; tr.style.opacity = '0.6'; tr.style.background = 'rgba(201,164,74,.08)';
       }, { passive: true });
-
       handle.addEventListener('touchmove', e => {
         if (!touchRow) return;
         e.preventDefault();
@@ -1787,30 +1523,22 @@ function bindTurmaEvents(container){
         const el = document.elementFromPoint(e.touches[0].clientX, y);
         const targetRow = el && el.closest('tr[draggable="true"]');
         if (!targetRow || targetRow === touchRow) return;
-
         const rect = targetRow.getBoundingClientRect();
-        const middle = rect.top + rect.height / 2;
-        const before = y < middle;
-
+        const before = y < rect.top + rect.height / 2;
         if (before) tbody.insertBefore(touchRow, targetRow);
         else        tbody.insertBefore(touchRow, targetRow.nextSibling);
       }, { passive: false });
-
       handle.addEventListener('touchend', () => {
         if (!touchRow) return;
-        touchRow.style.opacity = '';
-        touchRow.style.background = '';
-        salvarOrdemDoTbody(tbody);
-        touchRow = null;
+        touchRow.style.opacity = ''; touchRow.style.background = '';
+        salvarOrdemDoTbody(tbody); touchRow = null;
       });
     });
   });
 }
 
 async function salvarOrdemDoTbody(tbody){
-  const ids = Array.from(tbody.querySelectorAll('tr[data-officer-id]'))
-    .map(tr => tr.dataset.officerId)
-    .filter(Boolean);
+  const ids = Array.from(tbody.querySelectorAll('tr[data-officer-id]')).map(tr => tr.dataset.officerId).filter(Boolean);
   if (!ids.length) return;
   await aplicarOrdemManual(ids);
   toast('Ordem da turma salva.', 'success');
@@ -1824,9 +1552,7 @@ function renderTurma(t, officers){
   const badgeNum = isVirtual ? '★' : t.numero;
 
   const rows = officers.length === 0
-    ? `<tr><td colspan="13" style="text-align:center;color:var(--g500);padding:28px;font-size:13px">
-         Nenhum policial nesta turma.
-       </td></tr>`
+    ? `<tr><td colspan="13" style="text-align:center;color:var(--g500);padding:28px;font-size:13px">Nenhum policial nesta turma.</td></tr>`
     : officers.map(o => renderOfficerRow(o)).join('');
 
   const obsBlock = obs ? `
@@ -1836,8 +1562,7 @@ function renderTurma(t, officers){
         <div class="turma-obs-label">Observações da Turma</div>
         <div class="turma-obs-text">${escapeHTML(obs)}</div>
       </div>
-    </div>
-  ` : '';
+    </div>` : '';
 
   return `
     <div class="turma ${isConcluida ? 'concluida' : ''}">
@@ -1855,15 +1580,12 @@ function renderTurma(t, officers){
             </span>` : ''}
           </div>
         </div>
-
         <div class="turma-count">${officers.length} ${officers.length === 1 ? 'policial' : 'policiais'}</div>
-
         ${!isVirtual ? `
           <label class="turma-check" title="Marcar turma como concluída" onclick="event.stopPropagation()">
             <input type="checkbox" data-action="toggle-concluida" data-turma="${t.id}" ${isConcluida?'checked':''}>
             <span>Concluída</span>
           </label>
-
           <div class="turma-actions">
             <button class="btn" title="Incluir policial nesta turma" data-action="add-to-turma" data-turma="${t.id}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -1874,11 +1596,7 @@ function renderTurma(t, officers){
               Extrair Excel
             </button>
             <button class="btn" title="Restaurar ordem por Cia/Seção" data-action="reset-ordem" data-turma="${t.id}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="23 4 23 10 17 10"/>
-                <polyline points="1 20 1 14 7 14"/>
-                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
               Ordem automática
             </button>
             <button class="btn" title="Editar turma" data-action="edit-turma" data-turma="${t.id}">
@@ -1889,36 +1607,30 @@ function renderTurma(t, officers){
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m2 0v14a2 2 0 01-2 2H8a2 2 0 01-2-2V6h12z"/></svg>
               Excluir
             </button>
-          </div>
-        ` : `
+          </div>` : `
           <div class="turma-actions">
             <button class="btn btn-export" title="Extrair em Excel (.xlsx)" data-action="export-turma" data-turma="${t.id}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
               Extrair Excel
             </button>
-          </div>
-        `}
-
+          </div>`}
         <svg class="turma-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       ${obsBlock}
       <div class="turma-body">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th style="width:28px"></th>
-                <th>Posto/Grad</th><th>RE</th><th>Dg</th><th>Nome</th><th>TAF</th>
-                <th>Cia/Seção</th><th>Nasc.</th><th>Ex. Méd.</th><th>Ex. Odon.</th>
-                <th>Val. IAS</th><th>EAD</th><th style="text-align:right">Ações</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th style="width:28px"></th>
+              <th>Posto/Grad</th><th>RE</th><th>Dg</th><th>Nome</th><th>TAF</th>
+              <th>Cia/Seção</th><th>Nasc.</th><th>Ex. Méd.</th><th>Ex. Odon.</th>
+              <th>Val. IAS</th><th>EAD</th><th style="text-align:right">Ações</th>
+            </tr></thead>
             <tbody>${rows}</tbody>
           </table>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderOfficerRow(o){
@@ -1961,12 +1673,11 @@ function renderOfficerRow(o){
           </button>
         </div>
       </td>
-    </tr>
-  `;
+    </tr>`;
 }
 
 /* ============================================================
-   RESETAR ORDEM AUTOMÁTICA (por Cia/Seção)
+   RESETAR ORDEM AUTOMÁTICA
    ============================================================ */
 async function resetOrdemTurma(turmaId){
   if (!turmaId || String(turmaId).startsWith('__efetivo_')) {
@@ -1978,7 +1689,6 @@ async function resetOrdemTurma(turmaId){
     toast('Turma sem policiais para reordenar.', 'info');
     return;
   }
-
   const norm = v => String(v||'').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
   officers.sort((a,b) => {
     const ca = norm(a.ciaSecao), cb = norm(b.ciaSecao);
@@ -1994,9 +1704,7 @@ async function resetOrdemTurma(turmaId){
   });
   officers.forEach((o,i) => { o.ordemManual = i; });
   saveDB();
-
   await enviarOrdemTurmaSupabase(officers);
-
   render();
   toast('Ordem automática (Cia/Seção) restaurada.', 'info');
 }
@@ -2018,11 +1726,9 @@ function openModal({ title, bodyHTML, footerHTML, size='' }){
       </div>
       <div class="modal-body">${bodyHTML}</div>
       ${footerHTML ? `<div class="modal-foot">${footerHTML}</div>` : ''}
-    </div>
-  `;
+    </div>`;
   root.innerHTML = '';
   root.appendChild(overlay);
-
   const close = () => { root.innerHTML = ''; };
   overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
   overlay.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', close));
@@ -2036,10 +1742,7 @@ function openModal({ title, bodyHTML, footerHTML, size='' }){
    ============================================================ */
 function openOfficerModal(officer = null, presetTurmaId = null){
   const isEdit = !!officer;
-  const categoriaInicial = isEdit
-    ? officer.categoria
-    : (state.activeCategory === 'efetivo' ? 'cb_sd' : state.activeCategory);
-
+  const categoriaInicial = isEdit ? officer.categoria : (state.activeCategory === 'efetivo' ? 'cb_sd' : state.activeCategory);
   const o = officer || {
     categoria: categoriaInicial, turmaId: presetTurmaId || '',
     postoGrad:'', re:'', dg:'', nome:'', taf:'III', tafIVTipo:'', ciaSecao:'',
@@ -2050,14 +1753,11 @@ function openOfficerModal(officer = null, presetTurmaId = null){
   const turmas = db.turmas.filter(t => t.categoria === o.categoria).sort(sortTurmas);
   const turmaOptions = ['<option value="">— Sem turma (Efetivo 3º B.C.) —</option>']
     .concat(turmas.map(t => `<option value="${t.id}" ${t.id===o.turmaId?'selected':''}>Turma ${escapeHTML(t.numero)}</option>`)).join('');
-
   const catOptions = REAL_CATEGORIES.map(c =>
-    `<option value="${c.id}" ${c.id===o.categoria?'selected':''}>${c.label}</option>`
-  ).join('');
+    `<option value="${c.id}" ${c.id===o.categoria?'selected':''}>${c.label}</option>`).join('');
   const postosOptions = POSTOS.map(p => `<option value="${p}">`).join('');
   const tafIVOptions = TAF_IV_OPTIONS.map(t =>
-    `<option value="${t}" ${t===o.tafIVTipo?'selected':''}>${t}</option>`
-  ).join('');
+    `<option value="${t}" ${t===o.tafIVTipo?'selected':''}>${t}</option>`).join('');
 
   const body = `
     <form id="officer-form" autocomplete="off">
@@ -2071,9 +1771,7 @@ function openOfficerModal(officer = null, presetTurmaId = null){
           <select name="turmaId">${turmaOptions}</select>
           <span class="hint">Deixe em "Sem turma" para o policial aparecer apenas no Efetivo 3º B.C.</span>
         </div>
-
         <div class="section-title">Identificação</div>
-
         <div class="field col-4">
           <label>Posto / Graduação <span class="req">*</span></label>
           <input name="postoGrad" list="postos" required value="${escapeHTML(o.postoGrad)}" placeholder="Ex.: 1° SGT PM">
@@ -2092,12 +1790,10 @@ function openOfficerModal(officer = null, presetTurmaId = null){
           <label>Dg <span class="req">*</span></label>
           <input name="dg" maxlength="1" required value="${escapeHTML(o.dg)}" placeholder="Ex.: A">
         </div>
-
         <div class="field col-12">
           <label>Nome Completo <span class="req">*</span></label>
           <input name="nome" required value="${escapeHTML(o.nome)}" placeholder="Nome de guerra ou completo">
         </div>
-
         <div class="field col-6">
           <label>Cia / Seção <span class="req">*</span></label>
           <input name="ciaSecao" required value="${escapeHTML(o.ciaSecao)}" placeholder="Ex.: 3 CIA PM">
@@ -2110,7 +1806,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
           </select>
         </div>
         <div class="field col-3"></div>
-
         <div class="conditional-group" id="taf-iv-group">
           <div class="field col-6">
             <label>Tipo de Restrição (TAF IV) <span class="req">*</span></label>
@@ -2120,7 +1815,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
             </select>
           </div>
         </div>
-
         <div class="section-title">Datas</div>
         <div class="field col-3">
           <label>Data de Nascimento</label>
@@ -2138,9 +1832,7 @@ function openOfficerModal(officer = null, presetTurmaId = null){
           <label>Validade IAS</label>
           <input type="date" name="validadeIAS" value="${o.validadeIAS||''}">
         </div>
-
         <div class="section-title">EAD</div>
-
         <div class="field col-6">
           <label>Inserido no EAD?</label>
           <label class="checkbox-wrap ${o.inseridoEAD==='Sim'?'checked':''}" id="wrap-inserido">
@@ -2155,7 +1847,6 @@ function openOfficerModal(officer = null, presetTurmaId = null){
             <span>Sim, concluiu o EAD</span>
           </label>
         </div>
-
         <div class="conditional-group" id="ead-concluido-group">
           <div class="field col-4">
             <label>Nota EAD</label>
@@ -2168,13 +1859,11 @@ function openOfficerModal(officer = null, presetTurmaId = null){
           </div>
         </div>
       </div>
-    </form>
-  `;
+    </form>`;
 
   const footer = `
     <button class="btn btn-outline" data-close>Cancelar</button>
-    <button class="btn btn-primary" id="save-officer">${isEdit?'Salvar Alterações':'Adicionar Policial'}</button>
-  `;
+    <button class="btn btn-primary" id="save-officer">${isEdit?'Salvar Alterações':'Adicionar Policial'}</button>`;
 
   const { close } = openModal({
     title: isEdit ? 'Editar Policial' : 'Novo Policial',
@@ -2218,18 +1907,9 @@ function openOfficerModal(officer = null, presetTurmaId = null){
     wrapInserido.classList.toggle('checked', inseridoSel.checked);
     wrapConcluiu.classList.toggle('checked', concluiuSel.checked);
   }
-
   tafSel.addEventListener('change', updateTafIV);
-
-  inseridoSel.addEventListener('change', () => {
-    if (!inseridoSel.checked) concluiuSel.checked = false;
-    updateEAD();
-  });
-  concluiuSel.addEventListener('change', () => {
-    if (concluiuSel.checked) inseridoSel.checked = true;
-    updateEAD();
-  });
-
+  inseridoSel.addEventListener('change', () => { if (!inseridoSel.checked) concluiuSel.checked = false; updateEAD(); });
+  concluiuSel.addEventListener('change', () => { if (concluiuSel.checked) inseridoSel.checked = true; updateEAD(); });
   updateTafIV(); updateEAD();
 
   let autoFillTimeout;
@@ -2240,70 +1920,43 @@ function openOfficerModal(officer = null, presetTurmaId = null){
       autoFillBadge.classList.remove('show', 'warn', 'info');
       if (re.length !== 6) return;
 
-      let found = null;
-      let origem = '';
-
+      let found = null, origem = '';
       if (sb){
         try {
-          const { data, error } = await sb
-            .from('policiais')
-            .select('*')
-            .eq('re', re)
-            .maybeSingle();
+          const { data, error } = await sb.from('policiais').select('*').eq('re', re).maybeSingle();
           if (!error && data){
             found = {
-              re:               data.re,
-              dg:               data.dg,
-              postoGrad:        data.posto_grad,
-              nome:             data.nome,
-              ciaSecao:         data.cia_secao        || '',
-              dataNascimento:   data.data_nascimento  || '',
-              dataExameOdonto:  data.ias_odonto       || '',
-              dataExameMedico:  data.ias_medico       || '',
-              validadeIAS:      data.validade_ias     || ''
+              re: data.re, dg: data.dg, postoGrad: data.posto_grad, nome: data.nome,
+              ciaSecao: data.cia_secao || '', dataNascimento: data.data_nascimento || '',
+              dataExameOdonto: data.ias_odonto || '', dataExameMedico: data.ias_medico || '',
+              validadeIAS: data.validade_ias || ''
             };
             origem = 'supabase';
           }
-        } catch(e){
-          console.warn('Falha ao consultar Supabase:', e);
-        }
+        } catch(e){ console.warn('Falha ao consultar Supabase:', e); }
       }
-
       if (!found){
         const localFound = db.officers.find(x => x.re === re && (!officer || x.id !== officer.id));
-        if (localFound){
-          found = localFound;
-          origem = 'local';
-        }
+        if (localFound){ found = localFound; origem = 'local'; }
       }
-
       if (!found) return;
 
-      const setVal = (name, val) => {
-        const el = form.elements[name];
-        if (el) el.value = val || '';
-      };
-      setVal('dg',              found.dg);
-      setVal('nome',            found.nome);
-      setVal('ciaSecao',        found.ciaSecao || form.elements.ciaSecao.value);
-      setVal('postoGrad',       found.postoGrad);
-      setVal('dataNascimento',  found.dataNascimento);
-      setVal('dataExameMedico', found.dataExameMedico);
-      setVal('dataExameOdonto', found.dataExameOdonto);
-      setVal('validadeIAS',     found.validadeIAS);
+      const setVal = (name, val) => { const el = form.elements[name]; if (el) el.value = val || ''; };
+      setVal('dg', found.dg); setVal('nome', found.nome);
+      setVal('ciaSecao', found.ciaSecao || form.elements.ciaSecao.value);
+      setVal('postoGrad', found.postoGrad); setVal('dataNascimento', found.dataNascimento);
+      setVal('dataExameMedico', found.dataExameMedico); setVal('dataExameOdonto', found.dataExameOdonto);
+      setVal('validadeIAS', found.validadeIAS);
 
       if (found.categoria){
-        catSel.value = found.categoria;
-        refreshTurmas();
+        catSel.value = found.categoria; refreshTurmas();
         turmaSel.value = found.turmaId || '';
       }
-
       if (found.taf){
         form.elements.taf.value = found.taf;
         if (found.taf === 'IV') form.elements.tafIVTipo.value = found.tafIVTipo || '';
         else                    form.elements.tafIVTipo.value = '';
       }
-
       if (origem === 'local'){
         inseridoSel.checked = (found.inseridoEAD === 'Sim');
         concluiuSel.checked = (found.concluiuEAD === 'Sim');
@@ -2311,13 +1964,10 @@ function openOfficerModal(officer = null, presetTurmaId = null){
           form.elements.notaEAD.value          = found.notaEAD || '';
           form.elements.dataConclusaoEAD.value = found.dataConclusaoEAD || '';
         } else {
-          form.elements.notaEAD.value          = '';
-          form.elements.dataConclusaoEAD.value = '';
+          form.elements.notaEAD.value = ''; form.elements.dataConclusaoEAD.value = '';
         }
       }
-
       updateTafIV(); updateEAD();
-
       if (origem === 'supabase'){
         autoFillText.textContent = 'Dados carregados da base central (Supabase)';
         autoFillBadge.classList.add('show');
@@ -2331,54 +1981,52 @@ function openOfficerModal(officer = null, presetTurmaId = null){
   document.getElementById('save-officer').addEventListener('click', async () => {
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form).entries());
-
     data.inseridoEAD = inseridoSel.checked ? 'Sim' : 'Não';
     data.concluiuEAD = concluiuSel.checked ? 'Sim' : 'Não';
-
     if (data.taf !== 'IV') data.tafIVTipo = '';
     if (data.concluiuEAD !== 'Sim'){ data.notaEAD=''; data.dataConclusaoEAD=''; }
     if (data.inseridoEAD !== 'Sim'){ data.concluiuEAD='Não'; data.notaEAD=''; data.dataConclusaoEAD=''; }
-
-    // Preserva ordem manual existente
     if (isEdit) data.ordemManual = officer.ordemManual;
 
-    let enviadoSupabase = false;
+    // 1) policiais (base central)
+    let enviadoBase = false;
     if (sb){
       try {
         const { error } = await sb.rpc('importar_policial', {
-          p_re:              data.re,
-          p_dg:              data.dg,
-          p_posto_grad:      data.postoGrad,
-          p_nome:            data.nome,
-          p_su:              null,
-          p_cia_secao:       data.ciaSecao         || null,
-          p_data_nascimento: data.dataNascimento   || null,
-          p_ias_odonto:      data.dataExameOdonto  || null,
-          p_ias_medico:      data.dataExameMedico  || null,
-          p_validade_ias:    data.validadeIAS      || null
+          p_re: data.re, p_dg: data.dg, p_posto_grad: data.postoGrad,
+          p_nome: data.nome, p_su: null, p_cia_secao: data.ciaSecao || null,
+          p_data_nascimento: data.dataNascimento || null,
+          p_ias_odonto: data.dataExameOdonto || null,
+          p_ias_medico: data.dataExameMedico || null,
+          p_validade_ias: data.validadeIAS || null
         });
-        if (!error) enviadoSupabase = true;
-        else console.warn('RPC Supabase falhou:', error);
-      } catch(e){
-        console.warn('Falha ao enviar para Supabase:', e);
-      }
+        if (!error) enviadoBase = true;
+      } catch(e){ console.warn('Falha RPC:', e); }
     }
 
+    // 2) Persistir local
+    let finalOfficer;
     if (isEdit){
       Object.assign(officer, data);
-      toast('Policial atualizado.' + (enviadoSupabase ? ' Base central sincronizada.' : ''), 'success');
+      finalOfficer = officer;
+      toast('Policial atualizado.' + (enviadoBase ? ' Base central sincronizada.' : ''), 'success');
     } else {
       const existing = db.officers.find(x => x.re === data.re);
       if (existing){
         Object.assign(existing, data);
-        toast('Policial atualizado (RE já cadastrado).' + (enviadoSupabase ? ' Base central sincronizada.' : ''), 'success');
+        finalOfficer = existing;
+        toast('Policial atualizado (RE já cadastrado).', 'success');
       } else {
         data.id = uid();
         db.officers.push(data);
-        toast('Policial adicionado.' + (enviadoSupabase ? ' Base central sincronizada.' : ''), 'success');
+        finalOfficer = data;
+        toast('Policial adicionado.', 'success');
       }
     }
     saveDB(); render(); close();
+
+    // 3) eap_alocacoes (ficha EAP por ano)
+    await syncAlocacaoSupabase(finalOfficer);
   });
 }
 
@@ -2387,22 +2035,12 @@ function openOfficerModal(officer = null, presetTurmaId = null){
    ============================================================ */
 function openTurmaModal(turma = null){
   const isEdit = !!turma;
-  const categoria = isEdit
-    ? turma.categoria
-    : (state.activeCategory === 'efetivo' ? 'cb_sd' : state.activeCategory);
+  const categoria = isEdit ? turma.categoria : (state.activeCategory === 'efetivo' ? 'cb_sd' : state.activeCategory);
   const proximaNum = isEdit ? turma.numero : proximaNumeracaoTurma(categoria);
-
-  const t = turma || {
-    categoria,
-    numero: proximaNum,
-    dataInicio: '',
-    dataFim: '',
-    observacoes: ''
-  };
+  const t = turma || { categoria, numero: proximaNum, dataInicio: '', dataFim: '', observacoes: '' };
 
   const catOptions = REAL_CATEGORIES.map(c =>
-    `<option value="${c.id}" ${c.id===t.categoria?'selected':''}>${c.label}</option>`
-  ).join('');
+    `<option value="${c.id}" ${c.id===t.categoria?'selected':''}>${c.label}</option>`).join('');
 
   const body = `
     <form id="turma-form">
@@ -2418,8 +2056,7 @@ function openTurmaModal(turma = null){
             <div class="auto-number-badge" id="auto-num-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
               Sugestão automática: <strong style="margin-left:3px">${escapeHTML(proximaNum)}</strong>
-            </div>
-          ` : ''}
+            </div>` : ''}
           <span class="hint">Numeração romana (I, II, III...) — pode ser alterada livremente.</span>
         </div>
         <div class="field col-6">
@@ -2437,13 +2074,11 @@ function openTurmaModal(turma = null){
           <span class="hint">Campo de texto livre — aparece no topo do card da turma.</span>
         </div>
       </div>
-    </form>
-  `;
+    </form>`;
 
   const footer = `
     <button class="btn btn-outline" data-close>Cancelar</button>
-    <button class="btn btn-primary" id="save-turma">${isEdit?'Salvar Alterações':'Criar Turma'}</button>
-  `;
+    <button class="btn btn-primary" id="save-turma">${isEdit?'Salvar Alterações':'Criar Turma'}</button>`;
 
   const { close } = openModal({
     title: isEdit ? `Editar Turma ${turma.numero}` : `Nova Turma — ${(CATEGORIES.find(c=>c.id===categoria)||{}).label || ''}`,
@@ -2455,30 +2090,22 @@ function openTurmaModal(turma = null){
   const fim    = document.getElementById('dataFim');
   const numInput = form.querySelector('[name="numero"]');
   const autoBadge = document.getElementById('auto-num-badge');
-
   const catSel = form.querySelector('[name="categoria"]');
+
   if (!isEdit){
     catSel.addEventListener('change', () => {
       const nova = proximaNumeracaoTurma(catSel.value);
       numInput.value = nova;
       if (autoBadge){
-        autoBadge.innerHTML = `
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-          Sugestão automática: <strong style="margin-left:3px">${escapeHTML(nova)}</strong>
-        `;
+        autoBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Sugestão automática: <strong style="margin-left:3px">${escapeHTML(nova)}</strong>`;
       }
     });
-    numInput.addEventListener('input', () => {
-      if (autoBadge) autoBadge.style.display = 'none';
-    });
+    numInput.addEventListener('input', () => { if (autoBadge) autoBadge.style.display = 'none'; });
   }
-
-  inicio.addEventListener('change', () => {
-    fim.value = inicio.value ? addDays(inicio.value, 2) : '';
-  });
+  inicio.addEventListener('change', () => { fim.value = inicio.value ? addDays(inicio.value, 2) : ''; });
   if (inicio.value) fim.value = addDays(inicio.value, 2);
 
-  document.getElementById('save-turma').addEventListener('click', () => {
+  document.getElementById('save-turma').addEventListener('click', async () => {
     if (!form.reportValidity()) return;
     const fd = new FormData(form);
     const data = {
@@ -2491,13 +2118,16 @@ function openTurmaModal(turma = null){
     if (isEdit){
       Object.assign(turma, data);
       toast('Turma atualizada.', 'success');
+      saveDB(); render(); close();
+      await syncTurmaSupabase(turma);
     } else {
       data.id = uid();
       data.concluida = false;
       db.turmas.push(data);
       toast(`Turma ${data.numero} criada com sucesso.`, 'success');
+      saveDB(); render(); close();
+      await syncTurmaSupabase(data);
     }
-    saveDB(); render(); close();
   });
 }
 
@@ -2509,16 +2139,18 @@ function confirmDeleteOfficer(id){
   if (!o) return;
   const { close } = openModal({
     title: 'Confirmar Exclusão',
-    bodyHTML: `<p style="font-size:14px;line-height:1.6">Deseja excluir o policial <strong>${escapeHTML(o.nome)}</strong> (RE ${escapeHTML(o.re)})?<br><span style="color:var(--g500);font-size:13px">Esta ação não pode ser desfeita.</span></p>`,
+    bodyHTML: `<p style="font-size:14px;line-height:1.6">Deseja excluir o policial <strong>${escapeHTML(o.nome)}</strong> (RE ${escapeHTML(o.re)}) deste ano?<br><span style="color:var(--g500);font-size:13px">A ficha base (RE) permanece na base central; só a alocação EAP é removida.</span></p>`,
     footerHTML: `<button class="btn btn-outline" data-close>Cancelar</button><button class="btn btn-danger" id="confirm-del">Excluir</button>`,
     size: 'sm'
   });
-  document.getElementById('confirm-del').addEventListener('click', () => {
+  document.getElementById('confirm-del').addEventListener('click', async () => {
     db.officers = db.officers.filter(x => x.id !== id);
     saveDB(); render(); close();
     toast('Policial removido.', 'info');
+    await deleteAlocacaoSupabase(o.re);
   });
 }
+
 function confirmDeleteTurma(id){
   const t = db.turmas.find(x => x.id === id);
   if (!t) return;
@@ -2530,22 +2162,21 @@ function confirmDeleteTurma(id){
     footerHTML: `<button class="btn btn-outline" data-close>Cancelar</button><button class="btn btn-danger" id="confirm-del">Excluir Turma</button>`,
     size: 'sm'
   });
-  document.getElementById('confirm-del').addEventListener('click', () => {
+  document.getElementById('confirm-del').addEventListener('click', async () => {
     db.turmas = db.turmas.filter(x => x.id !== id);
     db.officers.forEach(o => { if (o.turmaId === id) o.turmaId = ''; });
     saveDB(); render(); close();
     toast('Turma removida.', 'info');
+    await deleteTurmaSupabase(id);
   });
 }
 
 /* ============================================================
-   MODELO DE IMPORTAÇÃO
+   MODELO / IMPORTAÇÃO
    ============================================================ */
 function downloadTemplate(){
-  const headers = [
-    'RE','Dg','Posto/Grad','Nome','SU',
-    'Data de Nascimento','IAS Odonto','IAS Médico','Validade IAS'
-  ];
+  const headers = ['RE','Dg','Posto/Grad','Nome','SU',
+    'Data de Nascimento','IAS Odonto','IAS Médico','Validade IAS'];
   const exemplos = [
     ['110627','9','1° SGT PM','RICARDO LOBO SELEGHIM','12345','20/06/1980','26/06/2025','27/06/2025','26/06/2026'],
     ['134330','A','1° SGT PM','EZEQUIEL PARDINHO SANTOS','54321','08/12/1984','','13/10/2025','13/10/2026']
@@ -2554,76 +2185,50 @@ function downloadTemplate(){
   toast('Modelo baixado. Preencha no Excel e clique em "Importar Base".', 'info');
 }
 
-/* ============================================================
-   IMPORTAÇÃO
-   ============================================================ */
 function importBase(){
   const input = document.createElement('input');
-  input.type    = 'file';
-  input.accept  = '.xlsx,.xls,.csv,.txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv,text/plain';
-  input.style.position = 'fixed';
-  input.style.left     = '-9999px';
-  input.style.opacity  = '0';
+  input.type = 'file';
+  input.accept = '.xlsx,.xls,.csv,.txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv,text/plain';
+  input.style.position = 'fixed'; input.style.left = '-9999px'; input.style.opacity = '0';
   document.body.appendChild(input);
-
   const cleanup = () => { try { input.remove(); } catch(e){} };
 
   input.addEventListener('change', e => {
     const file = e.target.files && e.target.files[0];
     if (!file){ cleanup(); return; }
-
     const ext = (file.name.split('.').pop() || '').toLowerCase();
-
     if (ext === 'xlsx' || ext === 'xls'){
-      if (typeof XLSX === 'undefined'){
-        toast('Biblioteca de Excel não carregada.', 'error');
-        cleanup();
-        return;
-      }
+      if (typeof XLSX === 'undefined'){ toast('Biblioteca de Excel não carregada.', 'error'); cleanup(); return; }
       const reader = new FileReader();
       reader.onerror = () => { toast('Falha ao ler o arquivo.', 'error'); cleanup(); };
       reader.onload = ev => {
         try {
-          const data  = new Uint8Array(ev.target.result);
-          const wb    = XLSX.read(data, { type:'array', cellDates:true });
-          const ws    = wb.Sheets[wb.SheetNames[0]];
-          const rows  = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:'' });
+          const data = new Uint8Array(ev.target.result);
+          const wb = XLSX.read(data, { type:'array', cellDates:true });
+          const ws = wb.Sheets[wb.SheetNames[0]];
+          const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:'' });
           handleParsedRows(rows);
-        } catch(err){
-          console.error(err);
-          toast('Erro ao interpretar Excel: ' + err.message, 'error');
-        }
+        } catch(err){ console.error(err); toast('Erro ao interpretar Excel: ' + err.message, 'error'); }
         cleanup();
       };
-      reader.readAsArrayBuffer(file);
-      return;
+      reader.readAsArrayBuffer(file); return;
     }
-
     const reader = new FileReader();
     reader.onerror = () => { toast('Falha ao ler o arquivo.', 'error'); cleanup(); };
     reader.onload = ev => {
       try {
         const text = ev.target.result.replace(/^\uFEFF/, '');
-        const rows = parseCSV(text);
-        handleParsedRows(rows);
-      } catch(err){
-        console.error(err);
-        toast('Erro ao processar arquivo: ' + err.message, 'error');
-      }
+        const rows = parseCSV(text); handleParsedRows(rows);
+      } catch(err){ console.error(err); toast('Erro ao processar arquivo: ' + err.message, 'error'); }
       cleanup();
     };
     reader.readAsText(file, 'UTF-8');
   });
-
   input.click();
 }
 
 function handleParsedRows(rows){
-  if (!rows || rows.length < 2){
-    toast('Arquivo vazio ou sem dados.', 'error');
-    return;
-  }
-
+  if (!rows || rows.length < 2){ toast('Arquivo vazio ou sem dados.', 'error'); return; }
   while (rows.length && (!rows[0] || rows[0].every(c => c == null || String(c).trim() === ''))) rows.shift();
   if (rows.length && rows[0].length === 1 && /^sep=/i.test(String(rows[0][0] || '').trim())){
     rows.shift();
@@ -2645,35 +2250,24 @@ function handleParsedRows(rows){
     }, 0);
     if (score > bestScore){ bestScore = score; headerRowIdx = i; }
   }
-
   const rawHeaders = (rows[headerRowIdx] || []).map(h => String(h == null ? '' : h).trim());
-  const dataRows   = rows.slice(headerRowIdx + 1);
-
+  const dataRows = rows.slice(headerRowIdx + 1);
   const map = {};
   rawHeaders.forEach((h, i) => {
     const key = normalizeHeader(h);
     if (key && map[key] === undefined) map[key] = i;
   });
-
   if (map.re === undefined){
     const detected = rawHeaders.filter(Boolean).slice(0, 15).join(' | ') || '(nenhum)';
     toast('Coluna "RE" não encontrada. Cabeçalhos detectados: ' + detected, 'error');
     return;
   }
-  if (dataRows.length === 0){
-    toast('Nenhum registro encontrado abaixo do cabeçalho.', 'error');
-    return;
-  }
-
+  if (dataRows.length === 0){ toast('Nenhum registro encontrado abaixo do cabeçalho.', 'error'); return; }
   processImport(dataRows, map);
 }
 
-/* ============================================================
-   PROCESSAMENTO DA IMPORTAÇÃO
-   ============================================================ */
 async function processImport(rows, map){
   let enviados = 0, atualizadosLocal = 0, novosLocal = 0, ignorados = 0, erros = 0;
-
   const total = rows.length;
   const usarSupabase = !!sb;
   showImportOverlay(`Enviando ${total} registro(s)${usarSupabase ? ' para o Supabase' : ' (modo local)'}...`);
@@ -2689,39 +2283,26 @@ async function processImport(rows, map){
   const registros = [];
   rows.forEach(r => {
     if (!r || r.length === 0) return;
-
     const get = k => {
       if (map[k] === undefined) return '';
       let v = r[map[k]];
       if (v instanceof Date && !isNaN(v)){
-        const y = v.getFullYear();
-        const m = String(v.getMonth()+1).padStart(2,'0');
-        const d = String(v.getDate()).padStart(2,'0');
-        return `${y}-${m}-${d}`;
+        return `${v.getFullYear()}-${String(v.getMonth()+1).padStart(2,'0')}-${String(v.getDate()).padStart(2,'0')}`;
       }
       if (typeof v === 'boolean') return v ? 'Sim' : 'Não';
       return String(v ?? '').trim();
     };
-
     const re = get('re');
     if (!re){ ignorados++; return; }
-
     const postoGrad = get('postoGrad');
-    const categoria = inferirCategoria(postoGrad);
-
     registros.push({
-      re,
-      dg:              get('dg'),
-      postoGrad,
-      nome:            get('nome'),
-      ciaSecao:        get('ciaSecao'),
-      su:              get('su'),
+      re, dg: get('dg'), postoGrad, nome: get('nome'), ciaSecao: get('ciaSecao'), su: get('su'),
       dataNascimento:  normalizeDate(get('dataNascimento')),
       dataExameOdonto: normalizeDate(get('dataExameOdonto')),
       dataExameMedico: normalizeDate(get('dataExameMedico')),
       validadeIAS:     normalizeDate(get('validadeIAS')),
-      categoria,
-      turmaId:         ''
+      categoria: inferirCategoria(postoGrad),
+      turmaId: ''
     });
   });
 
@@ -2732,28 +2313,16 @@ async function processImport(rows, map){
       await Promise.all(lote.map(async reg => {
         try {
           const { data, error } = await sb.rpc('importar_policial', {
-            p_re:              reg.re,
-            p_dg:              reg.dg,
-            p_posto_grad:      reg.postoGrad,
-            p_nome:            reg.nome,
-            p_su:              reg.su || null,
-            p_cia_secao:       reg.ciaSecao || null,
-            p_data_nascimento: reg.dataNascimento  || null,
-            p_ias_odonto:      reg.dataExameOdonto || null,
-            p_ias_medico:      reg.dataExameMedico || null,
-            p_validade_ias:    reg.validadeIAS     || null
+            p_re: reg.re, p_dg: reg.dg, p_posto_grad: reg.postoGrad, p_nome: reg.nome,
+            p_su: reg.su || null, p_cia_secao: reg.ciaSecao || null,
+            p_data_nascimento: reg.dataNascimento || null,
+            p_ias_odonto: reg.dataExameOdonto || null,
+            p_ias_medico: reg.dataExameMedico || null,
+            p_validade_ias: reg.validadeIAS || null
           });
           if (error) throw error;
-          if (data && data.ok === false){
-            console.warn('Supabase rejeitou RE', reg.re, data.erro);
-            erros++;
-          } else {
-            enviados++;
-          }
-        } catch(err){
-          console.error('Falha ao enviar RE', reg.re, err);
-          erros++;
-        }
+          if (data && data.ok === false){ erros++; } else { enviados++; }
+        } catch(err){ console.error('Falha RE', reg.re, err); erros++; }
       }));
     }
   }
@@ -2761,37 +2330,23 @@ async function processImport(rows, map){
   registros.forEach(reg => {
     const existing = db.officers.find(x => x.re === reg.re);
     const base = {
-      re:              reg.re,
-      dg:              reg.dg,
-      postoGrad:       reg.postoGrad,
-      nome:            reg.nome,
-      ciaSecao:        reg.ciaSecao,
-      dataNascimento:  reg.dataNascimento,
-      dataExameOdonto: reg.dataExameOdonto,
-      dataExameMedico: reg.dataExameMedico,
-      validadeIAS:     reg.validadeIAS,
-      categoria:       reg.categoria,
-      turmaId:         '',
-      taf:             'III',
-      tafIVTipo:       '',
-      inseridoEAD:     'Não',
-      concluiuEAD:     'Não',
-      notaEAD:         '',
-      dataConclusaoEAD:''
+      re: reg.re, dg: reg.dg, postoGrad: reg.postoGrad, nome: reg.nome,
+      ciaSecao: reg.ciaSecao,
+      dataNascimento: reg.dataNascimento, dataExameOdonto: reg.dataExameOdonto,
+      dataExameMedico: reg.dataExameMedico, validadeIAS: reg.validadeIAS,
+      categoria: reg.categoria, turmaId: '',
+      taf: 'III', tafIVTipo: '',
+      inseridoEAD: 'Não', concluiuEAD: 'Não', notaEAD: '', dataConclusaoEAD: ''
     };
-
     if (existing){
       Object.assign(existing, {
-        re:              base.re,
-        dg:              base.dg,
-        postoGrad:       base.postoGrad,
-        nome:            base.nome,
-        ciaSecao:        base.ciaSecao || existing.ciaSecao,
-        dataNascimento:  base.dataNascimento || existing.dataNascimento,
+        re: base.re, dg: base.dg, postoGrad: base.postoGrad, nome: base.nome,
+        ciaSecao: base.ciaSecao || existing.ciaSecao,
+        dataNascimento: base.dataNascimento || existing.dataNascimento,
         dataExameOdonto: base.dataExameOdonto || existing.dataExameOdonto,
         dataExameMedico: base.dataExameMedico || existing.dataExameMedico,
-        validadeIAS:     base.validadeIAS    || existing.validadeIAS,
-        categoria:       existing.categoria || base.categoria
+        validadeIAS: base.validadeIAS || existing.validadeIAS,
+        categoria: existing.categoria || base.categoria
       });
       atualizadosLocal++;
     } else {
@@ -2800,10 +2355,7 @@ async function processImport(rows, map){
     }
   });
 
-  saveDB();
-  render();
-  hideImportOverlay();
-
+  saveDB(); render(); hideImportOverlay();
   const partes = [
     usarSupabase ? `${enviados} enviado(s) ao Supabase` : null,
     `${novosLocal} novo(s) local`,
@@ -2811,27 +2363,21 @@ async function processImport(rows, map){
     erros ? `${erros} erro(s) Supabase` : null,
     ignorados ? `${ignorados} ignorado(s)` : null
   ].filter(Boolean).join(' • ');
-
   toast(`Importação concluída: ${partes}.`, erros ? 'error' : 'success');
-
-  setActiveTab('efetivo');
-  render();
+  setActiveTab('efetivo'); render();
 }
 
 /* ============================================================
-   SINCRONIZAÇÃO COM SUPABASE
+   SINCRONIZAÇÃO COMPLETA (policiais + turmas + alocações)
    ============================================================ */
 async function sincronizarComSupabase({silencioso = false} = {}){
   if (!sb){
     if (!silencioso) toast('Supabase não configurado.', 'error');
     return false;
   }
-
   const btn = document.getElementById('btn-sync');
   if (btn) btn.classList.add('spinning');
-
   setConnStatus('syncing', 'Sincronizando...');
-  console.log('[sync] início');
 
   const timeout = new Promise((_, reject) =>
     setTimeout(() => reject(new Error('Timeout: Supabase não respondeu em 15s')), 15000)
@@ -2839,115 +2385,151 @@ async function sincronizarComSupabase({silencioso = false} = {}){
 
   try {
     const tarefa = (async () => {
+      const tablesOk = await checkEapTables();
+      if (!tablesOk && !silencioso){
+        console.warn('[sync] Tabelas eap_turmas/eap_alocacoes não encontradas. Rodando SQL de migração.');
+      }
+
+      // Migração local→nuvem (uma vez por device+ano)
+      if (tablesOk) await migrarLocalParaCloudUmaVez();
+
+      // 1) POLICIAIS (paged)
       const PAGE = 1000;
-      let from = 0;
-      let todos = [];
+      let from = 0, todos = [];
       while (true){
-        console.log(`[sync] consultando range ${from}-${from + PAGE - 1}`);
         const { data, error } = await sb
           .from('policiais')
           .select('re,dg,posto_grad,nome,cia_secao,data_nascimento,ias_odonto,ias_medico,validade_ias,ordem_manual')
           .range(from, from + PAGE - 1);
-        if (error){
-          console.error('[sync] erro do Supabase:', error);
-          throw error;
-        }
+        if (error) throw error;
         if (!data || data.length === 0) break;
         todos = todos.concat(data);
         if (data.length < PAGE) break;
         from += PAGE;
       }
 
-      if (todos.length === 0){
+      // 2) TURMAS DO ANO
+      let turmasCloud = [];
+      if (tablesOk){
+        const { data: tData, error: tErr } = await sb
+          .from('eap_turmas').select('*').eq('ano', currentYear);
+        if (tErr) console.warn('[sync] turmas:', tErr);
+        turmasCloud = Array.isArray(tData) ? tData : [];
+        if (turmasCloud.length > 0 || db.turmas.length === 0){
+          db.turmas = turmasCloud.map(t => ({
+            id: String(t.id),
+            categoria: t.categoria,
+            numero: t.numero,
+            dataInicio: t.data_inicio || '',
+            dataFim: t.data_fim || '',
+            concluida: !!t.concluida,
+            observacoes: t.observacoes || ''
+          }));
+        }
+      }
+
+      // 3) ALOCAÇÕES DO ANO
+      let alocCloud = [];
+      if (tablesOk){
+        const { data: aData, error: aErr } = await sb
+          .from('eap_alocacoes').select('*').eq('ano', currentYear);
+        if (aErr) console.warn('[sync] alocacoes:', aErr);
+        alocCloud = Array.isArray(aData) ? aData : [];
+      }
+      const alocPorRE = new Map();
+      alocCloud.forEach(a => alocPorRE.set(String(a.re), a));
+
+      if (todos.length === 0 && turmasCloud.length === 0){
         if (!silencioso) toast('A base central está vazia.', 'info');
         return true;
       }
 
-      const nuvem = todos.map(d => ({
-        re:              String(d.re || '').trim(),
-        dg:              d.dg || '',
-        postoGrad:       d.posto_grad || '',
-        nome:            d.nome || '',
-        ciaSecao:        d.cia_secao || '',
-        dataNascimento:  d.data_nascimento || '',
-        dataExameOdonto: d.ias_odonto      || '',
-        dataExameMedico: d.ias_medico      || '',
-        validadeIAS:     d.validade_ias    || '',
-        ordemManual:     (typeof d.ordem_manual === 'number') ? d.ordem_manual : null
-      })).filter(x => x.re);
-
+      // MERGE
       const porRE = new Map();
       db.officers.forEach(o => porRE.set(o.re, o));
-
       let atualizados = 0, novos = 0;
-
-      const inferirCategoria = (postoGrad) => {
-        if (!postoGrad) return 'cb_sd';
-        const s = String(postoGrad).toUpperCase();
+      const inferirCategoria = (pg) => {
+        if (!pg) return 'cb_sd';
+        const s = String(pg).toUpperCase();
         if (/(CEL|MAJ|CAP|TEN)\s*PM/.test(s) && !/SUB/.test(s)) return 'oficiais';
         if (/(SUB|SGT)/.test(s)) return 'subten_sgt';
         return 'cb_sd';
       };
 
-      nuvem.forEach(reg => {
-        const existing = porRE.get(reg.re);
+      todos.forEach(d => {
+        const re = String(d.re || '').trim();
+        if (!re) return;
+        const aloc = alocPorRE.get(re);
+        const existing = porRE.get(re);
+
         if (existing){
-          existing.dg              = reg.dg              || existing.dg;
-          existing.postoGrad       = reg.postoGrad       || existing.postoGrad;
-          existing.nome            = reg.nome            || existing.nome;
-          existing.ciaSecao        = reg.ciaSecao        || existing.ciaSecao;
-          existing.dataNascimento  = reg.dataNascimento  || existing.dataNascimento;
-          existing.dataExameOdonto = reg.dataExameOdonto || existing.dataExameOdonto;
-          existing.dataExameMedico = reg.dataExameMedico || existing.dataExameMedico;
-          existing.validadeIAS     = reg.validadeIAS     || existing.validadeIAS;
-          if (typeof reg.ordemManual === 'number') existing.ordemManual = reg.ordemManual;
+          // base
+          if (d.dg)              existing.dg = d.dg;
+          if (d.posto_grad)      existing.postoGrad = d.posto_grad;
+          if (d.nome)            existing.nome = d.nome;
+          if (d.cia_secao)       existing.ciaSecao = d.cia_secao;
+          if (d.data_nascimento) existing.dataNascimento = d.data_nascimento;
+          if (d.ias_odonto)      existing.dataExameOdonto = d.ias_odonto;
+          if (d.ias_medico)      existing.dataExameMedico = d.ias_medico;
+          if (d.validade_ias)    existing.validadeIAS = d.validade_ias;
+
+          // ficha EAP do ano
+          if (aloc){
+            existing.turmaId         = aloc.turma_id || '';
+            existing.categoria       = aloc.categoria || existing.categoria || inferirCategoria(d.posto_grad);
+            existing.taf             = aloc.taf || 'III';
+            existing.tafIVTipo       = aloc.taf_iv_tipo || '';
+            existing.inseridoEAD     = aloc.inserido_ead || 'Não';
+            existing.concluiuEAD     = aloc.concluiu_ead || 'Não';
+            existing.notaEAD         = aloc.nota_ead || '';
+            existing.dataConclusaoEAD= aloc.data_conclusao_ead || '';
+            if (typeof aloc.ordem_manual === 'number') existing.ordemManual = aloc.ordem_manual;
+          } else if (typeof existing.ordemManual !== 'number' && typeof d.ordem_manual === 'number'){
+            // legado: ordem_manual em policiais
+            existing.ordemManual = d.ordem_manual;
+          }
           atualizados++;
         } else {
-          db.officers.push({
-            id:              uid(),
-            re:              reg.re,
-            dg:              reg.dg,
-            postoGrad:       reg.postoGrad,
-            nome:            reg.nome,
-            ciaSecao:        reg.ciaSecao,
-            dataNascimento:  reg.dataNascimento,
-            dataExameOdonto: reg.dataExameOdonto,
-            dataExameMedico: reg.dataExameMedico,
-            validadeIAS:     reg.validadeIAS,
-            categoria:       inferirCategoria(reg.postoGrad),
-            turmaId:         '',
-            taf:             'III',
-            tafIVTipo:       '',
-            inseridoEAD:     'Não',
-            concluiuEAD:     'Não',
-            notaEAD:         '',
-            dataConclusaoEAD:'',
-            ordemManual:     (typeof reg.ordemManual === 'number') ? reg.ordemManual : undefined
-          });
+          const ordemLegacy = (typeof d.ordem_manual === 'number') ? d.ordem_manual : undefined;
+          const novo = {
+            id: uid(), re,
+            dg: d.dg || '', postoGrad: d.posto_grad || '', nome: d.nome || '',
+            ciaSecao: d.cia_secao || '',
+            dataNascimento: d.data_nascimento || '',
+            dataExameOdonto: d.ias_odonto || '',
+            dataExameMedico: d.ias_medico || '',
+            validadeIAS: d.validade_ias || '',
+            categoria: (aloc && aloc.categoria) || inferirCategoria(d.posto_grad),
+            turmaId:   (aloc && aloc.turma_id) || '',
+            taf:       (aloc && aloc.taf) || 'III',
+            tafIVTipo: (aloc && aloc.taf_iv_tipo) || '',
+            inseridoEAD: (aloc && aloc.inserido_ead) || 'Não',
+            concluiuEAD: (aloc && aloc.concluiu_ead) || 'Não',
+            notaEAD:    (aloc && aloc.nota_ead) || '',
+            dataConclusaoEAD: (aloc && aloc.data_conclusao_ead) || '',
+            ordemManual: (aloc && typeof aloc.ordem_manual === 'number') ? aloc.ordem_manual : ordemLegacy
+          };
+          db.officers.push(novo);
+          porRE.set(re, novo);
           novos++;
         }
       });
 
-      saveDB();
-      render();
-
+      saveDB(); render();
       if (!silencioso){
-        toast(`Sincronização concluída: ${novos} novo(s), ${atualizados} atualizado(s).`, 'success');
+        toast(`Sincronização concluída: ${novos} novo(s), ${atualizados} atualizado(s), ${db.turmas.length} turma(s).`, 'success');
       }
       return true;
     })();
 
     const resultado = await Promise.race([tarefa, timeout]);
-
     const el = document.getElementById('conn-status');
     if (el){
       el.textContent = 'Supabase Online';
       el.className = 'conn-status online';
       el.title = 'Sincronizado com a base central.';
     }
-    console.log('[sync] fim (sucesso)');
     return resultado;
-
   } catch(err){
     console.error('[sync] falha:', err);
     const el = document.getElementById('conn-status');
@@ -2958,174 +2540,103 @@ async function sincronizarComSupabase({silencioso = false} = {}){
     }
     if (!silencioso) toast('Falha ao sincronizar: ' + (err.message || err), 'error');
     return false;
-
   } finally {
     if (btn) btn.classList.remove('spinning');
-    console.log('[sync] finally executado');
   }
 }
 
 function showImportOverlay(msg){
   const el = document.createElement('div');
-  el.className = 'imp-overlay';
-  el.id = 'imp-overlay';
-  el.innerHTML = `
-    <div class="imp-spinner"></div>
-    <p>${escapeHTML(msg)}</p>
-    <small>Aguarde, enviando e sincronizando dados...</small>
-  `;
+  el.className = 'imp-overlay'; el.id = 'imp-overlay';
+  el.innerHTML = `<div class="imp-spinner"></div><p>${escapeHTML(msg)}</p><small>Aguarde, enviando e sincronizando dados...</small>`;
   document.body.appendChild(el);
 }
 function hideImportOverlay(){
-  const el = document.getElementById('imp-overlay');
-  if (el) el.remove();
+  const el = document.getElementById('imp-overlay'); if (el) el.remove();
 }
 
 /* ============================================================
-   EXPORTAR TURMA EM EXCEL (.xlsx)
+   EXPORTAÇÃO
    ============================================================ */
 function exportTurma(turmaId){
   if (String(turmaId).startsWith('__efetivo_')){
     const catId = turmaId.replace('__efetivo_', '');
-    const catLabel = catId === 'outros'
-      ? 'Não classificados'
-      : ((CATEGORIES.find(c => c.id === catId) || {}).label || catId);
+    const catLabel = catId === 'outros' ? 'Não classificados' : ((CATEGORIES.find(c => c.id === catId) || {}).label || catId);
     const officers = catId === 'outros'
       ? db.officers.filter(o => !REAL_CATEGORIES.find(c => c.id === o.categoria))
       : db.officers.filter(o => o.categoria === catId);
-    if (officers.length === 0){
-      toast('Nenhum policial para exportar.', 'error');
-      return;
-    }
+    if (officers.length === 0){ toast('Nenhum policial para exportar.', 'error'); return; }
     exportOfficersList(
       officers,
       `Efetivo 3º B.C. — ${catLabel}`,
-      `EAP2027_Efetivo3BC_${catLabel.replace(/[^\w]+/g,'-')}_${todayStamp()}.xlsx`
+      `EAP${currentYear}_Efetivo3BC_${catLabel.replace(/[^\w]+/g,'-')}_${todayStamp()}.xlsx`
     );
     return;
   }
-
   const turma = db.turmas.find(t => t.id === turmaId);
   if (!turma) return;
-
   const officers = db.officers.filter(o => o.turmaId === turmaId);
-  if (officers.length === 0){
-    toast('Esta turma não possui policiais para exportar.', 'error');
-    return;
-  }
-
+  if (officers.length === 0){ toast('Esta turma não possui policiais para exportar.', 'error'); return; }
   const catLabel = (CATEGORIES.find(c => c.id === turma.categoria) || {}).label || turma.categoria;
   const nomeTurma = String(turma.numero || 'sem-numero').replace(/[^\w\-]+/g,'_');
-  const filename = `EAP2027_${catLabel.replace(/[^\w]+/g,'-')}_Turma-${nomeTurma}_${todayStamp()}.xlsx`;
-
+  const filename = `EAP${currentYear}_${catLabel.replace(/[^\w]+/g,'-')}_Turma-${nomeTurma}_${todayStamp()}.xlsx`;
   exportOfficersList(officers, `Turma ${turma.numero}`, filename);
   toast(`Turma ${turma.numero}: ${officers.length} policiais exportados em Excel.`, 'success');
 }
 
 function exportOfficersList(officers, sheetTitle, filename){
   const ordenados = officers.slice().sort(sortOfficersManual);
-
-  const headers = [
-    'Posto/Grad',
-    'RE',
-    'DG',
-    'Nome',
-    'TAF',
-    'Restrição (TAF IV)',
-    'Cia/Seção',
-    'Nascimento',
-    'Validade IAS',
-    'Nota EAD',
-    'Observações'
-  ];
-
+  const headers = ['Posto/Grad','RE','DG','Nome','TAF','Restrição (TAF IV)','Cia/Seção','Nascimento','Validade IAS','Nota EAD','Observações'];
   const rows = [headers];
   ordenados.forEach(o => {
     let observacao = '';
-    if (o.taf === 'IV') {
-      if (o.tafIVTipo === 'Lesão Membros Inferiores' ||
-          o.tafIVTipo === 'Lesão Membros Superiores' ||
-          o.tafIVTipo === 'Coluna Vertebral') {
+    if (o.taf === 'IV'){
+      if (['Lesão Membros Inferiores','Lesão Membros Superiores','Coluna Vertebral'].includes(o.tafIVTipo))
         observacao = 'Regularização de TAF IV e TAT';
-      } else if (o.tafIVTipo === 'Cardíaco') {
-        observacao = 'Regularização de TAT';
-      }
+      else if (o.tafIVTipo === 'Cardíaco') observacao = 'Regularização de TAT';
     }
-
     rows.push([
-      o.postoGrad || '',
-      o.re || '',
-      o.dg || '',
-      o.nome || '',
-      o.taf || '',
-      o.tafIVTipo || '',
+      o.postoGrad || '', o.re || '', o.dg || '', o.nome || '', o.taf || '', o.tafIVTipo || '',
       o.ciaSecao || '',
       o.dataNascimento ? fmtDate(o.dataNascimento) : '',
       o.validadeIAS    ? fmtDate(o.validadeIAS)    : '',
-      o.notaEAD || '',
-      observacao
+      o.notaEAD || '', observacao
     ]);
   });
-
   const sheetName = String(sheetTitle).slice(0, 31);
   downloadXLSX([{ name: sheetName, rows }], filename);
 }
 
-/* ============================================================
-   EXTRAIR EXCEL — múltiplas categorias (via menu lateral)
-   ============================================================ */
 function buildExportRows(officers){
-  const headers = [
-    'Posto/Grad','RE','DG','Nome','TAF','Restrição (TAF IV)',
-    'Cia/Seção','Nascimento','Validade IAS','Nota EAD','Observações'
-  ];
+  const headers = ['Posto/Grad','RE','DG','Nome','TAF','Restrição (TAF IV)','Cia/Seção','Nascimento','Validade IAS','Nota EAD','Observações'];
   const rows = [headers];
   officers.forEach(o => {
     let observacao = '';
     if (o.taf === 'IV'){
-      if (o.tafIVTipo === 'Lesão Membros Inferiores' ||
-          o.tafIVTipo === 'Lesão Membros Superiores' ||
-          o.tafIVTipo === 'Coluna Vertebral'){
+      if (['Lesão Membros Inferiores','Lesão Membros Superiores','Coluna Vertebral'].includes(o.tafIVTipo))
         observacao = 'Regularização de TAF IV e TAT';
-      } else if (o.tafIVTipo === 'Cardíaco'){
-        observacao = 'Regularização de TAT';
-      }
+      else if (o.tafIVTipo === 'Cardíaco') observacao = 'Regularização de TAT';
     }
     rows.push([
-      o.postoGrad || '',
-      o.re || '',
-      o.dg || '',
-      o.nome || '',
-      o.taf || '',
-      o.tafIVTipo || '',
+      o.postoGrad || '', o.re || '', o.dg || '', o.nome || '', o.taf || '', o.tafIVTipo || '',
       o.ciaSecao || '',
       o.dataNascimento ? fmtDate(o.dataNascimento) : '',
       o.validadeIAS    ? fmtDate(o.validadeIAS)    : '',
-      o.notaEAD || '',
-      observacao
+      o.notaEAD || '', observacao
     ]);
   });
   return rows;
 }
 
 function exportMultiCategory(){
-  const selected = Array.from(
-    document.querySelectorAll('.side-check input[type="checkbox"]:checked')
-  ).map(cb => cb.dataset.exportCat).filter(Boolean);
-
-  if (selected.length === 0){
-    toast('Selecione ao menos uma categoria para exportar.', 'error');
-    return;
-  }
-
-  const sheets = [];
-  const usedNames = new Set();
-
+  const selected = Array.from(document.querySelectorAll('.side-check input[type="checkbox"]:checked'))
+    .map(cb => cb.dataset.exportCat).filter(Boolean);
+  if (selected.length === 0){ toast('Selecione ao menos uma categoria para exportar.', 'error'); return; }
+  const sheets = []; const usedNames = new Set();
   function makeSheetName(raw){
     let base = String(raw || 'Planilha').replace(/[*?:\/\\\[\]]/g, '-').slice(0, 31).trim();
     if (!base) base = 'Planilha';
-    let name = base;
-    let i = 1;
+    let name = base, i = 1;
     while (usedNames.has(name)){
       const suffix = `_${i++}`;
       name = base.slice(0, Math.max(1, 31 - suffix.length)) + suffix;
@@ -3133,64 +2644,38 @@ function exportMultiCategory(){
     usedNames.add(name);
     return name;
   }
-
   let totalPoliciais = 0;
-
   selected.forEach(catId => {
     const catLabel = (CATEGORIES.find(c => c.id === catId) || {}).label || catId;
     const turmas = db.turmas.filter(t => t.categoria === catId).sort(sortTurmas);
-
     turmas.forEach(t => {
-      const officers = db.officers
-        .filter(o => o.turmaId === t.id)
-        .sort(sortOfficersManual);
+      const officers = db.officers.filter(o => o.turmaId === t.id).sort(sortOfficersManual);
       if (officers.length === 0) return;
-
-      sheets.push({
-        name: makeSheetName(`${catLabel} - T${t.numero}`),
-        rows: buildExportRows(officers)
-      });
+      sheets.push({ name: makeSheetName(`${catLabel} - T${t.numero}`), rows: buildExportRows(officers) });
       totalPoliciais += officers.length;
     });
-
-    // Policiais da categoria sem turma atribuída
-    const semTurma = db.officers
-      .filter(o => !o.turmaId && o.categoria === catId)
-      .sort(sortOfficersManual);
-
+    const semTurma = db.officers.filter(o => !o.turmaId && o.categoria === catId).sort(sortOfficersManual);
     if (semTurma.length > 0){
-      sheets.push({
-        name: makeSheetName(`${catLabel} - Sem Turma`),
-        rows: buildExportRows(semTurma)
-      });
+      sheets.push({ name: makeSheetName(`${catLabel} - Sem Turma`), rows: buildExportRows(semTurma) });
       totalPoliciais += semTurma.length;
     }
   });
-
-  if (sheets.length === 0){
-    toast('Nenhum policial encontrado nas categorias selecionadas.', 'error');
-    return;
-  }
-
-  const filename = `EAP${currentYear}_Exportacao_${todayStamp()}.xlsx`;
-  downloadXLSX(sheets, filename);
+  if (sheets.length === 0){ toast('Nenhum policial encontrado nas categorias selecionadas.', 'error'); return; }
+  downloadXLSX(sheets, `EAP${currentYear}_Exportacao_${todayStamp()}.xlsx`);
   toast(`${totalPoliciais} policial(is) exportado(s) em ${sheets.length} aba(s).`, 'success');
 }
 
 /* ============================================================
-   MARCAR TURMA COMO CONCLUÍDA
+   TOGGLE CONCLUÍDA
    ============================================================ */
-function toggleTurmaConcluida(turmaId, concluida){
+async function toggleTurmaConcluida(turmaId, concluida){
   const turma = db.turmas.find(t => t.id === turmaId);
   if (!turma) return;
   turma.concluida = !!concluida;
-  saveDB();
-  render();
-  toast(concluida
-    ? `Turma ${turma.numero} marcada como CONCLUÍDA.`
-    : `Turma ${turma.numero} reaberta.`,
-    concluida ? 'success' : 'info'
-  );
+  saveDB(); render();
+  toast(concluida ? `Turma ${turma.numero} marcada como CONCLUÍDA.` : `Turma ${turma.numero} reaberta.`,
+        concluida ? 'success' : 'info');
+  await syncTurmaSupabase(turma);
 }
 
 /* ============================================================
@@ -3199,28 +2684,20 @@ function toggleTurmaConcluida(turmaId, concluida){
 function setActiveTab(cat){
   state.activeCategory = cat;
   document.body.dataset.cat = cat;
-  document.querySelectorAll('.tab').forEach(t =>
-    t.classList.toggle('active', t.dataset.cat === cat)
-  );
-  document.querySelectorAll('.side-nav').forEach(b =>
-    b.classList.toggle('active', b.dataset.cat === cat)
-  );
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+  document.querySelectorAll('.side-nav').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
 }
 
 document.getElementById('tabs').addEventListener('click', e => {
   const tab = e.target.closest('.tab');
   if (!tab) return;
-  setActiveTab(tab.dataset.cat);
-  render();
+  setActiveTab(tab.dataset.cat); render();
 });
 
 let searchTimeout;
 document.getElementById('search').addEventListener('input', e => {
   clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    state.search = e.target.value;
-    renderContent();
-  }, 200);
+  searchTimeout = setTimeout(() => { state.search = e.target.value; renderContent(); }, 200);
 });
 
 document.getElementById('btn-new-turma').addEventListener('click', () => openTurmaModal());
@@ -3228,10 +2705,7 @@ document.getElementById('btn-import').addEventListener('click', importBase);
 document.getElementById('btn-template').addEventListener('click', downloadTemplate);
 document.getElementById('btn-sync').addEventListener('click', () => sincronizarComSupabase());
 
-/* ============================================================
-   MENU LATERAL — Eventos
-   ============================================================ */
-// Lista suspensa de ano
+/* Menu lateral */
 const yearSelectEl = document.getElementById('year-select');
 if (yearSelectEl){
   yearSelectEl.addEventListener('change', () => {
@@ -3241,60 +2715,39 @@ if (yearSelectEl){
 }
 updateYearSelector();
 
-// Botão "Efetivo 3º B.C." do menu lateral
 const sideNavEfetivo = document.getElementById('side-nav-efetivo');
 if (sideNavEfetivo){
   sideNavEfetivo.addEventListener('click', () => {
-    setActiveTab('efetivo');
-    render();
+    setActiveTab('efetivo'); render();
     if (window.innerWidth <= 768) closeSidebar();
   });
 }
-
-// Checkboxes de categoria para exportação — estado visual
 document.querySelectorAll('.side-check').forEach(label => {
   const input = label.querySelector('input[type="checkbox"]');
   if (!input) return;
-  input.addEventListener('change', () => {
-    label.classList.toggle('checked', input.checked);
-  });
+  input.addEventListener('change', () => { label.classList.toggle('checked', input.checked); });
 });
-
-// Botão "Extrair Excel" do menu lateral
 document.getElementById('btn-export-all').addEventListener('click', exportMultiCategory);
 
-// Toggle do menu lateral (mobile)
-const sidebarEl    = document.getElementById('sidebar');
-const backdropEl   = document.getElementById('sidebar-backdrop');
-const toggleEl     = document.getElementById('sidebar-toggle');
-
-function openSidebar(){
-  sidebarEl.classList.add('open');
-  backdropEl.classList.add('show');
-}
-function closeSidebar(){
-  sidebarEl.classList.remove('open');
-  backdropEl.classList.remove('show');
-}
+const sidebarEl  = document.getElementById('sidebar');
+const backdropEl = document.getElementById('sidebar-backdrop');
+const toggleEl   = document.getElementById('sidebar-toggle');
+function openSidebar(){ sidebarEl.classList.add('open'); backdropEl.classList.add('show'); }
+function closeSidebar(){ sidebarEl.classList.remove('open'); backdropEl.classList.remove('show'); }
 if (toggleEl){
   toggleEl.addEventListener('click', () => {
-    if (sidebarEl.classList.contains('open')) closeSidebar();
-    else openSidebar();
+    if (sidebarEl.classList.contains('open')) closeSidebar(); else openSidebar();
   });
 }
-if (backdropEl){
-  backdropEl.addEventListener('click', closeSidebar);
-}
+if (backdropEl) backdropEl.addEventListener('click', closeSidebar);
 
-/* ---------- SEED (ano atual) ---------- */
+/* Estado inicial */
 seedYearIfEmpty();
-
-/* ---------- Estado inicial ---------- */
 setActiveTab('efetivo');
 render();
 
 /* ============================================================
-   BOOT — Autenticação e inicialização
+   BOOT
    ============================================================ */
 (function configurarAutenticacao(){
   const form      = document.getElementById('login-form');
@@ -3305,20 +2758,10 @@ render();
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       limparErroLogin();
-
       const email = document.getElementById('login-email').value;
       const senha = document.getElementById('login-password').value;
-
-      if (!email || !senha){
-        mostrarErroLogin('Preencha e-mail e senha.');
-        return;
-      }
-
-      if (btnLogin){
-        btnLogin.classList.add('loading');
-        btnLogin.disabled = true;
-      }
-
+      if (!email || !senha){ mostrarErroLogin('Preencha e-mail e senha.'); return; }
+      if (btnLogin){ btnLogin.classList.add('loading'); btnLogin.disabled = true; }
       try {
         const data = await fazerLogin(email, senha);
         document.getElementById('login-password').value = '';
@@ -3328,10 +2771,7 @@ render();
         mostrarErroLogin(traduzirErroAuth(err.message));
         document.getElementById('login-password').value = '';
       } finally {
-        if (btnLogin){
-          btnLogin.classList.remove('loading');
-          btnLogin.disabled = false;
-        }
+        if (btnLogin){ btnLogin.classList.remove('loading'); btnLogin.disabled = false; }
       }
     });
   }
@@ -3346,7 +2786,6 @@ render();
   }
 })();
 
-/* ---------- Boot principal ---------- */
 (async function boot(){
   if (!sb){
     console.warn('Supabase ausente — entrando em modo local sem login.');
@@ -3355,27 +2794,17 @@ render();
     render();
     return;
   }
-
   sb.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_OUT'){
-      atualizarEmailHeader(null);
-      mostrarLogin();
-    }
-    if (event === 'SIGNED_IN' && session && session.user){
-      atualizarEmailHeader(session.user);
-    }
+    if (event === 'SIGNED_OUT'){ atualizarEmailHeader(null); mostrarLogin(); }
+    if (event === 'SIGNED_IN' && session && session.user){ atualizarEmailHeader(session.user); }
   });
-
   try {
     const { data } = await sb.auth.getSession();
     if (data && data.session && data.session.user){
       await entrarNoApp(data.session.user);
       return;
     }
-  } catch(e){
-    console.warn('Falha ao recuperar sessão:', e);
-  }
-
+  } catch(e){ console.warn('Falha ao recuperar sessão:', e); }
   mostrarLogin();
 })();
 </script>
