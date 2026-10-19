@@ -1495,7 +1495,7 @@ function renderTurma(t, officers){
           </div>
         </div>
 
-        <div class="turma-count">${officers.length} policial${officers.length===1?'':'is'}</div>
+        <div class="turma-count">${officers.length} ${officers.length === 1 ? 'policial' : 'policiais'}</div>
 
         ${!isVirtual ? `
           <label class="turma-check" title="Marcar turma como concluída" onclick="event.stopPropagation()">
